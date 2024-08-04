@@ -8,8 +8,13 @@
 
 import pygame
 
+SCA = 5
+
 def putTile(file, coords):
-	screen.blit(pygame.image.load(file).convert_alpha(), coords)
+	img = pygame.image.load(file).convert_alpha()
+#	pygame.transform.scale(img, (128, 128))
+	img = pygame.transform.scale_by(img, (SCA, SCA))
+	screen.blit(img, coords)
 
 oc = "basetile.png"
 
