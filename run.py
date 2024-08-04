@@ -18,12 +18,12 @@ SCA = 5
 def putTile(file, coords):
     img = pygame.image.load(file).convert_alpha()
     # load all images just once, then just copy them (directly place)
-    img = pygame.transform.scale_by(img, (SCA, SCA))
+    #    img = pygame.transform.scale_by(img, (SCA, SCA))
     surf_board.blit(img, coords)
 
 
 oc = "basetile.png"
-hx = "hextempl.png"
+hx = "textures/hexes/Template_horiz.png"
 
 
 d = 160
@@ -46,7 +46,9 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 W, H = screen.get_size()
 print(f"Screen size: {W} x {H}")
 
-surf_board = pygame.Surface((W, H))
+
+
+
 
 """
 * HANDLE FULLSCREEN LOGIC,
@@ -62,21 +64,27 @@ SCALE = mindim/tilesRange//tileSize # rounddown
 s = SCALE
 print("scale:", s)
 # test! vary! check tiling!
+d=46
+
+
+surf_board = pygame.Surface((W//s, H//s))
+print(surf_board.get_size())
 
 
 def draw_map_ocean(w, h):
     x_off, y_off = 450, 50
-    hor_con, ver_con = 8, 4
+    x_off, y_off = 85, 5
+    hor_con, ver_con = 10, 6
     for c in range(w):
         if c % 2 == 0:
             for r in range(h):
-                x = x_off + c*(d-hor_con*s)
-                y = y_off + r*(d-ver_con*s)
+                x = x_off + c*(d-hor_con)
+                y = y_off + r*(d-ver_con)
                 putTile(hx, (x,y))
         else:
             for r in range(h):
-                x = x_off + c*(d-hor_con*s)
-                y = y_off + r*(d-ver_con*s) + d//2 - 2*s
+                x = x_off + c*(d-hor_con)
+                y = y_off + r*(d-ver_con) + d//2 - 3
                 putTile(hx, (x, y))
     """
     * nenapada me, jak nejak hezky udelat stridani...
@@ -94,6 +102,8 @@ img = pygame.image.load("textures/gui/bar.png").convert_alpha()
 w, h = img.get_size()
 surf_board.blit(img, ((1920-w)//2, 1080-h))
 
+
+surf_board = pygame.transform.scale_by(surf_board, (s, s))
 screen.blit(surf_board, (0,0))
 
 
