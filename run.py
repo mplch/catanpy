@@ -6,6 +6,10 @@
 
 #202408032257-Polesovice
 
+
+# PYCHARM
+
+
 import pygame
 from sys import exit as sys_exit
 
@@ -44,16 +48,29 @@ print(f"Screen size: {W} x {H}")
 * calculate 'SCA' scalar accordingly to user's display
 """
 
+tileSize = 32
+tilesRange = 7
+mindim = min(W, H)
+SCALE = mindim/tilesRange//tileSize # rounddown
+# capitals?
+
+s = SCALE
+
 
 def draw_map_ocean(w, h):
     x_off, y_off = 450, 50
+    hor_con, ver_con = 8, 4
     for c in range(w):
         if c % 2 == 0:
-            for i in range(h):
-                putTile(oc, (x_off + c*(d-8*s), y_off + i*(d-4*s)))
+            for r in range(h):
+                x = x_off + c*(d-hor_con*s)
+                y = y_off + r*(d-ver_con*s)
+                putTile(oc, (x,y))
         else:
-            for i in range(h):
-                putTile(oc, (x_off + c*(d-8*s), y_off + i*(d-4*s) + d//2 - 2*s))
+            for r in range(h):
+                x = x_off + c*(d-hor_con*s)
+                y = y_off + r*(d-ver_con*s) + d//2 - 2*s
+                putTile(oc, (x, y))
     """
     * nenapada me, jak nejak hezky udelat stridani...
     * teoreticky reasignment, ale na to stejne potrebuji vetve
