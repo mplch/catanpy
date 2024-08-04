@@ -26,31 +26,43 @@ s = 5  # scale: 5*32=160
 
 hx = "textures/hexes/Template_horiz.png"
 
+hexes = "textures/hexes/"
+hextypes = "Claypit.png  Dessert.png  Field.png  Forest.png  \
+Mountains.png  Pasture.png".split('  ')
+# odeber png (a zpet pridej) --> hexes + type + ".png"
+#for t in hextypes: t = t.strip()
+for t in hextypes: print(">",t,"<")
+
 #----- FUNCTIONS ------------------------------------------------------
 
-def putTile(file, coords):
+def putTile(type, coords):
+    file = hexes + type
     img = pygame.image.load(file).convert_alpha()
     # load all images just once, then just copy them (directly place)
     #    img = pygame.transform.scale_by(img, (SCA, SCA))
+    img = pygame.transform.rotate(img, 90)
     surf_board.blit(img, coords)
 
-def draw_map_ocean(w, h):
-    x_off, y_off = 450, 50
-    x_off, y_off = 85, 5
-    hor_con, ver_con = 10, 6
+def placeHex(type, c, r):
     # uz si nepamatuji, co melo byt con,
     # connect urcite ne, conformation...nevim
+    x_off, y_off = 200, 5
+    hor_con, ver_con = 10, 6
+    if c % 2 == 0:
+        x = x_off + c * (tileSize - hor_con)
+        y = y_off + r * (tileSize - ver_con)
+        putTile(type, (x, y))
+    else:
+        x = x_off + c * (tileSize - hor_con)
+        y = y_off + r * (tileSize - ver_con) + tileSize // 2 - 3  # magic number 3 ?!
+        putTile(type, (x, y))
+
+def draw_map_ocean(w, h):
     for c in range(w):
-        if c % 2 == 0:
-            for r in range(h):
-                x = x_off + c * (tileSize - hor_con)
-                y = y_off + r * (tileSize - ver_con)
-                putTile(hx, (x, y))
-        else:
-            for r in range(h):
-                x = x_off + c * (tileSize - hor_con)
-                y = y_off + r * (tileSize - ver_con) + tileSize // 2 - 3  # magic number 3 ?!
-                putTile(hx, (x, y))
+        for r in range(h):
+            type = random.choice(hextypes)
+            placeHex(type, c, r)
+
     """
     * takto je to mozna nejprehlednejsi. --> Funguje to? funguje!
     """
@@ -75,6 +87,26 @@ surf_board = pygame.Surface((W//SCALE, H//SCALE))
 print(surf_board.get_size())
 
 draw_map_ocean(7, 7)
+
+for f in range(7):
+    placeHex("Sea.png", 0, f)
+    placeHex("Sea.png", 6, f)
+    placeHex("Sea.png", f, 0)
+    placeHex("Sea.png", f, 6)
+
+placeHex("Sea.png", 1, 1)
+placeHex("Sea.png", 2, 1)
+placeHex("Sea.png", 4, 1)
+placeHex("Sea.png", 5, 1)
+
+placeHex("Sea.png", 1, 6)
+placeHex("Sea.png", 2, 6)
+placeHex("Sea.png", 4, 6)
+placeHex("Sea.png", 5, 6)
+placeHex("Sea.png", 1, 5)
+placeHex("Sea.png", 5, 5)
+
+
 
 """ ---> This is the correct approach, but need to downscale bar.png
 # bottom_bar
