@@ -12,9 +12,9 @@ from sys import exit as sys_exit
 SCA = 5
 
 def putTile(file, coords):
-	img = pygame.image.load(file).convert_alpha()
-	img = pygame.transform.scale_by(img, (SCA, SCA))
-	screen.blit(img, coords)
+    img = pygame.image.load(file).convert_alpha()
+    img = pygame.transform.scale_by(img, (SCA, SCA))
+    screen.blit(img, coords)
 
 
 oc = "basetile.png"
@@ -44,30 +44,31 @@ print(f"Screen size: {W} x {H}")
 * calculate 'SCA' scalar accordingly to user's display
 """
 
-# for c in range(5):
-for i in range(5):
-    putTile(oc, (450 + 0, 100 + i*(d-4*5)))
 
-for i in range(5):
-    putTile(oc, (450 + d - 8*s, 100 + i*(d-4*s) + d//2 - 2*s))
-
-for i in range(5):
-    putTile(oc, (450 + 2*(d-8*s), 100 + i*(d-4*s)))
-
-for i in range(5):
-    putTile(oc, (450 + 3*(d-8*s), 100 + i*(d-4*s) + d//2 - 2*s))
-
-for i in range(5):
-    putTile(oc, (450 + 4*(d-8*s), 100 + i*(d-4*s)))
+def draw_map_ocean(w, h):
+    x_off, y_off = 450, 50
+    for c in range(w):
+        if c % 2 == 0:
+            for i in range(h):
+                putTile(oc, (x_off + c*(d-8*s), y_off + i*(d-4*s)))
+        else:
+            for i in range(h):
+                putTile(oc, (x_off + c*(d-8*s), y_off + i*(d-4*s) + d//2 - 2*s))
+    """
+    * nenapada me, jak nejak hezky udelat stridani...
+    * teoreticky reasignment, ale na to stejne potrebuji vetve
+    * takto je to mozna nejprehlednejsi
+    * funguje to? funguje!
+    """
+        
     
-for i in range(5):
-    putTile(oc, (450 + 5*(d-8*s), 100 + i*(d-4*s) + d//2 - 2*s))
-
-for i in range(5):
-    putTile(oc, (450 + 6*(d-8*s), 100 + i*(d-4*s)))
+draw_map_ocean(7, 6)
 
 
-screen.blit(pygame.image.load("bar.png").convert_alpha(), ((1920-450)//2, 1080-100))
+# bottom_bar
+img = pygame.image.load("bar.png").convert_alpha()
+w, h = img.get_size()
+screen.blit(img, ((1920-w)//2, 1080-h))
 
 
 pygame.display.flip()
@@ -76,10 +77,10 @@ pygame.display.flip()
 
 run = True
 while run:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			run = False
-	pygame.display.update()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+    pygame.display.update()
 
 pygame.display.quit()
 pygame.quit()
