@@ -24,7 +24,7 @@ def putTile(file, coords):
 
 oc = "basetile.png"
 hx = "hextempl.png"
-hx = oc
+
 
 d = 160
 s = 5  # scale: 5*32=160
@@ -62,7 +62,7 @@ SCALE = mindim/tilesRange//tileSize # rounddown
 s = SCALE
 print("scale:", s)
 # test! vary! check tiling!
-s=5
+
 
 def draw_map_ocean(w, h):
     x_off, y_off = 450, 50
@@ -90,7 +90,7 @@ draw_map_ocean(7, 6)
 
 
 # bottom_bar
-img = pygame.image.load("bar.png").convert_alpha()
+img = pygame.image.load("textures/gui/bar.png").convert_alpha()
 w, h = img.get_size()
 surf_board.blit(img, ((1920-w)//2, 1080-h))
 
