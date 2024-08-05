@@ -19,7 +19,7 @@ hexdir = {
     "Desert": 1,
     "Field" : 4,
     "Forest" : 4,
-    "Moutains" : 3,
+    "Mountains" : 3,
     "Pasture" : 4,
     "Sea" : 0,
 }

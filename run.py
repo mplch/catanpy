@@ -15,6 +15,8 @@
 import pygame
 from sys import exit as sys_exit
 import random  # from
+import source.hexstack as hexstack
+# NOMENCLATURE: Tile, hex, circle (cake), ring.
 
 #----- CONSTANTS ------------------------------------------------------
 
@@ -27,13 +29,12 @@ s = 5  # scale: 5*32=160
 
 hx = "textures/hexes/Template_horiz.png"
 
-hexes = "textures/hexes/"
-hextypes = "Claypit.png  Dessert.png  Field.png  Forest.png  \
-Mountains.png  Pasture.png  Sea.png  Template_vert".split('  ')
-# odeber png (a zpet pridej) --> hexes + type + ".png"
-hexlands = "Claypit.png  Field.png  Forest.png  \
-Mountains.png  Pasture.png".split('  ')
-for t in hexlands: print(">",t,"<")
+#######x
+hexes = hexstack.hexes
+hexlands = hexstack.hexlands
+hextypes = hexstack.hextypes
+#######
+
 
 COORD_TILES_FONT_SIZE = 18
 COORD_TILES_FONT_COLOR = (200, 50, 50)
@@ -73,6 +74,7 @@ def placeHex(type, c, r):
         putTile(type, (x, y))
         coordPrintTile(c, r, x, y)
 
+"""
 def draw_map_rectangle(w, h):
     for c in range(w):
         for r in range(h):
@@ -84,9 +86,6 @@ def draw_map_rectangle(w, h):
         placeHex("Sea.png", f, 0)
         placeHex("Sea.png", f, 6)
 
-    """
-    * takto je to mozna nejprehlednejsi. --> Funguje to? funguje!
-    """
 
 def draw_map_def_hex_v1():
     draw_map_rectangle(7, 7)
@@ -103,6 +102,7 @@ def draw_map_def_hex_v1():
     placeHex(outer, 2, 5)
     placeHex(outer, 4, 5)
     placeHex(outer, 5, 5)
+"""
 
 def draw_map_def_hex_outer():
     # draw_map_rectangle(7, 7)
@@ -125,7 +125,9 @@ def draw_map_def_hex_inner():
     pairs = zip(COLS, ROWS, OFFSETS)
     for column, tiles, off in pairs:
         for row in range(tiles):
-            placeHex(random.choice(hexlands), column, row+off)
+            type = hexstack.stack.pop()
+            type += ".png"
+            placeHex(type, column, row+off)
 
     # i am NOT HAPPY with this
     # not ELEGANT
