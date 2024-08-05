@@ -47,7 +47,7 @@ def putTile(type, coords):
     file = hexes + type
     img = pygame.image.load(file).convert_alpha()
     # load all images just once, then just copy them (directly place)
-    #    img = pygame.transform.scale_by(img, (SCA, SCA))
+    #    img = pygame.transform.scale_by(img, (SCA, SCA)) # haha
     img = pygame.transform.rotate(img, 90)
     surf_board.blit(img, coords)
 
