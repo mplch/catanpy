@@ -28,10 +28,11 @@ hx = "textures/hexes/Template_horiz.png"
 
 hexes = "textures/hexes/"
 hextypes = "Claypit.png  Dessert.png  Field.png  Forest.png  \
-Mountains.png  Pasture.png".split('  ')
+Mountains.png  Pasture.png  Sea.png  Template_vert".split('  ')
 # odeber png (a zpet pridej) --> hexes + type + ".png"
-#for t in hextypes: t = t.strip()
-for t in hextypes: print(">",t,"<")
+hexlands = "Claypit.png  Field.png  Forest.png  \
+Mountains.png  Pasture.png".split('  ')
+for t in hexlands: print(">",t,"<")
 
 #----- FUNCTIONS ------------------------------------------------------
 
@@ -48,7 +49,8 @@ def placeHex(type, c, r):
     # connect urcite ne, conformation...nevim
     x_off, y_off = 200, 5
     hor_con, ver_con = 10, 6
-    if c % 2 == 0:
+    doShiftFirstColumnDown = 1  # bool 0 or 1
+    if c % 2 == doShiftFirstColumnDown:
         x = x_off + c * (tileSize - hor_con)
         y = y_off + r * (tileSize - ver_con)
         putTile(type, (x, y))
@@ -57,15 +59,37 @@ def placeHex(type, c, r):
         y = y_off + r * (tileSize - ver_con) + tileSize // 2 - 3  # magic number 3 ?!
         putTile(type, (x, y))
 
-def draw_map_ocean(w, h):
+def draw_map_rectangle(w, h):
     for c in range(w):
         for r in range(h):
-            type = random.choice(hextypes)
+            type = random.choice(hexlands)
             placeHex(type, c, r)
+    for f in range(7):
+        placeHex("Sea.png", 0, f)
+        placeHex("Sea.png", 6, f)
+        placeHex("Sea.png", f, 0)
+        placeHex("Sea.png", f, 6)
 
     """
     * takto je to mozna nejprehlednejsi. --> Funguje to? funguje!
     """
+
+def draw_map_def_hex_v1():
+    draw_map_rectangle(7, 7)
+    outer = "Template_vert.png"
+    outer = "Sea.png"
+    for f in range(7):
+        placeHex(outer, 0, f)
+        placeHex(outer, 6, f)
+        placeHex(outer, f, 0)
+        placeHex(outer, f, 6)
+    placeHex(outer, 1, 1)
+    placeHex(outer, 5, 1)
+    placeHex(outer, 1, 5)
+    placeHex(outer, 2, 5)
+    placeHex(outer, 4, 5)
+    placeHex(outer, 5, 5)
+
 
 #----- SETUP ------------------------------------------------------
 
@@ -86,25 +110,20 @@ print("scale:", SCALE)
 surf_board = pygame.Surface((W//SCALE, H//SCALE))
 print(surf_board.get_size())
 
-draw_map_ocean(7, 7)
+# draw_map_rectangle(7, 7)
+draw_map_def_hex_v1()
 
-for f in range(7):
-    placeHex("Sea.png", 0, f)
-    placeHex("Sea.png", 6, f)
-    placeHex("Sea.png", f, 0)
-    placeHex("Sea.png", f, 6)
 
-placeHex("Sea.png", 1, 1)
-placeHex("Sea.png", 2, 1)
-placeHex("Sea.png", 4, 1)
-placeHex("Sea.png", 5, 1)
+# placeHex("Sea.png", 1, 1)
+# placeHex("Sea.png", 2, 1)
+# placeHex("Sea.png", 4, 1)
+# placeHex("Sea.png", 5, 1)
+#
+# placeHex("Sea.png", 1, 6)
+# placeHex("Sea.png", 2, 6)
+# placeHex("Sea.png", 4, 6)
+# placeHex("Sea.png", 5, 6)
 
-placeHex("Sea.png", 1, 6)
-placeHex("Sea.png", 2, 6)
-placeHex("Sea.png", 4, 6)
-placeHex("Sea.png", 5, 6)
-placeHex("Sea.png", 1, 5)
-placeHex("Sea.png", 5, 5)
 
 
 
