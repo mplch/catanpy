@@ -7,6 +7,7 @@
 * pygame transparent screen when run from explorer
 * EDIT: Skaluji canvas --> RESI pozdejsi pokladani budov
 * je potreba spravne zadefinovat transformacni souradnicove funkce
+* mozna bych si usnadnil zivot CENTRICKOU geometrii - hexy, fonty...
 """
 
 #----- IMPORTS ------------------------------------------------------
@@ -34,6 +35,12 @@ hexlands = "Claypit.png  Field.png  Forest.png  \
 Mountains.png  Pasture.png".split('  ')
 for t in hexlands: print(">",t,"<")
 
+COORD_TILES_FONT_SIZE = 18
+COORD_TILES_FONT_COLOR = (200, 50, 50)
+COORD_TILES_FONT_COLOR = (0, 0, 0)
+COORD_TILE_X_OFFSET = 9
+COORD_TILE_Y_OFFSET = 20
+
 #----- FUNCTIONS ------------------------------------------------------
 
 def putTile(type, coords):
@@ -43,6 +50,12 @@ def putTile(type, coords):
     #    img = pygame.transform.scale_by(img, (SCA, SCA))
     img = pygame.transform.rotate(img, 90)
     surf_board.blit(img, coords)
+
+def coordPrintTile(c, r, x, y):
+    text_surface = my_font.render(f"({c}, {r})", False, COORD_TILES_FONT_COLOR)
+    surf_board.blit(text_surface, (x+COORD_TILE_X_OFFSET, y+COORD_TILE_Y_OFFSET))
+    print("hi")
+
 
 def placeHex(type, c, r):
     # uz si nepamatuji, co melo byt con,
@@ -54,10 +67,12 @@ def placeHex(type, c, r):
         x = x_off + c * (tileSize - hor_con)
         y = y_off + r * (tileSize - ver_con)
         putTile(type, (x, y))
+        coordPrintTile(c, r, x, y)
     else:
         x = x_off + c * (tileSize - hor_con)
         y = y_off + r * (tileSize - ver_con) + tileSize // 2 - 3  # magic number 3 ?!
         putTile(type, (x, y))
+        coordPrintTile(c, r, x, y)
 
 def draw_map_rectangle(w, h):
     for c in range(w):
@@ -94,6 +109,8 @@ def draw_map_def_hex_v1():
 #----- SETUP ------------------------------------------------------
 
 pygame.init()
+pygame.font.init()
+my_font = pygame.font.SysFont('Comic Sans MS', COORD_TILES_FONT_SIZE)
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 W, H = screen.get_size()
 print(f"Screen size: {W} x {H}")
