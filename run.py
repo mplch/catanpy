@@ -54,7 +54,6 @@ def putTile(type, coords):
 def coordPrintTile(c, r, x, y):
     text_surface = my_font.render(f"({c}, {r})", False, COORD_TILES_FONT_COLOR)
     surf_board.blit(text_surface, (x+COORD_TILE_X_OFFSET, y+COORD_TILE_Y_OFFSET))
-    print("hi")
 
 
 def placeHex(type, c, r):
@@ -105,6 +104,35 @@ def draw_map_def_hex_v1():
     placeHex(outer, 4, 5)
     placeHex(outer, 5, 5)
 
+def draw_map_def_hex_outer():
+    # draw_map_rectangle(7, 7)
+    outer = "Template_vert.png"
+    outer = "Sea.png"
+    for f in range(7):
+        placeHex(outer, 0, f)
+        placeHex(outer, 6, f)
+        placeHex(outer, f, 0)
+        placeHex(outer, f, 6)
+    placeHex(outer, 1, 1)
+    placeHex(outer, 5, 1)
+    for i in (1, 2, 4, 5): placeHex(outer, i, 5)
+
+def draw_map_def_hex_inner():
+    # hardcoded !!
+    COLS = range(1, 5+1)
+    ROWS = (3, 4, 5, 4, 3)
+    OFFSETS = (2, 1, 1, 1, 2)
+    pairs = zip(COLS, ROWS, OFFSETS)
+    for column, tiles, off in pairs:
+        for row in range(tiles):
+            placeHex(random.choice(hexlands), column, row+off)
+
+    # i am NOT HAPPY with this
+    # not ELEGANT
+def draw_map_def_hex_v2():
+    draw_map_def_hex_outer()
+    draw_map_def_hex_inner()
+
 
 #----- SETUP ------------------------------------------------------
 
@@ -127,8 +155,8 @@ print("scale:", SCALE)
 surf_board = pygame.Surface((W//SCALE, H//SCALE))
 print(surf_board.get_size())
 
-# draw_map_rectangle(7, 7)
-draw_map_def_hex_v1()
+
+draw_map_def_hex_v2()
 
 
 # placeHex("Sea.png", 1, 1)
