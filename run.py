@@ -43,13 +43,16 @@ hx = "textures/hexes/Template_horiz.png"
 
 pygame.init()
 screen = render.screen_init()
-surf_board = render.surf_init(screen.get_size())
+
 
 
 mapgen.draw_map_def_hex_v2()
 
-render.window_postinit(screen, surf_board)
+# render.window_postinit(screen, surf_board)
 
+mymymysurface = render.MySurface
+
+screen.blit(mymymysurface.surf_board)
 
 
 #----- EVENT LOOP ------------------------------------------------------

@@ -44,6 +44,7 @@ def placeHex(surf_board, type, c, r):
         coordPrintTile(c, r, x, y)
     return surf_board
 
+
 """
 def draw_map_rectangle(w, h):
     for c in range(w):
