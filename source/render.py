@@ -29,11 +29,13 @@ class MySurface:
         # !!! surface init
         pass
 
-    def scaleup(self):
+    def scale_by(self, scale=None):
+        if scale is None:
+            scale = self.scale
         self.surf_board = pygame.transform.scale_by(
-            self.surf_board, (self.scale, self.scale)
+            self.surf_board, (scale, scale)
         )
-        print("Info: MySurface: \"Scaling up.\"")
+        print("Info: MySurface: \"Scaling by factor of\"", scale)
 
     # restructuralize place_hex and puttile and print coords function
 
@@ -92,9 +94,10 @@ def get_scale(dims):
     * calculate 'SCA' scalar accordingly to user's display
     """
     mindim = min(dims)
-    scale = mindim / C.TILES_RANGE // C.TILE_SIZE  # round_down  # capitals?
+    scale = mindim // C.TILES_RANGE // C.TILE_SIZE  # round_down  # capitals?
     print("scale:", scale)
     # test! vary! check tiling!
+    scale = 1 if scale == 0 else scale
     return scale
 
 """

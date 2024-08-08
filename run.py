@@ -53,6 +53,8 @@ mymymysurface = render.MySurface(dims)
 
 mapgen.draw_map_def_hex_v2(mymymysurface)
 
+mymymysurface.scale_by()
+
 screen.blit(mymymysurface.surf_board, (0,0))
 
 
