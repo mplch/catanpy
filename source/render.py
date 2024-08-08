@@ -16,13 +16,14 @@ class MySurface:
 
     scale = 0
     surf_board = pygame.Surface((0, 0))
+    # surf_board = pygame.Surface((100,100))
 
-    def __init__(self, w, h):
-        self.scale = get_scale((w, h))
-        self.w = w // self.scale
-        self.h = h // self.scale
+    def __init__(self, wh):
+        self.scale = get_scale(wh)
+        self.w = wh[0] // self.scale
+        self.h = wh[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
-        print("Info: MySurface: scale, W, H:", self.scale, w, h)
+        print("Info: MySurface: scale, W, H:", self.scale, self.w, self.h)
 
     def create(self):
         # !!! surface init
@@ -61,15 +62,15 @@ class MySurface:
         if c % 2 == doShiftFirstColumnDown:
             x = x_off + c * (C.TILE_SIZE - hor_con)
             y = y_off + r * (C.TILE_SIZE - ver_con)
-            self.put_tile(self, hextype, (x, y))
+            self.put_tile(hextype, (x, y))
             # WHAAT? UNEXPECTED ARGUMENT??
             # Does it mean, that object does not save me anything?!
-            self.coord_print_tile(self, c, r, x, y)
+            self.coord_print_tile(c, r, x, y)
         else:
             x = x_off + c * (C.TILE_SIZE - hor_con)
             y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
-            self.put_tile(self, hextype, (x, y))
-            self.coord_print_tile(self, c, r, x, y)
+            self.put_tile(hextype, (x, y))
+            self.coord_print_tile(c, r, x, y)
         # return surf_board
 
 ################################################################

@@ -47,7 +47,9 @@ screen = render.screen_init()
 
 # render.window_postinit(screen, surf_board)
 
-mymymysurface = render.MySurface
+dims = screen.get_size()
+
+mymymysurface = render.MySurface(dims)
 
 mapgen.draw_map_def_hex_v2(mymymysurface)
 

@@ -46,18 +46,19 @@ def draw_map_def_hex_v1():
 def draw_map_def_hex_outer(my_surface):
     # draw_map_rectangle(7, 7)
     outer = "Template_vert.png"
+
     outer = "Sea.png"
     for f in range(7):
-        my_surface.place_hex(my_surface, outer, 0, f)
-        my_surface.place_hex(my_surface, outer, 6, f)
+        my_surface.place_hex(outer, 0, f)
+        my_surface.place_hex(outer, 6, f)
         # surf_board = place_hex(surf_board, outer, 0, f)
         # surf_board = place_hex(surf_board, outer, 6, f)
         # tak tohle ne, tohle je za trest
-        my_surface.place_hex(my_surface, outer, f, 0)
-        my_surface.place_hex(my_surface, outer, f, 6)
-    my_surface.place_hex(my_surface, outer, 1, 1)
-    my_surface.place_hex(my_surface, outer, 5, 1)
-    for i in (1, 2, 4, 5): my_surface.place_hex(my_surface, outer, i, 5)
+        my_surface.place_hex(outer, f, 0)
+        my_surface.place_hex(outer, f, 6)
+    my_surface.place_hex(outer, 1, 1)
+    my_surface.place_hex(outer, 5, 1)
+    for i in (1, 2, 4, 5): my_surface.place_hex(outer, i, 5)
 
 
 def draw_map_def_hex_inner(my_surface):
@@ -70,7 +71,7 @@ def draw_map_def_hex_inner(my_surface):
         for row in range(tiles):
             hextype = hexstack.stack.pop()
             hextype += ".png"
-            my_surface.place_hex(my_surface, hextype, column, row+off)
+            my_surface.place_hex(hextype, column, row+off)
 
     # i am NOT HAPPY with this
     # not ELEGANT
