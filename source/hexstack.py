@@ -4,7 +4,7 @@ stack = []
 
 
 ##########################x
-hexes = "textures/hexes/"
+folder = "textures/hexes/"
 hextypes = "Claypit.png  Desert.png  Field.png  Forest.png  \
 Mountains.png  Pasture.png  Sea.png  Template_vert".split('  ')
 # odeber png (a zpet pridej) --> hexes + type + ".png"

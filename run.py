@@ -45,14 +45,13 @@ pygame.init()
 screen = render.screen_init()
 
 
-
-mapgen.draw_map_def_hex_v2()
-
 # render.window_postinit(screen, surf_board)
 
 mymymysurface = render.MySurface
 
-screen.blit(mymymysurface.surf_board)
+mapgen.draw_map_def_hex_v2(mymymysurface)
+
+screen.blit(mymymysurface.surf_board, (0,0))
 
 
 #----- EVENT LOOP ------------------------------------------------------
