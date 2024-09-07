@@ -1,6 +1,6 @@
 from random import randint
 
-import source.hexstack as hexstack
+import source.pieces as pieces
 
 
 def get_outer_ring_hexcoords():
@@ -52,7 +52,7 @@ def draw_map_def_hex_outer(my_surface):
 
 def draw_map_def_hex_inner(my_surface):
     for coords in get_inner_ring_hexcoords():
-        hextype = hexstack.stack.pop()
+        hextype = pieces.hex_stack.pop()
         hextype += ".png"
         my_surface.place_hex(hextype, coords)
 
@@ -60,8 +60,7 @@ def draw_map_def_hex_inner(my_surface):
 def draw_map_def_hex_yield_overlay(my_surface):
     for coords in get_inner_ring_hexcoords():
 
-        ### EXCEPT THIS IS INCORRECT
-        yield_number = get_dice_roll()
+        yield_number = pieces.yield_stack.pop()
 
         my_surface.place_yield(coords, yield_number)
 

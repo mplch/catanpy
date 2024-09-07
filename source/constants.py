@@ -5,6 +5,8 @@ TILES_RANGE = 7
 
 PLACE_HEX_MAGIC = 3  # magic number 3 ?!
 
+YIELDS_DO_RANDOM_SHUFFLE = False
+
 # class CoordTiles(Enum):
 class CoordTiles:
     FONT_SIZE: int = 18

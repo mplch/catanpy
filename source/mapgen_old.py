@@ -2,7 +2,7 @@
 def draw_map_rectangle(w, h):
     for c in range(w):
         for r in range(h):
-            type = random.choice(hexstack.lands)
+            type = random.choice(pieces.lands)
             place_hex(type, c, r)
     for f in range(7):
         place_hex("Sea.png", 0, f)

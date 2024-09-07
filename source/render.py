@@ -2,7 +2,7 @@ import pygame
 from random import randint
 
 import source.constants as C
-import source.hexstack as hexstack
+import source.pieces as pieces
 
 
 # ----- NOTES ---------------------------------------------------------
@@ -58,7 +58,7 @@ class MySurface:
         print("Info: MySurface: \"Scaling by factor of\"", scale)
 
     def put_tile(self, hextype, coords):
-        file = hexstack.folder + hextype
+        file = pieces.folder + hextype
         img = pygame.image.load(file).convert_alpha()
         img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
@@ -76,8 +76,8 @@ class MySurface:
         dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
         self.surf_board.blit(text_surface, dest_coords)
 
-    def place_hex(self, hextype, coords):
-        c, r = coords
+    def place_hex(self, hextype, hex_coords):
+        c, r = hex_coords
         # uz si nepamatuji, co melo byt con,
         # connect urcite ne, conformation...nevim
         x_off, y_off = 200, 5
@@ -103,9 +103,9 @@ class MySurface:
 
 
     ### DUPLICIT FUNCTION !!!
-    def place_yield(self, coords, yield_number):
+    def place_yield(self, hex_coords, yield_number):
 
-        c, r = coords
+        c, r = hex_coords
 
         x_off, y_off = 200, 5
         hor_con, ver_con = 10, 6
@@ -115,13 +115,13 @@ class MySurface:
             y = y_off + r * (self.tile_size - ver_con)
             # self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
-            self.tile_yield_overlay((x, y), get_dice_roll())
+            self.tile_yield_overlay((x, y), yield_number)
         else:
             x = x_off + c * (self.tile_size - hor_con)
             y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - 3  # magic number 3 ?!
             # self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
-            self.tile_yield_overlay((x, y), get_dice_roll())
+            self.tile_yield_overlay((x, y), yield_number)
 
 ################################################################
 ###############################################################
@@ -138,7 +138,7 @@ def screen_init():
 
 def get_tile_size():
     # HARDCODED !!
-    file = hexstack.folder + "Desert.png"
+    file = pieces.folder + "Desert.png"
     img = pygame.image.load(file).convert_alpha()
     a,b = img.get_size()
     assert a == b
