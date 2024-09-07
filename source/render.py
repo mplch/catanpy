@@ -59,7 +59,7 @@ class MySurface:
         # self.surf_board = surf_board
 
     def coord_print_tile(self, c, r, x, y):
-        my_font = get_font()
+        my_font = get_coords_font()
         text_surface = my_font.render(f"({c}, {r})", False, C.COORD_TILES_FONT_COLOR)
         self.surf_board.blit(text_surface, (x + C.COORD_TILE_X_OFFSET, y + C.COORD_TILE_Y_OFFSET))
         # return surf_board
@@ -74,8 +74,8 @@ class MySurface:
         #     -->  Budovat funkce, co se volaji z hlavniho vlakna? May not be a solution... idk..
 
         x, y = coords
-        my_font = get_font()
-        text_surface = my_font.render(f"({yield_number})", False, C.COORD_TILES_FONT_COLOR)
+        my_font = get_yield_font()
+        text_surface = my_font.render(str(yield_number), False, C.TILE_YIELD_OVERLAY_FONT_COLOR)  # .toString() ??
         self.surf_board.blit(text_surface, (x + C.TILE_YIELD_OVERLAY_X_OFFSET, y + C.TILE_YIELD_OVERLAY_Y_OFFSET))
 
     def place_hex(self, hextype, c, r):
@@ -91,7 +91,7 @@ class MySurface:
             # WHAAT? UNEXPECTED ARGUMENT??
             # Does it mean, that object does not save me anything?!
             # self.coord_print_tile(c, r, x, y)
-            self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
+            # self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
 
             ### FUNCTION ASSEMBLY
             # put together beforehands, whould all should happen while placement
@@ -101,8 +101,30 @@ class MySurface:
             y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
             self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
-            self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
+            # self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
         # return surf_board
+
+
+    ### DUPLICIT FUNCTION !!!
+    def place_yield(self, coords, yield_number):
+
+        c, r = coords
+
+        x_off, y_off = 200, 5
+        hor_con, ver_con = 10, 6
+        do_shift_first_column_down = 1  # bool 0 or 1
+        if c % 2 == do_shift_first_column_down:
+            x = x_off + c * (C.TILE_SIZE - hor_con)
+            y = y_off + r * (C.TILE_SIZE - ver_con)
+            # self.put_tile(hextype, (x, y))
+            # self.coord_print_tile(c, r, x, y)
+            self.tile_yield_overlay((x, y), get_dice_roll())
+        else:
+            x = x_off + c * (C.TILE_SIZE - hor_con)
+            y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
+            # self.put_tile(hextype, (x, y))
+            # self.coord_print_tile(c, r, x, y)
+            self.tile_yield_overlay((x, y), get_dice_roll())
 
 ################################################################
 ###############################################################
@@ -138,8 +160,11 @@ def surf_init(W, H, SCALE):
 """
 
 
-def get_font():
+def get_coords_font():
     return pygame.font.SysFont('Comic Sans MS', C.COORD_TILES_FONT_SIZE)
+
+def get_yield_font():
+    return pygame.font.SysFont('Comic Sans MS', C.TILE_YIELD_OVERLAY_FONT_SIZE)
 
 
 ############################################
