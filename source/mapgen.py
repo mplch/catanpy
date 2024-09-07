@@ -1,7 +1,9 @@
 import pygame
+# from random import randint
+
 import source.hexstack as hexstack
-import source.constants as C
-import source.render as render
+# import source.constants as C
+# import source.render as render
 
 # #######x
 # hexstack.folder = hexstack.hexstack.folder
@@ -63,10 +65,10 @@ def draw_map_def_hex_outer(my_surface):
 
 def draw_map_def_hex_inner(my_surface):
     # hardcoded !!
-    COLS = range(1, 5+1)
-    ROWS = (3, 4, 5, 4, 3)
-    OFFSETS = (2, 1, 1, 1, 2)
-    pairs = zip(COLS, ROWS, OFFSETS)
+    cols = range(1, 5+1)
+    rows = (3, 4, 5, 4, 3)
+    offsets = (2, 1, 1, 1, 2)
+    pairs = zip(cols, rows, offsets)
     for column, tiles, off in pairs:
         for row in range(tiles):
             hextype = hexstack.stack.pop()
@@ -75,8 +77,18 @@ def draw_map_def_hex_inner(my_surface):
 
     # i am NOT HAPPY with this
     # not ELEGANT
+
+
 def draw_map_def_hex_v2(m):
     draw_map_def_hex_outer(m)
     draw_map_def_hex_inner(m)
+
+
+# def get_dice_roll():
+#     dice1 = randint(2, 6)
+#     dice2 = randint(2, 6)
+#     roll = dice1 + dice2
+#     return roll
+
 
 ############################################################

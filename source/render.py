@@ -1,6 +1,15 @@
 import pygame
+from random import randint
+
 import source.constants as C
 import source.hexstack as hexstack
+
+
+def get_dice_roll():
+    dice1 = randint(2, 6)
+    dice2 = randint(2, 6)
+    roll = dice1 + dice2
+    return roll
 
 
 ### STATIC functions (not methods) ###
@@ -55,24 +64,44 @@ class MySurface:
         self.surf_board.blit(text_surface, (x + C.COORD_TILE_X_OFFSET, y + C.COORD_TILE_Y_OFFSET))
         # return surf_board
 
+    def tile_yield_overlay(self, coords: tuple, yield_number):
+
+        ### to be removed and "cooked" in outer scope  -- for another use purposes ####
+        # yield_number = mapg
+        # (...)
+        # (1) Co dela python 'yield' keyword?
+        # (2) Mam chaos v HIERARCHII MODULU, ANEB CO IMPORTUJE CO. Lepsi reseni? Name space?
+        #     -->  Budovat funkce, co se volaji z hlavniho vlakna? May not be a solution... idk..
+
+        x, y = coords
+        my_font = get_font()
+        text_surface = my_font.render(f"({yield_number})", False, C.COORD_TILES_FONT_COLOR)
+        self.surf_board.blit(text_surface, (x + C.TILE_YIELD_OVERLAY_X_OFFSET, y + C.TILE_YIELD_OVERLAY_Y_OFFSET))
+
     def place_hex(self, hextype, c, r):
         # uz si nepamatuji, co melo byt con,
         # connect urcite ne, conformation...nevim
         x_off, y_off = 200, 5
         hor_con, ver_con = 10, 6
-        doShiftFirstColumnDown = 1  # bool 0 or 1
-        if c % 2 == doShiftFirstColumnDown:
+        do_shift_first_column_down = 1  # bool 0 or 1
+        if c % 2 == do_shift_first_column_down:
             x = x_off + c * (C.TILE_SIZE - hor_con)
             y = y_off + r * (C.TILE_SIZE - ver_con)
             self.put_tile(hextype, (x, y))
             # WHAAT? UNEXPECTED ARGUMENT??
             # Does it mean, that object does not save me anything?!
-            self.coord_print_tile(c, r, x, y)
+            # self.coord_print_tile(c, r, x, y)
+            self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
+
+            ### FUNCTION ASSEMBLY
+            # put together beforehands, whould all should happen while placement
+
         else:
             x = x_off + c * (C.TILE_SIZE - hor_con)
             y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
             self.put_tile(hextype, (x, y))
-            self.coord_print_tile(c, r, x, y)
+            # self.coord_print_tile(c, r, x, y)
+            self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
         # return surf_board
 
 ################################################################
