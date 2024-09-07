@@ -1,5 +1,5 @@
 import pygame
-# from random import randint
+from random import randint
 
 import source.hexstack as hexstack
 # import source.constants as C
@@ -45,50 +45,86 @@ def draw_map_def_hex_v1():
 """
 
 
-def draw_map_def_hex_outer(my_surface):
-    # draw_map_rectangle(7, 7)
-    outer = "Template_vert.png"
+def get_outer_ring_hexcoords():
+    # hexcoords & tilecoords = pixelcoords & displaycoords
+    outer_ring = []
 
-    outer = "Sea.png"
+    ### POLADIT !!!
+
     for f in range(7):
-        my_surface.place_hex(outer, 0, f)
-        my_surface.place_hex(outer, 6, f)
-        # surf_board = place_hex(surf_board, outer, 0, f)
-        # surf_board = place_hex(surf_board, outer, 6, f)
-        # tak tohle ne, tohle je za trest
-        my_surface.place_hex(outer, f, 0)
-        my_surface.place_hex(outer, f, 6)
-    my_surface.place_hex(outer, 1, 1)
-    my_surface.place_hex(outer, 5, 1)
-    for i in (1, 2, 4, 5): my_surface.place_hex(outer, i, 5)
+        outer_ring.append((0, f))
+        outer_ring.append((6, f))
+        outer_ring.append((f, 0))
+        outer_ring.append((f, 6))
+    outer_ring.append((1, 1))
+    outer_ring.append((5, 1))
+    for i in (1, 2, 4, 5):
+        outer_ring.append((i, 5))
+
+    return outer_ring
 
 
-def draw_map_def_hex_inner(my_surface):
+def get_inner_ring_hexcoords():
+    inner_ring = []
+
     # hardcoded !!
-    cols = range(1, 5+1)
+    cols = range(1, 5 + 1)
     rows = (3, 4, 5, 4, 3)
     offsets = (2, 1, 1, 1, 2)
     pairs = zip(cols, rows, offsets)
     for column, tiles, off in pairs:
         for row in range(tiles):
-            hextype = hexstack.stack.pop()
-            hextype += ".png"
-            my_surface.place_hex(hextype, column, row+off)
+            inner_ring.append((column, row + off))
 
     # i am NOT HAPPY with this
     # not ELEGANT
+
+    return inner_ring
+
+
+def draw_map_def_hex_outer(my_surface):
+
+    outer = "Sea.png"
+
+    outer_ring = get_outer_ring_hexcoords()
+
+    for x,y in outer_ring:
+        my_surface.place_hex(outer, x,y)  # TUPLE CONDENSATION !
+
+
+def draw_map_def_hex_inner(my_surface):
+
+    for coords in get_inner_ring_hexcoords():
+
+        x,y=coords
+
+        hextype = hexstack.stack.pop()
+        hextype += ".png"
+        my_surface.place_hex(hextype, x,y)
+
+
+def draw_map_def_hex_yield_overlay(my_surface):
+
+    for coords in get_inner_ring_hexcoords():
+        # x, y = coords
+
+        ### EXCEPT THIS IS INCORRECT
+        yield_number = get_dice_roll()
+
+        my_surface.place_yield(coords, yield_number)
 
 
 def draw_map_def_hex_v2(m):
     draw_map_def_hex_outer(m)
     draw_map_def_hex_inner(m)
+    draw_map_def_hex_yield_overlay(m)
 
 
-# def get_dice_roll():
-#     dice1 = randint(2, 6)
-#     dice2 = randint(2, 6)
-#     roll = dice1 + dice2
-#     return roll
+def get_dice_roll():
+    dice1 = randint(2, 6)
+    dice2 = randint(2, 6)
+    roll = dice1 + dice2
+    return roll
 
 
 ############################################################
