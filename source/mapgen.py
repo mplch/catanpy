@@ -85,6 +85,7 @@ def get_inner_ring_hexcoords():
 def draw_map_def_hex_outer(my_surface):
 
     outer = "Sea.png"
+    outer = "Template_horiz.png"
 
     outer_ring = get_outer_ring_hexcoords()
 

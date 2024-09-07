@@ -53,7 +53,8 @@ class MySurface:
         img = pygame.image.load(file).convert_alpha()
         # load all images just once, then just copy them (directly place)
         #    img = pygame.transform.scale_by(img, (SCA, SCA)) # haha
-        img = pygame.transform.rotate(img, 90)
+        # img = pygame.transform.rotate(img, -90)
+        img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
         # return surf_board
         # self.surf_board = surf_board
