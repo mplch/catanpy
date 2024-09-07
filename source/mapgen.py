@@ -1,6 +1,7 @@
 from random import randint
 
 import source.pieces as pieces
+from source.tiletype import TileType
 
 
 def get_outer_ring_hexcoords():
@@ -40,9 +41,10 @@ def get_inner_ring_hexcoords():
     return inner_ring
 
 
-def draw_map_def_hex_outer(my_surface):
+def draw_map_def_hex_outer_ocean(my_surface):
 
     outer = "Sea.png"
+    outer = TileType(outer, outer)
 
     outer_ring = get_outer_ring_hexcoords()
 
@@ -50,11 +52,12 @@ def draw_map_def_hex_outer(my_surface):
         my_surface.place_hex(outer, coords)
 
 
-def draw_map_def_hex_inner(my_surface):
+def draw_map_def_hex_inner_land(my_surface):
     for coords in get_inner_ring_hexcoords():
-        hextype = pieces.hex_stack.pop()
-        hextype += ".png"
-        my_surface.place_hex(hextype, coords)
+        cake_type = pieces.cake_stack.pop()
+        cake_type += ".png"
+        hex_type = TileType("Field.png", cake_type)
+        my_surface.place_hex(hex_type, coords)
 
 
 def draw_map_def_hex_yield_overlay(my_surface):
@@ -66,8 +69,8 @@ def draw_map_def_hex_yield_overlay(my_surface):
 
 
 def draw_map_def_hex_v2(m):
-    draw_map_def_hex_outer(m)
-    draw_map_def_hex_inner(m)
+    draw_map_def_hex_outer_ocean(m)
+    draw_map_def_hex_inner_land(m)
     draw_map_def_hex_yield_overlay(m)
 
 

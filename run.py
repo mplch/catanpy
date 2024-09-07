@@ -23,6 +23,8 @@ get_scale():
     * Test! vary! check tiling!
 * RESTRUCTURE place_hex and put_tile and print_coords function
 * Use of STATIC functions instead of methods
+* TEMPLATE tiles ponechat ciste jako ilustrativni
+  --> assertovat spravnost kazde krajiny (jak?
 """
 
 # ----- IMPORTS -------------------------------------------------------

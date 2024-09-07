@@ -1,6 +1,30 @@
 from random import shuffle
 import source.constants as C
 
+# default_plate = "textures/plates/Field.png"
+
+cake_stack = []
+
+folder_plates = "textures/pieces/plates/"
+folder_cakes = "textures/pieces/cakes/"
+
+cake_dir = {
+    "Clay_pit": 3,
+    "Desert": 1,
+    "Field": 4,
+    "Forest": 4,
+    "Mountains": 3,
+    "Pasture": 4,
+    "Sea": 0,
+}
+
+for key, val in cake_dir.items():
+    for _ in range(val):
+        cake_stack.append(key)
+
+shuffle(cake_stack)
+
+"""
 hex_stack = []
 
 folder = "textures/hexes/"
@@ -20,6 +44,7 @@ for key, val in hexdir.items():
         hex_stack.append(key)
 
 shuffle(hex_stack)
+"""
 
 # ---------------------------------------------------------------------
 

@@ -3,6 +3,7 @@ from random import randint
 
 import source.constants as C
 import source.pieces as pieces
+from source.tiletype import TileType
 
 
 # ----- NOTES ---------------------------------------------------------
@@ -38,7 +39,7 @@ class MySurface:
     surf_board = pygame.Surface((0, 0))
 
     def __init__(self, wh):
-        self.tile_size = get_tile_size()
+        self.tile_size = get_tile_size(pieces.folder_cakes+"Template_Cake"+".png")
         self.scale = get_scale(wh, self.tile_size)
         self.w = wh[0] // self.scale
         self.h = wh[1] // self.scale
@@ -57,11 +58,11 @@ class MySurface:
         )
         print("Info: MySurface: \"Scaling by factor of\"", scale)
 
-    def put_tile(self, hextype, coords):
-        file = pieces.folder + hextype
-        img = pygame.image.load(file).convert_alpha()
+    def put_tile(self, file_path, coords):
+        img = pygame.image.load(file_path).convert_alpha()
         img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
+
 
     def coord_print_tile(self, c, r, x, y):
         my_font = get_coords_font()
@@ -76,17 +77,21 @@ class MySurface:
         dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
         self.surf_board.blit(text_surface, dest_coords)
 
-    def place_hex(self, hextype, hex_coords):
+    def place_hex(self, tile_type: TileType, hex_coords):
         c, r = hex_coords
+        plate, cake = tile_type.tuple
+        plate = pieces.folder_plates + plate
+        cake = pieces.folder_cakes + cake
+        x_off, y_off = 200, 5
         # uz si nepamatuji, co melo byt con,
         # connect urcite ne, conformation...nevim
-        x_off, y_off = 200, 5
         hor_con, ver_con = 10, 6
         do_shift_first_column_down = 1  # bool 0 or 1
         if c % 2 == do_shift_first_column_down:
             x = x_off + c * (self.tile_size - hor_con)
             y = y_off + r * (self.tile_size - ver_con)
-            self.put_tile(hextype, (x, y))
+            self.put_tile(plate, (x, y))
+            self.put_tile(cake, (x, y))
             # self.coord_print_tile(c, r, x, y)
             # self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
 
@@ -96,7 +101,8 @@ class MySurface:
         else:
             x = x_off + c * (self.tile_size - hor_con)
             y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.PLACE_HEX_MAGIC
-            self.put_tile(hextype, (x, y))
+            self.put_tile(plate, (x, y))
+            self.put_tile(cake, (x, y))
             # self.coord_print_tile(c, r, x, y)
             # self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
         # return surf_board
@@ -136,10 +142,8 @@ def screen_init():
 #################################################################
 
 
-def get_tile_size():
-    # HARDCODED !!
-    file = pieces.folder + "Desert.png"
-    img = pygame.image.load(file).convert_alpha()
+def get_tile_size(template_tile_file_path):
+    img = pygame.image.load(template_tile_file_path).convert_alpha()
     a,b = img.get_size()
     assert a == b
     return a
