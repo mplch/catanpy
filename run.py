@@ -1,70 +1,60 @@
 #!/usr/bin/env python3
-#202408032257-Polesovice
+# 202408032257-Polesovice
 
-#----- NOTES ------------------------------------------------------
+# ----- NOTES ---------------------------------------------------------
 
 """
-* pygame transparent screen when run from explorer
-* EDIT: Skaluji canvas --> RESI pozdejsi pokladani budov
-* je potreba spravne zadefinovat transformacni souradnicove funkce
-* mozna bych si usnadnil zivot CENTRICKOU geometrii - hexy, fonty...
+* pygame --> proper WINDOW startup?
+* set funkci pro TRANSFORMACI souradnic
+* CENTRICKE souradnice? : Asi spis neni nutne..
+* NOMENCLATURE: Tile, hex, circle (cake), ring.
+* DOCUMENTATION? < graphical OVERVIEW
+* hexcoords & tilecoords = pixelcoords & displaycoords
 """
 
-#----- IMPORTS ------------------------------------------------------
+# ----- TODO ----------------------------------------------------------
+
+"""
+(*) render.py:
+put_tile():
+    * Image CACHING
+    * Load all images just once, then just copy them
+get_scale():
+    * Test! vary! check tiling!
+* RESTRUCTURE place_hex and put_tile and print_coords function
+* Use of STATIC functions instead of methods
+"""
+
+# ----- IMPORTS -------------------------------------------------------
 
 import pygame
 from sys import exit as sys_exit
-import random  # from
-import source.hexstack as hexstack
 import source.mapgen as mapgen
 import source.render as render
-# NOMENCLATURE: Tile, hex, circle (cake), ring.
 
-#----- CONSTANTS ------------------------------------------------------
+# ----- CONSTANTS -----------------------------------------------------
 
-"""
-SCA = 5
-d = 160
-s = 5  # scale: 5*32=160
-# shouldn't be needed actually
-"""
+# ----- FUNCTIONS -----------------------------------------------------
 
-hx = "textures/hexes/Template_horiz.png"
-
-
-
-
-#----- FUNCTIONS ------------------------------------------------------
-
-
-
-
-#----- SETUP ------------------------------------------------------
+# ----- SETUP ---------------------------------------------------------
 
 pygame.init()
 screen = render.screen_init()
-
-
-# render.window_postinit(screen, surf_board)
-
 dims = screen.get_size()
+mySurface = render.MySurface(dims)
+mapgen.draw_map_def_hex_v2(mySurface)
+mySurface.scale_by()
+screen.blit(mySurface.surf_board, (0,0))
 
-mymymysurface = render.MySurface(dims)
-
-mapgen.draw_map_def_hex_v2(mymymysurface)
-
-mymymysurface.scale_by()
-
-screen.blit(mymymysurface.surf_board, (0,0))
-
-
-#----- EVENT LOOP ------------------------------------------------------
+# ----- EVENT LOOP ----------------------------------------------------
 
 run = True
 while run:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+
     pygame.display.update()
 
 pygame.display.quit()

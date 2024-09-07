@@ -5,6 +5,17 @@ import source.constants as C
 import source.hexstack as hexstack
 
 
+# ----- NOTES ---------------------------------------------------------
+
+"""
+*
+*
+*
+"""
+
+# ----- BODY ----------------------------------------------------------
+
+
 def get_dice_roll():
     dice1 = randint(2, 6)
     dice2 = randint(2, 6)
@@ -12,23 +23,23 @@ def get_dice_roll():
     return roll
 
 
-### STATIC functions (not methods) ###
-
 def static_fun():
     # this function is static
+    # it is not a method
     pass
 
 
 class MySurface:
+    
+    tile_size = 0
     w = 0
     h = 0
-
     scale = 0
     surf_board = pygame.Surface((0, 0))
-    # surf_board = pygame.Surface((100,100))
 
     def __init__(self, wh):
-        self.scale = get_scale(wh)
+        self.tile_size = get_tile_size()
+        self.scale = get_scale(wh, self.tile_size)
         self.w = wh[0] // self.scale
         self.h = wh[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
@@ -46,51 +57,36 @@ class MySurface:
         )
         print("Info: MySurface: \"Scaling by factor of\"", scale)
 
-    # restructuralize place_hex and puttile and print coords function
-
     def put_tile(self, hextype, coords):
         file = hexstack.folder + hextype
         img = pygame.image.load(file).convert_alpha()
-        # load all images just once, then just copy them (directly place)
-        #    img = pygame.transform.scale_by(img, (SCA, SCA)) # haha
-        # img = pygame.transform.rotate(img, -90)
         img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
-        # return surf_board
-        # self.surf_board = surf_board
 
     def coord_print_tile(self, c, r, x, y):
         my_font = get_coords_font()
-        text_surface = my_font.render(f"({c}, {r})", False, C.COORD_TILES_FONT_COLOR)
-        self.surf_board.blit(text_surface, (x + C.COORD_TILE_X_OFFSET, y + C.COORD_TILE_Y_OFFSET))
-        # return surf_board
+        text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
+        dest_coords = (x + C.CoordTiles.X_OFFSET, y + C.CoordTiles.Y_OFFSET)
+        self.surf_board.blit(text_surface, dest_coords)
 
     def tile_yield_overlay(self, coords: tuple, yield_number):
-
-        ### to be removed and "cooked" in outer scope  -- for another use purposes ####
-        # yield_number = mapg
-        # (...)
-        # (1) Co dela python 'yield' keyword?
-        # (2) Mam chaos v HIERARCHII MODULU, ANEB CO IMPORTUJE CO. Lepsi reseni? Name space?
-        #     -->  Budovat funkce, co se volaji z hlavniho vlakna? May not be a solution... idk..
-
         x, y = coords
         my_font = get_yield_font()
-        text_surface = my_font.render(str(yield_number), False, C.TILE_YIELD_OVERLAY_FONT_COLOR)  # .toString() ??
-        self.surf_board.blit(text_surface, (x + C.TILE_YIELD_OVERLAY_X_OFFSET, y + C.TILE_YIELD_OVERLAY_Y_OFFSET))
+        text_surface = my_font.render(str(yield_number), False, C.TileYield.OVERLAY_FONT_COLOR)
+        dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
+        self.surf_board.blit(text_surface, dest_coords)
 
-    def place_hex(self, hextype, c, r):
+    def place_hex(self, hextype, coords):
+        c, r = coords
         # uz si nepamatuji, co melo byt con,
         # connect urcite ne, conformation...nevim
         x_off, y_off = 200, 5
         hor_con, ver_con = 10, 6
         do_shift_first_column_down = 1  # bool 0 or 1
         if c % 2 == do_shift_first_column_down:
-            x = x_off + c * (C.TILE_SIZE - hor_con)
-            y = y_off + r * (C.TILE_SIZE - ver_con)
+            x = x_off + c * (self.tile_size - hor_con)
+            y = y_off + r * (self.tile_size - ver_con)
             self.put_tile(hextype, (x, y))
-            # WHAAT? UNEXPECTED ARGUMENT??
-            # Does it mean, that object does not save me anything?!
             # self.coord_print_tile(c, r, x, y)
             # self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
 
@@ -98,8 +94,8 @@ class MySurface:
             # put together beforehands, whould all should happen while placement
 
         else:
-            x = x_off + c * (C.TILE_SIZE - hor_con)
-            y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
+            x = x_off + c * (self.tile_size - hor_con)
+            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.PLACE_HEX_MAGIC
             self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
             # self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
@@ -115,20 +111,21 @@ class MySurface:
         hor_con, ver_con = 10, 6
         do_shift_first_column_down = 1  # bool 0 or 1
         if c % 2 == do_shift_first_column_down:
-            x = x_off + c * (C.TILE_SIZE - hor_con)
-            y = y_off + r * (C.TILE_SIZE - ver_con)
+            x = x_off + c * (self.tile_size - hor_con)
+            y = y_off + r * (self.tile_size - ver_con)
             # self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
             self.tile_yield_overlay((x, y), get_dice_roll())
         else:
-            x = x_off + c * (C.TILE_SIZE - hor_con)
-            y = y_off + r * (C.TILE_SIZE - ver_con) + C.TILE_SIZE // 2 - 3  # magic number 3 ?!
+            x = x_off + c * (self.tile_size - hor_con)
+            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - 3  # magic number 3 ?!
             # self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
             self.tile_yield_overlay((x, y), get_dice_roll())
 
 ################################################################
 ###############################################################
+
 
 def screen_init():
     pygame.font.init()
@@ -139,18 +136,23 @@ def screen_init():
 #################################################################
 
 
-def get_scale(dims):
-    # w, h = dims
-    """
-    * HANDLE FULLSCREEN LOGIC,
-    * calculate 'SCA' scalar accordingly to user's display
-    """
-    mindim = min(dims)
-    scale = mindim // C.TILES_RANGE // C.TILE_SIZE  # round_down  # capitals?
-    print("scale:", scale)
-    # test! vary! check tiling!
+def get_tile_size():
+    # HARDCODED !!
+    file = hexstack.folder + "Desert.png"
+    img = pygame.image.load(file).convert_alpha()
+    a,b = img.get_size()
+    assert a == b
+    return a
+
+
+def get_scale(dimensions, tile_size, board_size=C.TILES_RANGE):
+    """ FULLSCREEN: Calculates scale to adjust user's display. """
+    scale = min(dimensions) // board_size // tile_size
+    """ Rounded down by integer division. """
     scale = 1 if scale == 0 else scale
+    print("Got scale:", scale)
     return scale
+
 
 """
 def surf_init(W, H, SCALE):
@@ -162,10 +164,11 @@ def surf_init(W, H, SCALE):
 
 
 def get_coords_font():
-    return pygame.font.SysFont('Comic Sans MS', C.COORD_TILES_FONT_SIZE)
+    return pygame.font.SysFont('Comic Sans MS', C.CoordTiles.FONT_SIZE)
+
 
 def get_yield_font():
-    return pygame.font.SysFont('Comic Sans MS', C.TILE_YIELD_OVERLAY_FONT_SIZE)
+    return pygame.font.SysFont('Comic Sans MS', C.TileYield.OVERLAY_FONT_SIZE)
 
 
 ############################################
