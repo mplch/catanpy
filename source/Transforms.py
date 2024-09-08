@@ -1,4 +1,4 @@
-import constants as C
+import source.constants as C
 
 # hex | pix | abs
 # display coords dsp (?) NO.

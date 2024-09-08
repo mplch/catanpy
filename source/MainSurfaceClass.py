@@ -3,6 +3,7 @@ from random import randint
 
 import source.constants as C
 import source.pieces as pieces
+import source.Transforms as transforms
 from source.tiletype import TileType
 from source.fonttype import FontType
 
@@ -92,34 +93,12 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
         self.surf_board.blit(text_surface, dest_coords)
 
     def place_hex(self, tile_type: TileType, hex_coords):
-        c, r = hex_coords
         plate, cake = tile_type.tuple
-        plate = pieces.folder_plates + plate
-        cake = pieces.folder_cakes + cake
-        x_off, y_off = 200, 5
-        # uz si nepamatuji, co melo byt con,
-        # connect urcite ne, conformation...nevim
-        hor_con, ver_con = 10, 6
-        do_shift_first_column_down = 1  # bool 0 or 1
-        if c % 2 == do_shift_first_column_down:
-            x = x_off + c * (self.tile_size - hor_con)
-            y = y_off + r * (self.tile_size - ver_con)
-            self.put_tile(plate, (x, y))
-            self.put_tile(cake, (x, y))
-            # self.coord_print_tile(c, r, x, y)
-            # self.tile_yield_overlay((x,y), get_dice_roll())  # Default par
-
-            ### FUNCTION ASSEMBLY
-            # put together beforehands, whould all should happen while placement
-
-        else:
-            x = x_off + c * (self.tile_size - hor_con)
-            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.TO_BE_REMOVED
-            self.put_tile(plate, (x, y))
-            self.put_tile(cake, (x, y))
-            # self.coord_print_tile(c, r, x, y)
-            # self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
-        # return surf_board
+        ## THESE ARE FILE NAMES, NOT IMAGES
+        self.blit2(plate, transforms.hex2pix(hex_coords, self.tile_size))
+        self.blit2(cake, transforms.hex2pix(hex_coords, self.tile_size))
+        # self.coord_print_tile(c, r, x, y)
+        # self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
 
 
     ### DUPLICIT FUNCTION !!!
