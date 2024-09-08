@@ -6,7 +6,7 @@
 import pygame
 from sys import exit as sys_exit
 import source.mapgen as mapgen
-import source.render as render
+import source.MainSurfaceClass as render
 import source.gui_manager as gui_man
 
 # ----- NOTES ---------------------------------------------------------
@@ -18,23 +18,15 @@ import source.gui_manager as gui_man
 * NOMENCLATURE: Tile, hex, circle (cake), ring.
 * DOCUMENTATION? < graphical OVERVIEW
 * hexcoords & tilecoords = pixelcoords & displaycoords
+* FUNCTION ASSEMBLY
+* put together beforehand, what all should happen during the placement
+* EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
 """
 
 # ----- TODO ----------------------------------------------------------
 
 """
-(*) render.py:
-put_tile():
-    * Image CACHING
-    * Load all images just once, then just copy them
-get_scale():
-    * Test! vary! check tiling!
-* RESTRUCTURE place_hex and put_tile and print_coords function
-* Use of STATIC functions instead of methods
-* TEMPLATE tiles ponechat ciste jako ilustrativni
-  --> assertovat spravnost kazde krajiny (jak?
-* Function SEPARATION, consider more FILES
-* Argument order CONSISTENCY, e.g. coords
+
 """
 
 # ----- CONSTANTS -----------------------------------------------------
@@ -48,9 +40,12 @@ screen = render.screen_init()
 dims = screen.get_size()
 mSurface = render.MainSurface(dims)
 mapgen.draw_map_def_hex_v2(mSurface)
+
 mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
 mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
 mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
+# gui_man.testing_cards()
+
 mSurface.scale_by()
 screen.blit(mSurface.surf_board, (0,0))
 

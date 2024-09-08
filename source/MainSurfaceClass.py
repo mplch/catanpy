@@ -10,9 +10,18 @@ from source.fonttype import FontType
 # ----- NOTES ---------------------------------------------------------
 
 """
-*
-*
-*
+(*) MainSurfaceClass.py:
+put_tile():
+    * Image CACHING
+    * Load all images just once, then just copy them
+get_scale():
+    * Test! vary! check tiling!
+* RESTRUCTURE place_hex and put_tile and print_coords function
+* Use of STATIC functions instead of methods
+* TEMPLATE tiles ponechat ciste jako ilustrativni
+  --> assertovat spravnost kazde krajiny (jak?
+* Function SEPARATION, consider more FILES
+* Argument order CONSISTENCY, e.g. coords
 """
 
 # ----- BODY ----------------------------------------------------------
@@ -66,6 +75,9 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
         # img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
 
+    def blit2(self, image, coords: tuple[int, int]):  # image type?
+        self.surf_board.blit(image, coords)
+
     def coord_print_tile(self, c, r, x, y):  # Coords CONDENSATION !
         my_font = get_coords_font()
         text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
@@ -102,7 +114,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
 
         else:
             x = x_off + c * (self.tile_size - hor_con)
-            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.PLACE_HEX_VERTICAL_OFFSET
+            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.TO_BE_REMOVED
             self.put_tile(plate, (x, y))
             self.put_tile(cake, (x, y))
             # self.coord_print_tile(c, r, x, y)
