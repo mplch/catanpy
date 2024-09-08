@@ -4,6 +4,7 @@ from random import randint
 import source.constants as C
 import source.pieces as pieces
 from source.tiletype import TileType
+from source.fonttype import FontType
 
 
 # ----- NOTES ---------------------------------------------------------
@@ -30,8 +31,8 @@ def static_fun():
     pass
 
 
-class MySurface:
-    
+class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurface??
+
     tile_size = 0
     w = 0
     h = 0
@@ -44,7 +45,7 @@ class MySurface:
         self.w = wh[0] // self.scale
         self.h = wh[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
-        print("Info: MySurface: scale, W, H:", self.scale, self.w, self.h)
+        print("Info: MainSurface: scale, W, H:", self.scale, self.w, self.h)
 
     def create(self):
         # !!! surface init
@@ -56,15 +57,14 @@ class MySurface:
         self.surf_board = pygame.transform.scale_by(
             self.surf_board, (scale, scale)
         )
-        print("Info: MySurface: \"Scaling by factor of\"", scale)
+        print("Info: MainSurface: \"Scaling by factor of\"", scale)
 
     def put_tile(self, file_path, coords):
         img = pygame.image.load(file_path).convert_alpha()
-        img = pygame.transform.rotate(img, 0)
+        # img = pygame.transform.rotate(img, 0)
         self.surf_board.blit(img, coords)
 
-
-    def coord_print_tile(self, c, r, x, y):
+    def coord_print_tile(self, c, r, x, y):  # Coords CONDENSATION !
         my_font = get_coords_font()
         text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
         dest_coords = (x + C.CoordTiles.X_OFFSET, y + C.CoordTiles.Y_OFFSET)
@@ -128,6 +128,14 @@ class MySurface:
             # self.put_tile(hextype, (x, y))
             # self.coord_print_tile(c, r, x, y)
             self.tile_yield_overlay((x, y), yield_number)
+
+    def put_text(self, pix_coords: tuple[int, int], text: str,
+                 font_size: int = 32, font_color: tuple[int, int, int] = (180, 180, 100)):
+        # Default argument into constants file
+        my_font = pygame.font.SysFont('Comic Sans MS', font_size)
+        text_surface = my_font.render(text, False, font_color)
+        self.surf_board.blit(text_surface, pix_coords)
+        return
 
 ################################################################
 ###############################################################
