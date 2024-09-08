@@ -40,7 +40,9 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
     surf_board = pygame.Surface((0, 0))
 
     def __init__(self, wh):
-        self.tile_size = get_tile_size(pieces.folder_cakes+"Template_Cake"+".png")
+        # HArdcoded
+        self.tile_size = get_tile_size(pieces.folder_cakes+"Field"+".png")
+        #
         self.scale = get_scale(wh, self.tile_size)
         self.w = wh[0] // self.scale
         self.h = wh[1] // self.scale
@@ -100,7 +102,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
 
         else:
             x = x_off + c * (self.tile_size - hor_con)
-            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.PLACE_HEX_MAGIC
+            y = y_off + r * (self.tile_size - ver_con) + self.tile_size // 2 - C.PLACE_HEX_VERTICAL_OFFSET
             self.put_tile(plate, (x, y))
             self.put_tile(cake, (x, y))
             # self.coord_print_tile(c, r, x, y)

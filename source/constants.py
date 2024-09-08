@@ -3,7 +3,11 @@
 # TILE_SIZE = 46  # shouldn't be needed
 TILES_RANGE = 7
 
-PLACE_HEX_MAGIC = 3  # magic number 3 ?!
+PLACE_HEX_VERTICAL_OFFSET = 3
+# magic number 3 ?!
+# I doubt I will be able to calculate it
+# As it results from hex geometry.. How?
+# Could be half ... width ... strip | maybe edge rise?
 
 YIELDS_DO_RANDOM_SHUFFLE = False
 
