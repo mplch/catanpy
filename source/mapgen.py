@@ -56,7 +56,7 @@ def draw_map_def_hex_inner_land(my_surface):
     for coords in get_inner_ring_hexcoords():
         cake_type = pieces.cake_stack.pop()
         cake_type += ".png"
-        hex_type = TileType("Field.png", cake_type)
+        hex_type = TileType("Field_.png", cake_type)
         my_surface.place_hex(hex_type, coords)
 
 
