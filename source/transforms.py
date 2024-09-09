@@ -5,6 +5,9 @@ import source.constants as C
 
 
 def hex2pix(hex_coords, tile_size):
+    # How to get default parameter from main surface clas??
+    # Complication: Cyclic import
+    # Maybe there is no better solution than to insert this function UNDER MainSurface class
 
     c, r = hex_coords
 

@@ -24,6 +24,7 @@ import source.sprites as sprites
   EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
 * SPRITES vs PIECES modules COLLISION --> unite
 * SEA CAKE (?)
+* Transforms: Hex2Pix: tile_size get default parameter from MainSurface class?
 """
 
 # ----- TODO ----------------------------------------------------------

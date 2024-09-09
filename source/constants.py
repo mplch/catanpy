@@ -19,9 +19,9 @@ VER_CON = 6
 
 YIELDS_DO_RANDOM_SHUFFLE = True
 
-
 DEFAULT_IMAGE_SUFFIX = ".png"
 
+DEFAULT_FONT = "Comic Sans MS"
 
 # class CoordTiles(Enum):
 class CoordTiles:
