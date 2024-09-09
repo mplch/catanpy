@@ -5,8 +5,8 @@ import source.constants as C
 
 cake_stack = []
 
-folder_plates = "textures/pieces/plates/"
-folder_cakes = "textures/pieces/cakes/"
+folder_plates = "textures/plates/"
+folder_cakes = "textures/cakes/"
 
 cake_dir = {
     "Clay_pit": 3,
@@ -72,6 +72,8 @@ for key, val in yield_dir.items():
 if C.YIELDS_DO_RANDOM_SHUFFLE:
     shuffle(yield_stack)
 else:
+    """ places yield in columns """
+
     letters = """
 A = 5
 B = 2
@@ -91,7 +93,8 @@ O = 5
 P = 6
 Q = 3
 R = 11
-""".strip('\n').split('\n')
+_ = 0
+""".strip('\n').split('\n')  # Desert ZERO !!!
 
     # for i in letters: print(i)
     # print(letters)
@@ -102,6 +105,8 @@ R = 11
         new = oc[4:]
         # print(new)
         numbers.append(new)
+
+    yield_stack = numbers
 
     # tady je jen problem, ze musim zetony
     # polozit ve spravnem poradi

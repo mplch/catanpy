@@ -3,14 +3,25 @@
 # TILE_SIZE = 46  # shouldn't be needed
 TILES_RANGE = 7
 
-PLACE_HEX_VERTICAL_OFFSET = 3
-# magic number 3 ?!
-# I doubt I will be able to calculate it
-# As it results from hex geometry.. How?
-# Could be half ... width ... strip | maybe edge rise?
+TO_BE_REMOVED = 3  # !!
 
-YIELDS_DO_RANDOM_SHUFFLE = False
+DO_SHIFT_FIRST_COLUMN_DOWN = 1  # bool 0 or 1
 
+STRIP_HEIGHT = 6  # I believe I am correct.
+
+""" Map offset in pixels (before scaling up) """
+MAP_OFF_PIX_X = 200
+MAP_OFF_PIX_Y = 5
+
+""" What was the MEANING of the name?! """
+HOR_CON = 10
+VER_CON = 6
+
+YIELDS_DO_RANDOM_SHUFFLE = True
+
+DEFAULT_IMAGE_SUFFIX = ".png"
+
+DEFAULT_FONT = "Comic Sans MS"
 
 # class CoordTiles(Enum):
 class CoordTiles:
@@ -21,7 +32,7 @@ class CoordTiles:
 
 
 class TileYield:
-    OVERLAY_FONT_SIZE = 24
+    OVERLAY_FONT_SIZE = 24  # NESIKOVNY NAZEV
     OVERLAY_FONT_COLOR = (100, 0, 0)
     OVERLAY_X_OFFSET = 14
     OVERLAY_Y_OFFSET = 20
