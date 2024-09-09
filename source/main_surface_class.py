@@ -7,6 +7,7 @@ import source.Transforms as transforms
 import source.sprites as sprites
 from source.tiletype import TileType
 from source.fonttype import FontType
+from source.sprites import Atlas
 
 CAKES = "cakes"
 PLATES = "plates"
@@ -51,6 +52,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
     h = 0
     scale = 0
     surf_board = pygame.Surface((0, 0))
+    s_atlas = None
 
     def __init__(self, wh):
         # HArdcoded
@@ -61,6 +63,9 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.h = wh[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
         print("Info: main_surface: scale, W, H:", self.scale, self.w, self.h)
+
+    def set_atlas(self, s_atlas: Atlas):
+        self.s_atlas = s_atlas
 
     def create(self):
         # !!! surface init
@@ -98,8 +103,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
     def place_hex(self, tile_type: TileType, hex_coords):
         plate, cake = tile_type.tuple
         ## THESE ARE FILE NAMES, NOT IMAGES
-        plate = sprites.atlas[PLATES][plate]
-        cake = sprites.atlas[CAKES][cake]
+        plate = self.s_atlas.atlas_dict[PLATES][plate]
+        cake = self.s_atlas.atlas_dict[CAKES][cake]
         self.blit2(plate, transforms.hex2pix(hex_coords, self.tile_size))
         self.blit2(cake, transforms.hex2pix(hex_coords, self.tile_size))
         # self.coord_print_tile(c, r, x, y)

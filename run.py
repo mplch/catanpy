@@ -23,6 +23,7 @@ import source.sprites as sprites
   put together beforehand, what all should happen during the placement
   EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
 * SPRITES vs PIECES modules COLLISION --> unite
+* SEA CAKE (?)
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -40,16 +41,11 @@ import source.sprites as sprites
 pygame.init()
 screen = main_surface.screen_init()
 dims = screen.get_size()
+
 mSurface = main_surface.MainSurface(dims)  # Name Collision !
-
-sprites.atlas["cakes"] = sprites.cakes_init(sprites.cakes_list)
-
-plates = ["Sea", "Land"]
-sprites.atlas["plates"] = sprites.sprite_list_init(plates, "textures/plates/")
-
-for item in sprites.atlas.items():
-    print(item)
-    print()
+atlas = sprites.Atlas()
+atlas.init_all()
+mSurface.set_atlas(atlas)
 
 mapgen.draw_map_def_hex_v2(mSurface)
 
