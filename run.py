@@ -53,7 +53,18 @@ mapgen.draw_map_def_hex_v2(mSurface)
 mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
 mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
 mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
-# gui_man.testing_cards()
+
+# gui_man.testing_cards()  # Unable to use because of surface.. :/
+
+CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
+CARD_BETWEEN_OFFSET = 5
+card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
+x = mSurface.w // 3
+y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
+for name, card in atlas.atlas_dict["cards"].items():
+    x = x + card_wh[0] + CARD_BETWEEN_OFFSET
+    card_coords = (x, y)
+    mSurface.blit2(card, card_coords)
 
 mSurface.scale_by()
 screen.blit(mSurface.surf_board, (0,0))

@@ -111,16 +111,19 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
         self.surf_board.blit(text_surface, dest_coords)
 
-    # def coord_print_tile(self, hex_coords, dest_pix_coords: xy_c.XY):  # Coords CONDENSATION !
-    #     c, r = hex_coords
-    #     my_font = get_font(C.CoordTiles.FONT_SIZE)
-    #     text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
-    #     # dest_pix_coords[0] += C.CoordTiles.X_OFFSET
-    #     # dest_pix_coords[1] += C.CoordTiles.Y_OFFSET
-    #     # self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
-    #     dest_pix_coords.x += C.CoordTiles.X_OFFSET
-    #     dest_pix_coords.y += C.CoordTiles.Y_OFFSET
-    #     self.surf_board.blit(text_surface, dest_pix_coords.xy)
+    def coord_print_tile(self, hex_coords: tuple[int, int]):
+    # def coord_print_tile(self, hex_coords, dest_pix_coords: xy_c.XY):
+        c, r = hex_coords
+        my_font = get_font(C.CoordTiles.FONT_SIZE)
+        text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
+        dest_pix_coords = transforms.hex2pix(hex_coords, self.tile_size)
+        dest_pix_coords[0] += C.CoordTiles.X_OFFSET
+        dest_pix_coords[1] += C.CoordTiles.Y_OFFSET
+        self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
+        """ Nelze pouzit, protoze (x,y) = xy, xy = (0,0) !!!! """
+        # dest_pix_coords.x += C.CoordTiles.X_OFFSET
+        # dest_pix_coords.y += C.CoordTiles.Y_OFFSET
+        # self.surf_board.blit(text_surface, dest_pix_coords.xy)
 
 # ---------------------------------------------------------------------
 

@@ -4,6 +4,7 @@ import source.constants as C
 
 PLATES = "plates"
 CAKES = "cakes"
+CARDS = "cards"
 
 
 def load_sprite(file_path: str):
@@ -31,6 +32,11 @@ class Atlas:
         plate_names = ["Sea", "Land"]
         self.atlas_dict[PLATES] = sprite_list_init(plate_names, "textures/plates/")
         self.atlas_dict[CAKES] = sprite_list_init(cakes_list, "textures/cakes/")
+
+        card_names = [
+            "Brick", "Rock", "Sheep", "Wood", "Wheat", "Template"
+        ]
+        self.atlas_dict[CARDS] = sprite_list_init(card_names, "textures/cards/")
 
 
 if __name__ == "__main__":
