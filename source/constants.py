@@ -20,6 +20,9 @@ VER_CON = 6
 YIELDS_DO_RANDOM_SHUFFLE = True
 
 
+DEFAULT_IMAGE_SUFFIX = ".png"
+
+
 # class CoordTiles(Enum):
 class CoordTiles:
     FONT_SIZE: int = 18

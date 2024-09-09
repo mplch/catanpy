@@ -43,7 +43,8 @@ def get_inner_ring_hexcoords():
 
 def draw_map_def_hex_outer_ocean(my_surface):
 
-    outer = "Sea.png"
+    # outer = "Sea.png"
+    outer = "Sea"
     outer = TileType(outer, outer)
 
     outer_ring = get_outer_ring_hexcoords()
@@ -55,8 +56,9 @@ def draw_map_def_hex_outer_ocean(my_surface):
 def draw_map_def_hex_inner_land(my_surface):
     for coords in get_inner_ring_hexcoords():
         cake_type = pieces.cake_stack.pop()
-        cake_type += ".png"
-        hex_type = TileType("Field_.png", cake_type)
+        # cake_type += ".png"
+        # hex_type = TileType("Land.png", cake_type)
+        hex_type = TileType("Land", cake_type)
         my_surface.place_hex(hex_type, coords)
 
 

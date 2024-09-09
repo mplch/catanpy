@@ -4,14 +4,17 @@ from random import randint
 import source.constants as C
 import source.pieces as pieces
 import source.Transforms as transforms
+import source.sprites as sprites
 from source.tiletype import TileType
 from source.fonttype import FontType
 
+CAKES = "cakes"
+PLATES = "plates"
 
 # ----- NOTES ---------------------------------------------------------
 
 """
-(*) MainSurfaceClass.py:
+(*) main_surface_class.py:
 put_tile():
     * Image CACHING
     * Load all images just once, then just copy them
@@ -41,7 +44,7 @@ def static_fun():
     pass
 
 
-class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurface??
+class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSurface??
 
     tile_size = 0
     w = 0
@@ -57,7 +60,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
         self.w = wh[0] // self.scale
         self.h = wh[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
-        print("Info: MainSurface: scale, W, H:", self.scale, self.w, self.h)
+        print("Info: main_surface: scale, W, H:", self.scale, self.w, self.h)
 
     def create(self):
         # !!! surface init
@@ -69,7 +72,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
         self.surf_board = pygame.transform.scale_by(
             self.surf_board, (scale, scale)
         )
-        print("Info: MainSurface: \"Scaling by factor of\"", scale)
+        print("Info: main_surface: \"Scaling by factor of\"", scale)
 
     def put_tile(self, file_path, coords):
         img = pygame.image.load(file_path).convert_alpha()
@@ -95,6 +98,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? MainSurface? ScreenSurf
     def place_hex(self, tile_type: TileType, hex_coords):
         plate, cake = tile_type.tuple
         ## THESE ARE FILE NAMES, NOT IMAGES
+        plate = sprites.atlas[PLATES][plate]
+        cake = sprites.atlas[CAKES][cake]
         self.blit2(plate, transforms.hex2pix(hex_coords, self.tile_size))
         self.blit2(cake, transforms.hex2pix(hex_coords, self.tile_size))
         # self.coord_print_tile(c, r, x, y)

@@ -6,21 +6,23 @@
 import pygame
 from sys import exit as sys_exit
 import source.mapgen as mapgen
-import source.MainSurfaceClass as render
+import source.main_surface_class as main_surface
 import source.gui_manager as gui_man
+import source.sprites as sprites
 
 # ----- NOTES ---------------------------------------------------------
 
 """
 * pygame --> proper WINDOW startup?
 * set funkci pro TRANSFORMACI souradnic
-* CENTRICKE souradnice? : Asi spis neni nutne..
+  CENTRICKE souradnice? : Asi spis neni nutne..
 * NOMENCLATURE: Tile, hex, circle (cake), ring.
-* DOCUMENTATION? < graphical OVERVIEW
+  DOCUMENTATION? < graphical OVERVIEW
 * hexcoords & tilecoords = pixelcoords & displaycoords
 * FUNCTION ASSEMBLY
-* put together beforehand, what all should happen during the placement
-* EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
+  put together beforehand, what all should happen during the placement
+  EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
+* SPRITES vs PIECES modules COLLISION --> unite
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -36,9 +38,19 @@ import source.gui_manager as gui_man
 # ----- SETUP ---------------------------------------------------------
 
 pygame.init()
-screen = render.screen_init()
+screen = main_surface.screen_init()
 dims = screen.get_size()
-mSurface = render.MainSurface(dims)
+mSurface = main_surface.MainSurface(dims)  # Name Collision !
+
+sprites.atlas["cakes"] = sprites.cakes_init(sprites.cakes_list)
+
+plates = ["Sea", "Land"]
+sprites.atlas["plates"] = sprites.sprite_list_init(plates, "textures/plates/")
+
+for item in sprites.atlas.items():
+    print(item)
+    print()
+
 mapgen.draw_map_def_hex_v2(mSurface)
 
 mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
