@@ -33,11 +33,11 @@ get_scale():
 # ----- BODY ----------------------------------------------------------
 
 
-def get_dice_roll():
-    dice1 = randint(2, 6)
-    dice2 = randint(2, 6)
-    roll = dice1 + dice2
-    return roll
+# def get_dice_roll():
+#     dice1 = randint(2, 6)
+#     dice2 = randint(2, 6)
+#     roll = dice1 + dice2
+#     return roll
 
 
 def static_fun():
@@ -84,36 +84,6 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         # Is this function necessary?
         self.surf_board.blit(image, coords)
 
-    # def coord_print_tile(self, hex_coords, dest_pix_coords: xy_c.XY):  # Coords CONDENSATION !
-    #     c, r = hex_coords
-    #     my_font = get_coords_font()
-    #     text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
-    #     # dest_pix_coords[0] += C.CoordTiles.X_OFFSET
-    #     # dest_pix_coords[1] += C.CoordTiles.Y_OFFSET
-    #     # self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
-    #     dest_pix_coords.x += C.CoordTiles.X_OFFSET
-    #     dest_pix_coords.y += C.CoordTiles.Y_OFFSET
-    #     self.surf_board.blit(text_surface, dest_pix_coords.xy)
-
-
-
-    # def tile_yield_overlay(self, coords: tuple, yield_number):
-    #     x, y = coords
-    #     my_font = get_yield_font()
-    #     text_surface = my_font.render(str(yield_number), False, C.TileYield.OVERLAY_FONT_COLOR)
-    #     dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
-    #     self.surf_board.blit(text_surface, dest_coords)
-
-    def place_yield(self, hex_coords, yield_number):
-        x, y = transforms.hex2pix(hex_coords, self.tile_size)
-        my_font = get_yield_font()
-        text_surface = my_font.render(str(yield_number), False, C.TileYield.OVERLAY_FONT_COLOR)
-        dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
-        self.surf_board.blit(text_surface, dest_coords)
-        # self.tile_yield_overlay(transforms.hex2pix(hex_coords, self.tile_size), yield_number)
-
-
-
     def place_hex(self, tile_type: TileType, hex_coords):
         plate, cake = tile_type.tuple
         # Convert name into image:
@@ -134,8 +104,25 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         text_surface = my_font.render(text, False, font_color)
         self.surf_board.blit(text_surface, pix_coords)
 
-################################################################
-###############################################################
+    def place_yield(self, hex_coords, yield_number):
+        x, y = transforms.hex2pix(hex_coords, self.tile_size)
+        my_font = get_font(C.TileYield.OVERLAY_FONT_SIZE)
+        text_surface = my_font.render(str(yield_number), False, C.TileYield.OVERLAY_FONT_COLOR)
+        dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
+        self.surf_board.blit(text_surface, dest_coords)
+
+    # def coord_print_tile(self, hex_coords, dest_pix_coords: xy_c.XY):  # Coords CONDENSATION !
+    #     c, r = hex_coords
+    #     my_font = get_font(C.CoordTiles.FONT_SIZE)
+    #     text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
+    #     # dest_pix_coords[0] += C.CoordTiles.X_OFFSET
+    #     # dest_pix_coords[1] += C.CoordTiles.Y_OFFSET
+    #     # self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
+    #     dest_pix_coords.x += C.CoordTiles.X_OFFSET
+    #     dest_pix_coords.y += C.CoordTiles.Y_OFFSET
+    #     self.surf_board.blit(text_surface, dest_pix_coords.xy)
+
+# ---------------------------------------------------------------------
 
 
 def screen_init():
@@ -144,7 +131,6 @@ def screen_init():
     W, H = screen.get_size()
     print(f"Screen size: {W} x {H}")
     return screen
-#################################################################
 
 
 def get_tile_size(template_tile_file_path):
@@ -163,27 +149,15 @@ def get_scale(dimensions, tile_size, board_size=C.TILES_RANGE):
     return scale
 
 
-"""
-def surf_init(W, H, SCALE):
-    
-    surf_board = pygame.Surface((W // SCALE, H // SCALE))
-    print(surf_board.get_size())
-    return surf_board
-"""
+def get_font(font_size: int, font_name=C.DEFAULT_FONT):
+    # Also just wrap / RENAME function, but I'm perfectly fine with that.
+    return pygame.font.SysFont(font_name, font_size)
 
 
-def get_coords_font():
-    return pygame.font.SysFont('Comic Sans MS', C.CoordTiles.FONT_SIZE)
+# ---------------------------------------------------------------------
 
+''' ######     GUI BOTTOM BAR    ######
 
-def get_yield_font():
-    return pygame.font.SysFont('Comic Sans MS', C.TileYield.OVERLAY_FONT_SIZE)
-
-
-############################################
-
-
-'''
 def window_postinit(screen, surf_board):
     """ ---> This is the correct approach, but need to downscale bar.png
     # bottom_bar

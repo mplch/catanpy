@@ -32,7 +32,7 @@ class CoordTiles:
 
 
 class TileYield:
-    OVERLAY_FONT_SIZE = 24
+    OVERLAY_FONT_SIZE = 24  # NESIKOVNY NAZEV
     OVERLAY_FONT_COLOR = (100, 0, 0)
     OVERLAY_X_OFFSET = 14
     OVERLAY_Y_OFFSET = 20

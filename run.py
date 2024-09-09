@@ -41,9 +41,9 @@ import source.sprites as sprites
 
 pygame.init()
 screen = main_surface.screen_init()
-dims = screen.get_size()
+dimensions = screen.get_size()
 
-mSurface = main_surface.MainSurface(dims)  # Name Collision !
+mSurface = main_surface.MainSurface(dimensions)  # Name Collision !
 atlas = sprites.Atlas()
 atlas.init_all()
 mSurface.set_atlas(atlas)
