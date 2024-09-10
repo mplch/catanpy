@@ -55,13 +55,13 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
     surf_board = pygame.Surface((0, 0))
     s_atlas = None  # just do differ from atlas instance in run.py
 
-    def __init__(self, wh):
+    def __init__(self, dimensions):
         # Hardcoded
         self.tile_size = get_tile_size(pieces.folder_cakes+"Field"+".png")
         #
-        self.scale = get_scale(wh, self.tile_size)
-        self.w = wh[0] // self.scale
-        self.h = wh[1] // self.scale
+        self.scale = get_scale(dimensions, self.tile_size)
+        self.w = dimensions[0] // self.scale
+        self.h = dimensions[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
         print("Info: main_surface: scale, W, H:", self.scale, self.w, self.h)
 
@@ -143,9 +143,10 @@ def get_tile_size(template_tile_file_path):
     return a
 
 
-def get_scale(dimensions, tile_size, board_size=C.TILES_RANGE):
+def get_scale(dimensions, tile_size_pix, board_size_hex=C.HEX_MAP_SIZE):
     """ FULLSCREEN: Calculates scale to adjust user's display. """
-    scale = min(dimensions) // board_size // tile_size
+    board_size_pix = board_size_hex * tile_size_pix
+    scale = min(dimensions) // board_size_pix
     """ Rounded down by integer division. """
     scale = 1 if scale == 0 else scale
     print("Got scale:", scale)

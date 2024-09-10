@@ -14,17 +14,19 @@ import source.sprites as sprites
 
 """
 * pygame --> proper WINDOW startup?
-* set funkci pro TRANSFORMACI souradnic
-  CENTRICKE souradnice? : Asi spis neni nutne..
 * NOMENCLATURE: Tile, hex, circle (cake), ring.
   DOCUMENTATION? < graphical OVERVIEW
 * hexcoords & tilecoords = pixelcoords & displaycoords
-* FUNCTION ASSEMBLY
-  put together beforehand, what all should happen during the placement
-  EDIT: Using unified Transforms in those (separate) function might actually be a better solution.
+* -function-assembly- --> TRANSFORMS. (All-in-one placement? Tile+Overlay)
 * SPRITES vs PIECES modules COLLISION --> unite
 * SEA CAKE (?)
 * Transforms: Hex2Pix: tile_size get default parameter from MainSurface class?
+* From source.FileClass import *  --> class_file.ClassName() becomes just ClassName()
+* NOMENCLATURE: Size? Pix, hex.. (Abs/Scr/Dsp)  -->  Coordinates & Position?
+* transforms.py >> set funkci pro vypocet position of spritu pro edges and vertices (nodes)
+* SCALING: There are no fixed dimensions : MainSurface (Canvas?) gets scaled down
+  accordingly to user's display, so that all pixels are scaled by an INTEGER NUMBER
+  TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -40,10 +42,9 @@ import source.sprites as sprites
 # ----- SETUP ---------------------------------------------------------
 
 pygame.init()
-screen = main_surface.screen_init()
-dimensions = screen.get_size()
+screen = main_surface.screen_init()  # separate to file screen.py
+mSurface = main_surface.MainSurface(dimensions=screen.get_size())  # Name Collision !
 
-mSurface = main_surface.MainSurface(dimensions)  # Name Collision !
 atlas = sprites.Atlas()
 atlas.init_all()
 mSurface.set_atlas(atlas)

@@ -1,7 +1,7 @@
 # from enum import Enum
 
 # TILE_SIZE = 46  # shouldn't be needed
-TILES_RANGE = 7
+HEX_MAP_SIZE = 7
 
 TO_BE_REMOVED = 3  # !!
 
