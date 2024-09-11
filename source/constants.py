@@ -20,8 +20,8 @@ DO_SHIFT_FIRST_COLUMN_DOWN = False
 """ Map offset in pixels (before scaling up) """
 MAP_OFF_PIX_X = 200  # need to make DYNAMIC
 MAP_OFF_PIX_Y = 5
-MAP_OFF_PIX_X = 0
-MAP_OFF_PIX_Y = 0
+MAP_OFF_PIX_X = 8
+MAP_OFF_PIX_Y = 8
 
 
 YIELDS_DO_RANDOM_SHUFFLE = True
