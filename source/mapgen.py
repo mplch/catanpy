@@ -53,12 +53,14 @@ def draw_map_def_hex_outer_ocean(my_surface):
         my_surface.place_hex(outer, coords)
 
 
+# Hezkyy, tohle je vlastne funkce, ktera modifikuje objekt "z vnejsku"
 def draw_map_def_hex_inner_land(my_surface):
     for coords in get_inner_ring_hexcoords():
         cake_type = pieces.cake_stack.pop()
         # cake_type += ".png"
         # hex_type = TileType("Land.png", cake_type)
-        hex_type = TileType("Land", cake_type)
+        # hex_type = TileType("Land", cake_type)
+        hex_type = TileType("TemPlate", cake_type)
         my_surface.place_hex(hex_type, coords)
 
 

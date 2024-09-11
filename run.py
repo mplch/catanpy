@@ -60,6 +60,7 @@ mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
 CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
 CARD_BETWEEN_OFFSET = 5
 card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
+# print("cards wh", card_wh)
 x = mSurface.w // 3
 y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
 for name, card in atlas.atlas_dict["cards"].items():

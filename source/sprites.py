@@ -2,6 +2,7 @@ from pygame import image as pyg_img
 
 import source.constants as C
 
+TEXTURES = "textures"
 PLATES = "plates"
 CAKES = "cakes"
 CARDS = "cards"
@@ -21,22 +22,37 @@ def sprite_list_init(sprites_list, sprite_folder, suffix=C.DEFAULT_IMAGE_SUFFIX)
     return temp
 
 
+def get_sprite_folder(sprite_type: str):
+    return TEXTURES + '/' + sprite_type + '/'
+
+
 class Atlas:
     # class Atlas(dict):  # (?)
     atlas_dict = dict()
 
     def init_all(self):
-        cakes_list = [  # TEMPORARY
-            "Clay_pit", "Desert", "Field", "Forest", "Mountains", "Pasture", "Sea"
-        ]
-        plate_names = ["Sea", "Land"]
-        self.atlas_dict[PLATES] = sprite_list_init(plate_names, "textures/plates/")
-        self.atlas_dict[CAKES] = sprite_list_init(cakes_list, "textures/cakes/")
+        
+        # NAME LISTS ARE TEMPORARY
+        
+        self.atlas_dict[PLATES] = sprite_list_init(
+            ["Sea", "Land", "TemPlate"],
+            get_sprite_folder(PLATES)
+        )
+        
+        self.atlas_dict[CAKES] = sprite_list_init(
+            ["Clay_pit", "Desert", "Field", "Forest", "Mountains", "Pasture", "Sea"],
+            get_sprite_folder(CAKES)
+        )
 
-        card_names = [
-            "Brick", "Rock", "Sheep", "Wood", "Wheat", "Template"
-        ]
-        self.atlas_dict[CARDS] = sprite_list_init(card_names, "textures/cards/")
+        self.atlas_dict[CARDS] = sprite_list_init(
+            ["Brick", "Rock", "Sheep", "Wood", "Wheat", "Template"],
+            get_sprite_folder(CARDS)
+        )
+        
+        self.atlas_dict["nodes"] = sprite_list_init(
+            ["node_left"],
+            get_sprite_folder("nodes")
+        )
 
 
 if __name__ == "__main__":
