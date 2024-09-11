@@ -12,13 +12,13 @@ def hex2pix(hex_coords, tile_size):
     c, r = hex_coords
 
     if c % 2 == C.DO_SHIFT_FIRST_COLUMN_DOWN:
-        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HOR_CON)
-        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.VER_CON)
+        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
+        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.HEX_OVERLAP_Y)
         pix_coords = (x, y)
 
     else:
-        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HOR_CON)
-        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.VER_CON) + (tile_size - C.STRIP_HEIGHT) // 2
+        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
+        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.HEX_OVERLAP_Y) + (tile_size - C.STRIP_HEIGHT) // 2 + C.REMOVE
         pix_coords = (x, y)
 
     return pix_coords

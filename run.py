@@ -9,6 +9,7 @@ import source.mapgen as mapgen
 import source.main_surface_class as main_surface
 import source.gui_manager as gui_man
 import source.sprites as sprites
+import source.node_edge as node_edge
 
 # ----- NOTES ---------------------------------------------------------
 
@@ -51,9 +52,12 @@ mSurface.set_atlas(atlas)
 
 mapgen.draw_map_def_hex_v2(mSurface)
 
+node_edge.draw_nodes(mSurface)
+
 mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
 mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
 mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
+
 
 # gui_man.testing_cards()  # Unable to use because of surface.. :/
 
@@ -68,8 +72,10 @@ for name, card in atlas.atlas_dict["cards"].items():
     card_coords = (x, y)
     mSurface.blit2(card, card_coords)
 
+
 mSurface.scale_by()
-screen.blit(mSurface.surf_board, (0,0))
+screen.blit(mSurface.surf_board, (0, 0))
+
 
 # ----- EVENT LOOP ----------------------------------------------------
 

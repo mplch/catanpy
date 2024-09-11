@@ -1,27 +1,31 @@
-# from enum import Enum
-
-# TILE_SIZE = 46  # shouldn't be needed
 HEX_MAP_SIZE = 7
 
-TO_BE_REMOVED = 3  # !!
+TILE_SIZE = 46  # DYNAMIC ... BUT SHOULD BE??
+                # Musel bych udelat dynamicke i ostatni konstanty
+                # NO LONGER DYNAMIC
+STRIP_HEIGHT = 6
+HEX_HORI_EDGE_X = 26
+HEX_RISING_EDGE_X = 10
+HEX_RISING_EDGE_Y = 20
 
-DO_SHIFT_FIRST_COLUMN_DOWN = 1  # bool 0 or 1
+HEX_OVERLAP_X = 10 #8
+HEX_OVERLAP_Y = 6 #4
+REMOVE = 0 #1
 
-STRIP_HEIGHT = 6  # I believe I am correct.
+
+DO_SHIFT_FIRST_COLUMN_DOWN = False
 
 """ Map offset in pixels (before scaling up) """
 MAP_OFF_PIX_X = 200
 MAP_OFF_PIX_Y = 5
 
-""" What was the MEANING of the name?! """
-HOR_CON = 10
-VER_CON = 6
 
 YIELDS_DO_RANDOM_SHUFFLE = True
 
 DEFAULT_IMAGE_SUFFIX = ".png"
 
 DEFAULT_FONT = "Comic Sans MS"
+
 
 # class CoordTiles(Enum):
 class CoordTiles:

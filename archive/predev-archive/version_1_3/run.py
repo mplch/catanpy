@@ -66,17 +66,17 @@ s=5
 
 def draw_map_ocean(w, h):
     x_off, y_off = 450, 50
-    hor_con, ver_con = 8, 4
+    HEX_OVERLAP_X, HEX_OVERLAP_Y = 8, 4
     for c in range(w):
         if c % 2 == 0:
             for r in range(h):
-                x = x_off + c*(d-hor_con*s)
-                y = y_off + r*(d-ver_con*s)
+                x = x_off + c*(d-HEX_OVERLAP_X*s)
+                y = y_off + r*(d-HEX_OVERLAP_Y*s)
                 putTile(hx, (x,y))
         else:
             for r in range(h):
-                x = x_off + c*(d-hor_con*s)
-                y = y_off + r*(d-ver_con*s) + d//2 - 2*s
+                x = x_off + c*(d-HEX_OVERLAP_X*s)
+                y = y_off + r*(d-HEX_OVERLAP_Y*s) + d//2 - 2*s
                 putTile(hx, (x, y))
     """
     * nenapada me, jak nejak hezky udelat stridani...

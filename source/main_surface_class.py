@@ -57,7 +57,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
 
     def __init__(self, dimensions):
         # Hardcoded
-        self.tile_size = get_tile_size(pieces.folder_cakes+"Field"+".png")
+        # self.tile_size = get_tile_size(pieces.folder_cakes+"Field"+".png")
+        self.tile_size = C.TILE_SIZE
         #
         self.scale = get_scale(dimensions, self.tile_size)
         self.w = dimensions[0] // self.scale
