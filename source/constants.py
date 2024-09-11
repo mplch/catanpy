@@ -1,9 +1,11 @@
 HEX_MAP_SIZE = 7
+HEX_MAP_SIZE = 4
 
 TILE_SIZE = 46  # DYNAMIC ... BUT SHOULD BE??
                 # Musel bych udelat dynamicke i ostatni konstanty
                 # NO LONGER DYNAMIC
 STRIP_HEIGHT = 6
+HEX_HEIGHT = TILE_SIZE - STRIP_HEIGHT
 HEX_HORI_EDGE_X = 26
 HEX_RISING_EDGE_X = 10
 HEX_RISING_EDGE_Y = 20
@@ -16,8 +18,10 @@ REMOVE = 0 #1
 DO_SHIFT_FIRST_COLUMN_DOWN = False
 
 """ Map offset in pixels (before scaling up) """
-MAP_OFF_PIX_X = 200
+MAP_OFF_PIX_X = 200  # need to make DYNAMIC
 MAP_OFF_PIX_Y = 5
+MAP_OFF_PIX_X = 0
+MAP_OFF_PIX_Y = 0
 
 
 YIELDS_DO_RANDOM_SHUFFLE = True

@@ -1,5 +1,6 @@
 from pygame.transform import rotate
 
+# from source.constants import TILE_SIZE
 from source.main_surface_class import MainSurface
 import source.constants as C
 
@@ -47,7 +48,40 @@ Mozna to vidim tak, ze zas proste experimentalne vyladim offsety..
 NODE_H = 12
 NODE_W = 10
 NODE_STRIP = 2
+NODE_OVERLAP_X = 7
+NODE_GAP_X = 10
 
+def draw_nodes(my_surface: MainSurface):
+# def draw_nodes(surface: pygame.Surface):
+    node = my_surface.s_atlas.atlas_dict["nodes"]["node_left"]
+    node = rotate(node, 180)  # IF SHIFT 1ST COL
+    for node_coords in get_node_coords(my_surface.tile_size):
+        my_surface.blit2(node, node_coords)
+        node = rotate(node, 180)
+
+
+# DO_SHIFT_COLUMN !!!
+def get_node_coords(tile_size):
+    res = []
+    # for i in range(3+1):
+    for i in range(4):
+        x = C.MAP_OFF_PIX_X - NODE_STRIP + NODE_OVERLAP_X # + i * NODE_GAP_X
+        x += (i%2) * (-10)
+        y = C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT + i * C.HEX_HEIGHT//2
+
+        res.append((x, y))
+    print("NOde coords:", res)
+    return res
+
+
+# def flip(a):
+#     if a:
+#         return False
+#     return True
+
+
+
+"""
 def draw_nodes(my_surface: MainSurface):
 # def draw_nodes(surface: pygame.Surface):
     node = my_surface.s_atlas.atlas_dict["nodes"]["node_left"]
@@ -56,20 +90,20 @@ def draw_nodes(my_surface: MainSurface):
         if node_locations[1] == True:
             temp_node = rotate(node, 180)
         my_surface.blit2(temp_node, node_locations[0])
-    pass
 
 
 # DO_SHIFT_COLUMN !!!
 def get_node_locations(tile_size):
-    board_coords = [(0+NODE_STRIP, 0), (26, 0)]
+    board_coords = [(0-NODE_STRIP, 0), (26, 0)]
     rotations = [True, False]
     res = []
     for i, (a, rot) in enumerate(zip(board_coords, rotations)):
         x, y = 0, 0
-        x = a[0] + C.MAP_OFF_PIX_X + i * NODE_W
+        # x = a[0] + C.MAP_OFF_PIX_X + i * NODE_W
+        x = a[0] + C.MAP_OFF_PIX_X + NODE_OVERLAP_X + i * NODE_GAP_X
         # y = a[1] + C.MAP_OFF_PIX_Y + tile_size//2 - C.STRIP_HEIGHT - NODE_H//2
         y = a[1] + C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT
         # tady to pak asi vidim na novou classu
         res.append(((x, y), rot))
     return res
-    pass
+"""

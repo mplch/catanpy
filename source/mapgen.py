@@ -67,6 +67,14 @@ def draw_map_def_hex_v2(m):
     draw_map_def_hex_inner_land(m)
     draw_map_def_hex_yield_overlay(m)
 
+def draw_3by3(m):
+    for r in range(3):
+        for c in range(3):
+            coords = r,c
+            cake_type = pieces.cake_stack.pop()
+            hex_type = TileType("TemPlate", cake_type)
+            m.place_hex(hex_type, coords)
+
 
 def get_dice_roll():
     dice1 = randint(2, 6)

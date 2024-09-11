@@ -50,13 +50,17 @@ atlas = sprites.Atlas()
 atlas.init_all()
 mSurface.set_atlas(atlas)
 
-mapgen.draw_map_def_hex_v2(mSurface)
+# mapgen.draw_map_def_hex_v2(mSurface)
+# mSurface.blit2(atlas.atlas_dict["plates"]["Land"], (0,0))
+# mSurface.blit2(atlas.atlas_dict["cakes"]["Field"], (0,0))
+mapgen.draw_3by3(mSurface)
+
 
 node_edge.draw_nodes(mSurface)
 
-mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
-mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
-mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
+# mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
+# mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
+# mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
 
 
 # gui_man.testing_cards()  # Unable to use because of surface.. :/
