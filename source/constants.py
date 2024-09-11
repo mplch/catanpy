@@ -1,5 +1,4 @@
 HEX_MAP_SIZE = 7
-HEX_MAP_SIZE = 4
 
 TILE_SIZE = 46  # DYNAMIC ... BUT SHOULD BE??
                 # Musel bych udelat dynamicke i ostatni konstanty

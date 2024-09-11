@@ -54,20 +54,26 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
     scale = 0
     surf_board = pygame.Surface((0, 0))
     s_atlas = None  # just do differ from atlas instance in run.py
+    map_size = (0, 0)
 
-    def __init__(self, dimensions):
+    def __init__(self, screen_dimensions: tuple[int,int], map_size: tuple[int,int]):
         # Hardcoded
         # self.tile_size = get_tile_size(pieces.folder_cakes+"Field"+".png")
-        self.tile_size = C.TILE_SIZE
         #
-        self.scale = get_scale(dimensions, self.tile_size)
-        self.w = dimensions[0] // self.scale
-        self.h = dimensions[1] // self.scale
+        self.tile_size = C.TILE_SIZE
+        self.map_size = map_size
+
+        self.scale = get_scale(screen_dimensions, self.tile_size, self.map_size)
+        self.w = screen_dimensions[0] // self.scale
+        self.h = screen_dimensions[1] // self.scale
         self.surf_board = pygame.Surface((self.w, self.h))
         print("Info: main_surface: scale, W, H:", self.scale, self.w, self.h)
 
     def set_atlas(self, s_atlas: Atlas):
         self.s_atlas = s_atlas
+
+    # def set_map_size(self, n, m):
+
 
     def create(self):
         # !!! surface init
@@ -144,10 +150,17 @@ def get_tile_size(template_tile_file_path):
     return a
 
 
-def get_scale(dimensions, tile_size_pix, board_size_hex=C.HEX_MAP_SIZE):
+def get_scale(screen_dimensions: tuple[int,int],
+              tile_size_pix: int,
+              board_size_hex: tuple[int, int]):
     """ FULLSCREEN: Calculates scale to adjust user's display. """
-    board_size_pix = board_size_hex * tile_size_pix
-    scale = min(dimensions) // board_size_pix
+    w, h = screen_dimensions
+    m, n = board_size_hex
+    x = m * tile_size_pix
+    y = n * tile_size_pix
+    x_scale = w // x
+    y_scale = h // y
+    scale = min(x_scale, y_scale)
     """ Rounded down by integer division. """
     scale = 1 if scale == 0 else scale
     print("Got scale:", scale)

@@ -52,40 +52,40 @@ NODE_OVERLAP_X = 7
 NODE_GAP_X = 12
 # lol.. to ver_con a hor_con byly asi CONSTANTY :D
 NODE_PULL_BACK = -12
-ROWS = 3
-COLS = 1
+NEXT_COL_PAIR_OFFSET = 24
 
 
-def draw_nodes(my_surface: MainSurface):
+def draw_nodes(my_surface: MainSurface, rowcols: tuple[int,int]):
 # def draw_nodes(surface: pygame.Surface):
     node = my_surface.s_atlas.atlas_dict["nodes"]["node_left"]
     node = rotate(node, 180)  # IF SHIFT 1ST COL
-    for node_coords in get_node_coords(my_surface.tile_size):
+    for node_coords in get_node_coords(rowcols):
         my_surface.blit2(node, node_coords)
         node = rotate(node, 180)
 
 
 # DO_SHIFT_COLUMN !!!
-def get_node_coords(tile_size):
+def get_node_coords(rowcols: tuple[int,int]):
     res = []
-    for c in range(COLS + 1):
-        for i in range(ROWS * 2 + 1):
+    for c in range(rowcols[0] + 1):
+        for r in range(rowcols[1] * 2 + 1):
 
-            x = C.MAP_OFF_PIX_X + NODE_OVERLAP_X
+            x = 0
+            x += C.MAP_OFF_PIX_X
+            x += NODE_OVERLAP_X
+            x +=  c       * C.HEX_HORI_EDGE_X
+            x -= (c + 1)  * NODE_STRIP
+            x += (c // 2) * NEXT_COL_PAIR_OFFSET
 
-            if c%2 == 0:  # 1, 3, 5 ..
-                x += (i % 2) * NODE_PULL_BACK
+            if c % 2 == 0:  # 1, 3, 5 ..
+                x += (r % 2) * NODE_PULL_BACK
             else:
-                x -= (i % 2) * NODE_PULL_BACK
+                x -= (r % 2) * NODE_PULL_BACK
 
-            x += c * C.HEX_HORI_EDGE_X
-            x -= (c+1) * NODE_STRIP
-            y = C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT + i * C.HEX_HEIGHT//2
-
-
+            y = C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT + r * C.HEX_HEIGHT // 2
 
             res.append((x, y))
-            print("Added: c, r, x, y:", c, i, x, y)
+            print("Added: c, r, x, y:", c, r, x, y)
 
     # print("Node coords:", res)
     return res

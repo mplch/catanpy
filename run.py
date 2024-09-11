@@ -44,7 +44,7 @@ import source.node_edge as node_edge
 
 pygame.init()
 screen = main_surface.screen_init()  # separate to file screen.py
-mSurface = main_surface.MainSurface(dimensions=screen.get_size())  # Name Collision !
+mSurface = main_surface.MainSurface(screen.get_size(), (5,5))  # Name Collision !
 
 atlas = sprites.Atlas()
 atlas.init_all()
@@ -53,10 +53,10 @@ mSurface.set_atlas(atlas)
 # mapgen.draw_map_def_hex_v2(mSurface)
 # mSurface.blit2(atlas.atlas_dict["plates"]["Land"], (0,0))
 # mSurface.blit2(atlas.atlas_dict["cakes"]["Field"], (0,0))
-mapgen.draw_3by3(mSurface)
+mapgen.draw_rect_map(mSurface, (5,5))
 
 
-node_edge.draw_nodes(mSurface)
+node_edge.draw_nodes(mSurface, (5,5))
 
 # mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
 # mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))

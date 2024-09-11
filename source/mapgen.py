@@ -1,7 +1,9 @@
 from random import randint
 
 import source.pieces as pieces
+from source.main_surface_class import MainSurface
 from source.tiletype import TileType
+from random import choice
 
 
 def get_outer_ring_hexcoords():
@@ -67,13 +69,14 @@ def draw_map_def_hex_v2(m):
     draw_map_def_hex_inner_land(m)
     draw_map_def_hex_yield_overlay(m)
 
-def draw_3by3(m):
-    for r in range(3):
-        for c in range(3):
+def draw_rect_map(my_surface: MainSurface, n_m):
+    n, m = n_m
+    for r in range(n):
+        for c in range(m):
             coords = r,c
-            cake_type = pieces.cake_stack.pop()
+            cake_type = choice(pieces.cake_stack)
             hex_type = TileType("TemPlate", cake_type)
-            m.place_hex(hex_type, coords)
+            my_surface.place_hex(hex_type, coords)
 
 
 def get_dice_roll():
