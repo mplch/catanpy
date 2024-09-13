@@ -12,6 +12,7 @@ HEX_OVERLAP_Y = 6 #4
 REMOVE = 0 #1
 
 DO_SHIFT_FIRST_COLUMN_DOWN = False
+# DO_SHIFT_FIRST_COLUMN_DOWN = True  # Rozbije node_Edge --> bude reseno jinak
 
 """ Map offset in pixels (before scaling up) """
 MAP_OFF_PIX_X = 200  # need to make DYNAMIC
