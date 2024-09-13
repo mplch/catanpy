@@ -28,6 +28,7 @@ import source.node_edge as node_edge
 * SCALING: There are no fixed dimensions : MainSurface (Canvas?) gets scaled down
   accordingly to user's display, so that all pixels are scaled by an INTEGER NUMBER
   TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
+* Zajimave pozorovani, ze pygame window se spusti na te obrazovce, kde je kurzor.
 """
 
 # ----- TODO ----------------------------------------------------------
