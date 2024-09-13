@@ -21,7 +21,7 @@ import source.node_edge as node_edge
 * -function-assembly- --> TRANSFORMS. (All-in-one placement? Tile+Overlay)
 * SPRITES vs PIECES modules COLLISION --> unite
 * SEA CAKE (?)
-* Transforms: Hex2Pix: tile_size get default parameter from MainSurface class?
+* Transforms: tile_hex2pix: tile_size get default parameter from MainSurface class?
 * From source.FileClass import *  --> class_file.ClassName() becomes just ClassName()
 * NOMENCLATURE: Size? Pix, hex.. (Abs/Scr/Dsp)  -->  Coordinates & Position?
 * transforms.py >> set funkci pro vypocet position of spritu pro edges and vertices (nodes)
@@ -69,7 +69,7 @@ CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
 CARD_BETWEEN_OFFSET = 5
 card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
 # print("cards wh", card_wh)
-x = mSurface.w // 3
+x = mSurface.w // 3 + 20
 y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
 for name, card in atlas.atlas_dict["cards"].items():
     x = x + card_wh[0] + CARD_BETWEEN_OFFSET

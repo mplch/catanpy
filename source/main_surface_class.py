@@ -96,8 +96,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         # Convert name into image:
         plate = self.s_atlas.atlas_dict[PLATES][plate]
         cake = self.s_atlas.atlas_dict[CAKES][cake]
-        self.blit2(plate, transforms.hex2pix(hex_coords, self.tile_size))
-        self.blit2(cake, transforms.hex2pix(hex_coords, self.tile_size))
+        self.blit2(plate, transforms.tile_hex2pix(hex_coords, self.tile_size))
+        self.blit2(cake, transforms.tile_hex2pix(hex_coords, self.tile_size))
         """
         REIMPLEMENT THESE:
         * self.coord_print_tile(c, r, x, y)
@@ -112,24 +112,24 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.surf_board.blit(text_surface, pix_coords)
 
     def place_yield(self, hex_coords, yield_number):
-        x, y = transforms.hex2pix(hex_coords, self.tile_size)
-        my_font = get_font(C.TileYield.OVERLAY_FONT_SIZE)
-        text_surface = my_font.render(str(yield_number), False, C.TileYield.OVERLAY_FONT_COLOR)
-        dest_coords = (x + C.TileYield.OVERLAY_X_OFFSET, y + C.TileYield.OVERLAY_Y_OFFSET)
+        x, y = transforms.tile_hex2pix(hex_coords, self.tile_size)
+        my_font = get_font(C.TileYieldOverlay.FONT_SIZE)
+        text_surface = my_font.render(str(yield_number), False, C.TileYieldOverlay.FONT_COLOR)
+        dest_coords = (x + C.TileYieldOverlay.X_OFFSET, y + C.TileYieldOverlay.Y_OFFSET)
         self.surf_board.blit(text_surface, dest_coords)
 
     def coord_print_tile(self, hex_coords: tuple[int, int]):
     # def coord_print_tile(self, hex_coords, dest_pix_coords: xy_c.XY):
         c, r = hex_coords
-        my_font = get_font(C.CoordTiles.FONT_SIZE)
-        text_surface = my_font.render(f"({c}, {r})", False, C.CoordTiles.FONT_COLOR)
-        dest_pix_coords = transforms.hex2pix(hex_coords, self.tile_size)
-        dest_pix_coords[0] += C.CoordTiles.X_OFFSET
-        dest_pix_coords[1] += C.CoordTiles.Y_OFFSET
+        my_font = get_font(C.CordTilesOverlay.FONT_SIZE)
+        text_surface = my_font.render(f"({c}, {r})", False, C.CordTilesOverlay.FONT_COLOR)
+        dest_pix_coords = transforms.tile_hex2pix(hex_coords, self.tile_size)
+        dest_pix_coords[0] += C.CordTilesOverlay.X_OFFSET
+        dest_pix_coords[1] += C.CordTilesOverlay.Y_OFFSET
         self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
         """ Nelze pouzit, protoze (x,y) = xy, xy = (0,0) !!!! """
-        # dest_pix_coords.x += C.CoordTiles.X_OFFSET
-        # dest_pix_coords.y += C.CoordTiles.Y_OFFSET
+        # dest_pix_coords.x += C.CordTilesOverlay.X_OFFSET
+        # dest_pix_coords.y += C.CordTilesOverlay.Y_OFFSET
         # self.surf_board.blit(text_surface, dest_pix_coords.xy)
 
 # ---------------------------------------------------------------------
