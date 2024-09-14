@@ -59,10 +59,14 @@ default_map_table_transposed = [
 
 map_nodes_table = []
 
+
+""" DUAL CODE ???! """
+
+
 def draw_default_map_nodes(my_surface: MainSurface):
     """ TOHLE HODNE NECHCI HARDCODIT, VELIKA TABULKA """
 
-    hex_size = (C.MAP_SIZE)
+    hex_size = C.MAP_SIZE
 
     NODE_COL_START = 1
     NODE_COL_END = hex_size[0]
@@ -82,14 +86,45 @@ def draw_default_map_nodes(my_surface: MainSurface):
                 if rr in (NODE_ROW_START, NODE_ROW_END-1):
                     continue
 
-
-
             coord = (rr, cc)
             nro.append(coord)
             draw_node(my_surface, coord)
         map_nodes_table.append(nro)
 
     for ro in map_nodes_table: print(ro)
+    return
 
 
-    pass
+def draw_default_map_node(my_surface: MainSurface, node_hex_coords: tuple[int, int]):
+    if check_node_coordinates_default_map(node_hex_coords):
+        draw_node(my_surface, node_hex_coords)
+        return
+    raise Exception("Error: node_Edge.py: draw_default_map_node(): Node outside of range.")
+
+
+def check_node_coordinates_default_map(node_hex_coords: tuple[int, int]) -> bool:
+
+    rr, cc = node_hex_coords
+
+    hex_size = C.MAP_SIZE
+
+    NODE_COL_START = 1
+    NODE_COL_END = hex_size[0]
+    NODE_ROW_START = 3
+    NODE_ROW_END = hex_size[1] * 2
+
+    if ( cc in range(NODE_COL_START, NODE_COL_END)
+         and rr in range(NODE_ROW_START, NODE_ROW_END)
+    ):
+        if cc in (NODE_COL_START, NODE_COL_END - 1):
+            if rr in (NODE_ROW_START, NODE_ROW_START + 1,
+                      NODE_ROW_END - 1, NODE_ROW_END - 2):
+                return False
+
+        if cc in (NODE_COL_START + 1, NODE_COL_END - 2):
+            if rr in (NODE_ROW_START, NODE_ROW_END - 1):
+                return False
+
+        return True
+
+    return False
