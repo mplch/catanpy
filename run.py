@@ -5,13 +5,15 @@
 
 import pygame
 from sys import exit as sys_exit
-import source.mapgen as mapgen
-import source.main_surface_class as main_surface
-import source.gui_manager as gui_man
-import source.sprites as sprites
-import source.node_edge as node_edge
-import source.map_table as map_table
+from random import randint
+
 import source.constants as C
+import source.sprites as sprites
+import source.main_surface_class as main_surface
+# import source.mapgen as mapgen_v1
+import source.mapgen_v2 as mapgen_v2
+# import source.node_edge as node_edge
+# import source.gui_manager as gui_man
 
 # ----- NOTES ---------------------------------------------------------
 
@@ -36,7 +38,21 @@ import source.constants as C
 # ----- TODO ----------------------------------------------------------
 
 """
+(1) blitovani textu
+    # mSurface.put_text((15, 15), "Press 'Q' to exit.", 18, (255, 50, 50))
 
+(2) gui_manager.py
+
+(3) oddeleni karet
+
+(4) Main loop - external key handler 
+    Rozdeleni key_handleru v main loopu do externich funkci.
+
+(5) Render loop
+    Draw map again after refocus.
+    
+(6) Desert
+    Correct placement and zero yield
 """
 
 # ----- CONSTANTS -----------------------------------------------------
@@ -44,6 +60,12 @@ import source.constants as C
 MAP_SIZE = (7, 7)
 
 # ----- FUNCTIONS -----------------------------------------------------
+
+def get_dice_roll():
+    dice1 = randint(2, 6)
+    dice2 = randint(2, 6)
+    roll_ = dice1 + dice2
+    return roll_
 
 # ----- SETUP ---------------------------------------------------------
 
@@ -57,21 +79,10 @@ mSurface.set_atlas(atlas)
 
 
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
-mapgen.draw_map_def_hex_v2(mSurface)
-
-# mSurface.blit2(atlas.atlas_dict["plates"]["Land"], (0,0))
-# mSurface.blit2(atlas.atlas_dict["cakes"]["Field"], (0,0))
-
-# mapgen.draw_rect_map(mSurface, MAP_SIZE)
+# mapgen_v1.draw_rect_map(mSurface, MAP_SIZE)
 # node_edge.draw_nodes(mSurface, MAP_SIZE)
+mapgen_v2.draw_map_from_table(mSurface)
 
-
-# mSurface.put_text((300, 15), "AHOJ POZEMSTAAANE !!!")
-# mSurface.put_text((15, 15), "Presovani Quecka", 18, (255, 50, 50))
-# mSurface.put_text((15, 30), "Te vypne brasko. B-)", 18, (255, 50, 50))
-
-
-# gui_man.testing_cards()  # Unable to use because of surface.. :/
 
 CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
 CARD_BETWEEN_OFFSET = 5
@@ -119,7 +130,7 @@ while run:
                 print("Key SPACE pressed.")
                 if k_space_pressed_doubler:
                     print("Second time. -> Rolling dice.")
-                    roll = mapgen.get_dice_roll()
+                    roll = get_dice_roll()
                     # WARNING - Already scaled up!!! :/
                     # Different solution -needed- required!
                     # Requires a(!) different approach.

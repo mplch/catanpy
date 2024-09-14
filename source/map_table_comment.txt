@@ -6,14 +6,6 @@ FIELDS     = 'E' #ellow         # dovymyslim pozdeji
 DESERT     = 'D' #sandy, white  # klido bila
 SEA        = 'S' #dark blu
 
-F = "forest"
-P = "pasture"
-M = "mountains"
-C = "clay_pit"
-E = "fields"
-_ = "sea"
-X = "desert"
-
 
 map_example_transpose = [
     [_]*7
@@ -25,20 +17,6 @@ map_example_transpose = [
     ,[_]*7
 ]
 
-
-def transpose(old):
-    r_new = len(old[0])
-    c_new = len(old)
-    for row in old: print(row)
-    # new = [ ['_']*c_new ]*r_new  # nejaka provazanost...
-    new_matrix = []
-    for i in range(r_new):
-        new_row = []
-        for j in range(c_new):
-            new_row.append(old[j][i])
-        new_matrix.append(new_row)
-    for row in new_matrix: print(row)
-    return new_matrix
 
 
 # SIMILARLY WITH YIELD NUMBERS

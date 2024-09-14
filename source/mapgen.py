@@ -1,12 +1,10 @@
-from random import randint
-
 import source.pieces as pieces
 from source.main_surface_class import MainSurface
 from source.tiletype import TileType
 from random import choice
 
 
-def get_outer_ring_hexcoords():
+def get_outer_ring_hex_coords():
 
     outer_ring = []
 
@@ -25,7 +23,7 @@ def get_outer_ring_hexcoords():
     return outer_ring
 
 
-def get_inner_ring_hexcoords():
+def get_inner_ring_hex_coords():
     inner_ring = []
 
     # hardcoded !!
@@ -45,13 +43,13 @@ def get_inner_ring_hexcoords():
 
 def draw_map_def_hex_outer_ocean(my_surface):
     tile_type = TileType("Sea", "Sea")
-    for coords in get_outer_ring_hexcoords():
+    for coords in get_outer_ring_hex_coords():
         my_surface.place_hex(tile_type, coords)
 
 
 # Hezkyy, tohle je vlastne funkce, ktera modifikuje objekt "z vnejsku"
 def draw_map_def_hex_inner_land(my_surface):
-    for coords in get_inner_ring_hexcoords():
+    for coords in get_inner_ring_hex_coords():
         cake_type = pieces.cake_stack.pop()
         # hex_type = TileType("Land", cake_type)
         hex_type = TileType("TemPlate", cake_type)
@@ -59,7 +57,7 @@ def draw_map_def_hex_inner_land(my_surface):
 
 
 def draw_map_def_hex_yield_overlay(my_surface):
-    for coords in get_inner_ring_hexcoords():
+    for coords in get_inner_ring_hex_coords():
         yield_number = pieces.yield_stack.pop()
         my_surface.place_yield(coords, yield_number)
 
@@ -77,13 +75,4 @@ def draw_rect_map(my_surface: MainSurface, n_m):
             cake_type = choice(pieces.cake_stack)
             hex_type = TileType("TemPlate", cake_type)
             my_surface.place_hex(hex_type, coords)
-
-
-def get_dice_roll():
-    dice1 = randint(2, 6)
-    dice2 = randint(2, 6)
-    roll = dice1 + dice2
-    return roll
-
-
-############################################################
+    return
