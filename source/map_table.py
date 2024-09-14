@@ -27,11 +27,18 @@ map_example_transpose = [
 
 
 def transpose(old):
-    new = []
-    for i, lis in enumerate(old):
-        for j, element in enumerate(lis):
-            new[j][i] = element
-    return new
+    r_new = len(old[0])
+    c_new = len(old)
+    for row in old: print(row)
+    # new = [ ['_']*c_new ]*r_new  # nejaka provazanost...
+    new_matrix = []
+    for i in range(r_new):
+        new_row = []
+        for j in range(c_new):
+            new_row.append(old[j][i])
+        new_matrix.append(new_row)
+    for row in new_matrix: print(row)
+    return new_matrix
 
 
 # SIMILARLY WITH YIELD NUMBERS
