@@ -99,11 +99,6 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         cake = self.s_atlas.atlas_dict[CAKES][cake]
         self.blit_pix(plate, transforms.tile_hex2pix(hex_coord, self.tile_size))
         self.blit_pix(cake, transforms.tile_hex2pix(hex_coord, self.tile_size))
-        """
-        REIMPLEMENT THESE:
-        * self.coord_print_tile(c, r, x, y)
-        * self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
-        """
 
     def put_text(self, pix_coord: PixCoord, text: str,
                  font_size: int = 32, font_color: tuple[int, int, int] = (180, 180, 100)):
@@ -112,7 +107,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         text_surface = my_font.render(text, False, font_color)
         self.blit_pix(text_surface, pix_coord)
 
-    def place_yield(self, hex_coord: HexCoord, yield_number):
+    def put_yield(self, hex_coord: HexCoord, yield_number):
         dest_pix_coord = transforms.tile_hex2pix(hex_coord, self.tile_size)
         my_font = get_font(C.TileYieldOverlay.FONT_SIZE)
         text_surface = my_font.render(str(yield_number), False, C.TileYieldOverlay.FONT_COLOR)
@@ -120,7 +115,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         dest_pix_coord.add(xy_offset)
         self.blit_pix(text_surface, dest_pix_coord)
 
-    def coord_print_tile(self, hex_coord: HexCoord):
+    def put_coord(self, hex_coord: HexCoord):
         r, c = hex_coord.rc
         my_font = get_font(C.TileCoordOverlay.FONT_SIZE)
         text_surface = my_font.render(f"({r}, {c})", False, C.TileCoordOverlay.FONT_COLOR)

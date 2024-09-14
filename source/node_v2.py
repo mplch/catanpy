@@ -159,13 +159,16 @@ def draw_inner_nodes(my_surface: MainSurface):
 
 # ---------------------------------------------------------------------
 
-def get_hex_neighbour_node_coords(hex_coord: HexCoord):
+def get_hex_neighbour_node_coords(tile_coord: HexCoord):
     # Opet nejaky hrozny problem v inkonzistenci rc a cr souradnic.
 
     neigh_candidates = []  # 6 members
 
-    r, c = hex_coord.rc
-    # r *= 2
+    c, r = tile_coord.rc  # WHYYYYYY
+    r *= 2
+    r += C.NODE_TABLE_OFFSET_Y
+
+    """ Ale ted uz to vypada, ze to dela co by melo, tak co resiim?? """
 
     vector_list = []
     for i in [-1, 0, +1]:
@@ -173,15 +176,17 @@ def get_hex_neighbour_node_coords(hex_coord: HexCoord):
             vector_list.append((i,j))
 
     for a, b in vector_list:
-        neigh_candidates.append(HexCoord(r+a, c+b))
+        node_coord = HexCoord(r+a, c+b)  # rr, cc
+        neigh_candidates.append(node_coord)
 
     # print("neighs: ", neigh_candidates)  # Vypisuje blbost object<at:0x>
     return neigh_candidates
 
 
 def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
-    my_surface.coord_print_tile(hex_coord)
-    print("Nodes coords:")
+    my_surface.put_coord(hex_coord)
+    print("Highlighting hex at:", hex_coord)
+    print("Nodes coords: (rr, cc)")
     for node_coord in get_hex_neighbour_node_coords(hex_coord):
         print(node_coord)
         draw_node_type(my_surface, node_coord, "select")

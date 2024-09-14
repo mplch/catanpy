@@ -36,6 +36,10 @@ NEXT_COL_PAIR_OFFSET = 24
 
 # ---------------------------------------------------------------------
 
+NODE_TABLE_OFFSET_Y = 2
+
+# ---------------------------------------------------------------------
+
 YIELDS_DO_RANDOM_SHUFFLE = False
 
 DEFAULT_IMAGE_SUFFIX = ".png"

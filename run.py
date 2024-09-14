@@ -60,7 +60,9 @@ from source.transforms import HexCoord, PixCoord
     #### !!!!!!!! ####
 --> coordinates might be messed up!!
 
-(8)
+(8) Default settings
+
+(9)
 _
 """
 
@@ -86,7 +88,7 @@ mSurface.set_atlas(atlas)
 
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
 mapgen_v2.draw_rect_map(mSurface, C.MAP_SIZE)
-mapgen_v2.draw_map_from_table(mSurface, show_yields=True, show_coords=True)
+mapgen_v2.draw_map_from_table(mSurface)
 
 
 
@@ -100,6 +102,7 @@ nodeTable.add_node(HexCoord(5, 6), "r")
 nodeTable.add_node(HexCoord(3, 3), "r")
 nodeTable.add_node(HexCoord(0, 0), "r")
 nodeTable.add_node(HexCoord(10, 3), "R")
+nodeTable.add_node(HexCoord(12, 4), "R")
 print(nodeTable)
 
 
@@ -109,6 +112,8 @@ nodes_v2.draw_node_table(mSurface, nodeTable)
 
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0,0))
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,3))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1,5))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6,2))
 
 
 

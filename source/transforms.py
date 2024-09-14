@@ -53,7 +53,11 @@ def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):
     # Complication: Cyclic import
     # Maybe there is no better solution than to insert this function UNDER MainSurface class
 
-    r, c = hex_coord.rc  # SHIIT ??
+    r, c = hex_coord.rc  # (?????!!)
+
+    """ What is weird tho,
+     is the reason - WHY should I add x to row and y to columns?? 
+     Maybe its correct. I just dont see it. """
 
     if r % 2 == C.DO_SHIFT_FIRST_COLUMN_DOWN:
         x = C.MAP_OFF_PIX_X + r * (tile_size - C.HEX_OVERLAP_X)
@@ -67,6 +71,10 @@ def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):
 
 
 def node_hex2pix(hex_coord: HexCoord):
+
+    """ I THINK HERE LIES THE PROBLEM """
+    """ OR MAYBE IT DOES NOT """
+
 
     r, c = hex_coord.rc
 

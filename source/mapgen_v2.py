@@ -1,5 +1,6 @@
 from random import randint, choice
 
+import source.settings as settings
 import source.pieces as pieces
 import source.map_table_file as map_table_file
 from source.main_surface_class import MainSurface
@@ -11,14 +12,14 @@ OCCUPIED = 'O'  # WHERE THIS? Constants.py? Map_table_file.py?
 
 def draw_tile_yield_overlay(my_surface: MainSurface, hex_coord: HexCoord):
     yield_number = pieces.yield_stack.pop()
-    my_surface.place_yield(hex_coord, yield_number)
+    my_surface.put_yield(hex_coord, yield_number)
 
 
 def draw_map_from_table(my_surface: MainSurface,
                         map_table: list[list[str]]
                             =map_table_file.default_map_table_transposed,
-                        show_yields: bool =True,
-                        show_coords: bool =False
+                        show_yields: bool =settings.SHOW_YIELDS,
+                        show_coords: bool =settings.SHOW_COORDS,
                         ):
 
     for r, row in enumerate(map_table):
@@ -31,7 +32,7 @@ def draw_map_from_table(my_surface: MainSurface,
                 hex_type = TileType("Land", cake_type)
                 my_surface.place_hex(hex_type, hex_coord)
                 if show_coords:
-                    my_surface.coord_print_tile(hex_coord)
+                    my_surface.put_coord(hex_coord)
                 if show_yields:
                     draw_tile_yield_overlay(my_surface, hex_coord)
                 continue
@@ -40,7 +41,7 @@ def draw_map_from_table(my_surface: MainSurface,
                 tile_type = TileType("Sea", "Sea")
                 my_surface.place_hex(tile_type, hex_coord)
                 if show_coords:
-                    my_surface.coord_print_tile(hex_coord)
+                    my_surface.put_coord(hex_coord)
                 continue
 
             # predefined tiles handler
@@ -48,7 +49,7 @@ def draw_map_from_table(my_surface: MainSurface,
 
             if tile_string == ' ':
                 if show_coords:
-                    my_surface.coord_print_tile(hex_coord)
+                    my_surface.put_coord(hex_coord)
                 continue
 
             raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")
