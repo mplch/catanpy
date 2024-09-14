@@ -168,11 +168,14 @@ def get_hex_neighbour_node_coords(tile_coord: HexCoord):
     r *= 2
     r += C.NODE_TABLE_OFFSET_Y
 
+    if c % 2 == 0:
+        r += 1
+
     """ Ale ted uz to vypada, ze to dela co by melo, tak co resiim?? """
 
     vector_list = []
     for i in [-1, 0, +1]:
-        for j in [-1, 0, +1]:
+        for j in [0, +1]:
             vector_list.append((i,j))
 
     for a, b in vector_list:
@@ -189,4 +192,4 @@ def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
     print("Nodes coords: (rr, cc)")
     for node_coord in get_hex_neighbour_node_coords(hex_coord):
         print(node_coord)
-        draw_node_type(my_surface, node_coord, "select")
+        draw_node_type(my_surface, node_coord, "free")

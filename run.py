@@ -112,8 +112,11 @@ nodes_v2.draw_node_table(mSurface, nodeTable)
 
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0,0))
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,3))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1,5))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1,5))
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6,2))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(4, 5))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0,2))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6,7))
 
 
 
