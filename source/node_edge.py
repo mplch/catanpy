@@ -3,20 +3,16 @@ from source.main_surface_class import MainSurface
 from source.mapgen_v2 import OCCUPIED
 from source.transforms import node_hex2pix, transpose
 
-SHADOW_NODE_COL_START = 0
-SHADOW_NODE_COL_END = C.MAP_SIZE[0] + 1
-SHADOW_NODE_ROW_START = 0
-SHADOW_NODE_ROW_END = (C.MAP_SIZE[1] + 1) * 2
 
-VALID_NODE_COL_START = 1
-VALID_NODE_COL_END = C.MAP_SIZE[0]
-VALID_NODE_ROW_START = 3
-VALID_NODE_ROW_END = C.MAP_SIZE[1] * 2
+SHADOW_NODE_COL_START = 0
+SHADOW_NODE_COL_END   = C.MAP_SIZE[0] + 1
+SHADOW_NODE_ROW_START = 0
+SHADOW_NODE_ROW_END   =(C.MAP_SIZE[1] + 1) * 2
 
 VALID_NODE_COL_START = SHADOW_NODE_COL_START + 1
-VALID_NODE_COL_END   = SHADOW_NODE_COL_END - 1
+VALID_NODE_COL_END   = SHADOW_NODE_COL_END   - 1
 VALID_NODE_ROW_START = SHADOW_NODE_ROW_START + 3
-VALID_NODE_ROW_END   = SHADOW_NODE_ROW_END - 2
+VALID_NODE_ROW_END   = SHADOW_NODE_ROW_END   - 2
 
 
 def draw_nodes_rect(my_surface: MainSurface, map_size: tuple[int,int]):
@@ -111,6 +107,12 @@ def init_default_node_table():
     return node_table
 
 
+def fill_node_table(table: list[list[str]], node_list: list[tuple[int,int]]):
+    for rr, cc in node_list:
+        table[rr][cc] = OCCUPIED
+    return table
+
+
 def draw_default_map_node(my_surface: MainSurface, node_hex_coords: tuple[int, int]):
     if check_node:
         draw_node_old(my_surface, node_hex_coords)
@@ -164,12 +166,8 @@ map_nodes_list = get_default_map_nodes_list()
 for occ in map_nodes_list: print(occ)
 
 map_nodes_table = init_default_node_table()  # Class ??
-for col in map_nodes_table: print(col)
+map_nodes_table = fill_node_table(map_nodes_table, map_nodes_list)
 
-print()  # LOL TVL, takova VOLOVINA
-
-for rr, cc in map_nodes_list:
-    map_nodes_table[rr][cc] = OCCUPIED
 for col in map_nodes_table: print(col)
 
 
