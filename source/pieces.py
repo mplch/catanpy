@@ -1,8 +1,6 @@
 from random import shuffle
 import source.constants as C
 
-# default_plate = "textures/plates/Field.png"
-
 cake_stack = []
 
 folder_plates = "textures/plates/"
@@ -24,55 +22,35 @@ for key, val in cake_dir.items():
 
 shuffle(cake_stack)
 
-"""
-hex_stack = []
-
-folder = "textures/hexes/"
-
-hexdir = {
-    "Clay_pit": 3,
-    "Desert": 1,
-    "Field": 4,
-    "Forest": 4,
-    "Mountains": 3,
-    "Pasture": 4,
-    "Sea": 0,
-}
-
-for key, val in hexdir.items():
-    for _ in range(val):
-        hex_stack.append(key)
-
-shuffle(hex_stack)
-"""
-
 # ---------------------------------------------------------------------
 
-yield_stack = []
-
-yield_dir = {
-    "2": 1,
-    "3": 2,
-    "4": 2,
-    "5": 2,
-    "6": 2,
-    "8": 2,
-    "9": 2,
-    "10": 2,
-    "11": 2,
-    "12": 1,
-    # !!!
-    "0": 1,  # Desert!
-}
-
-for key, val in yield_dir.items():
-    for _ in range(val):
-        yield_stack.append(key)
-
 if C.YIELDS_DO_RANDOM_SHUFFLE:
+
+    yield_stack = []
+
+    yield_dir = {
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
+        "8": 2,
+        "9": 2,
+        "10": 2,
+        "11": 2,
+        "12": 1,
+        # !!!
+        "0": 1,  # Desert!
+    }
+
+    for key, val in yield_dir.items():
+        for _ in range(val):
+            yield_stack.append(key)
+
     shuffle(yield_stack)
+
 else:
-    """ places yield in columns """
+    # Places yield in columns.
 
     letters = """
 A = 5
@@ -96,14 +74,10 @@ R = 11
 _ = 0
 """.strip('\n').split('\n')  # Desert ZERO !!!
 
-    # for i in letters: print(i)
-    # print(letters)
-
     numbers = []
 
     for oc in letters:
         new = oc[4:]
-        # print(new)
         numbers.append(new)
 
     yield_stack = numbers

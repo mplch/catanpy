@@ -53,15 +53,15 @@ def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):
     # Complication: Cyclic import
     # Maybe there is no better solution than to insert this function UNDER MainSurface class
 
-    c, r = hex_coord.rc  # SHIIT ??
+    r, c = hex_coord.rc  # SHIIT ??
 
-    if c % 2 == C.DO_SHIFT_FIRST_COLUMN_DOWN:
-        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
-        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.HEX_OVERLAP_Y)
+    if r % 2 == C.DO_SHIFT_FIRST_COLUMN_DOWN:
+        x = C.MAP_OFF_PIX_X + r * (tile_size - C.HEX_OVERLAP_X)
+        y = C.MAP_OFF_PIX_Y + c * (tile_size - C.HEX_OVERLAP_Y)
 
     else:
-        x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
-        y = C.MAP_OFF_PIX_Y + r * (tile_size - C.HEX_OVERLAP_Y) + (tile_size - C.STRIP_HEIGHT) // 2 + C.REMOVE
+        x = C.MAP_OFF_PIX_X + r * (tile_size - C.HEX_OVERLAP_X)
+        y = C.MAP_OFF_PIX_Y + c * (tile_size - C.HEX_OVERLAP_Y) + (tile_size - C.STRIP_HEIGHT) // 2 + C.REMOVE
 
     return PixCoord(x, y)
 

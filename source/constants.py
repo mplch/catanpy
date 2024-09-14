@@ -36,7 +36,7 @@ NEXT_COL_PAIR_OFFSET = 24
 
 # ---------------------------------------------------------------------
 
-YIELDS_DO_RANDOM_SHUFFLE = True
+YIELDS_DO_RANDOM_SHUFFLE = False
 
 DEFAULT_IMAGE_SUFFIX = ".png"
 
@@ -46,15 +46,15 @@ DEFAULT_FONT = "Comic Sans MS"
 
 class TileCoordOverlay:
     FONT_SIZE  = 18
-    FONT_COLOR = (0, 0, 0)
+    FONT_COLOR = (0, 0, 120)
     X_OFFSET   = 9
-    Y_OFFSET   = 25
+    Y_OFFSET   = 23
 
 
 class TileYieldOverlay:
     FONT_SIZE  = 24
     FONT_COLOR = (100, 0, 0)
-    X_OFFSET   = 14
-    Y_OFFSET   = 20
+    X_OFFSET   = 15
+    Y_OFFSET   = 8
 
 

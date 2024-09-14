@@ -17,7 +17,8 @@ def draw_tile_yield_overlay(my_surface: MainSurface, hex_coord: HexCoord):
 def draw_map_from_table(my_surface: MainSurface,
                         map_table: list[list[str]]
                             =map_table_file.default_map_table_transposed,
-                        show_yields: bool =True
+                        show_yields: bool =True,
+                        show_coords: bool =False
                         ):
 
     for r, row in enumerate(map_table):
@@ -29,6 +30,8 @@ def draw_map_from_table(my_surface: MainSurface,
                 cake_type = pieces.cake_stack.pop()
                 hex_type = TileType("Land", cake_type)
                 my_surface.place_hex(hex_type, hex_coord)
+                if show_coords:
+                    my_surface.coord_print_tile(hex_coord)
                 if show_yields:
                     draw_tile_yield_overlay(my_surface, hex_coord)
                 continue
@@ -36,12 +39,16 @@ def draw_map_from_table(my_surface: MainSurface,
             if tile_string == "Sea":
                 tile_type = TileType("Sea", "Sea")
                 my_surface.place_hex(tile_type, hex_coord)
+                if show_coords:
+                    my_surface.coord_print_tile(hex_coord)
                 continue
 
             # predefined tiles handler
             # need to remove them from hex_stack (!)
 
             if tile_string == ' ':
+                if show_coords:
+                    my_surface.coord_print_tile(hex_coord)
                 continue
 
             raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")

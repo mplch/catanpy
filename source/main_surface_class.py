@@ -2,9 +2,7 @@ import pygame
 from random import randint
 
 import source.constants as C
-import source.pieces as pieces
 import source.transforms as transforms
-import source.xy_coords as xy_c
 from source.tiletype import TileType
 from source.fonttype import FontType
 from source.sprites import Atlas
@@ -88,8 +86,10 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         )
         print("Info: main_surface: \"Scaling by factor of\"", scale)
 
-    def blit2(self, image: pygame.Surface, pix_coord: PixCoord):  # image type?
+    def blit_pix(self, image: pygame.Surface, pix_coord: PixCoord):  # image type?
         # Is this function necessary?
+        # Only to extract (x, y) from PixCoord.
+        # And to shorten of '.surf_board.'.
         self.surf_board.blit(image, pix_coord.xy)
 
     def place_hex(self, tile_type: TileType, hex_coord: HexCoord):
@@ -97,41 +97,39 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         # Convert name into image:
         plate = self.s_atlas.atlas_dict[PLATES][plate]
         cake = self.s_atlas.atlas_dict[CAKES][cake]
-        self.blit2(plate, transforms.tile_hex2pix(hex_coord, self.tile_size))
-        self.blit2(cake, transforms.tile_hex2pix(hex_coord, self.tile_size))
+        self.blit_pix(plate, transforms.tile_hex2pix(hex_coord, self.tile_size))
+        self.blit_pix(cake, transforms.tile_hex2pix(hex_coord, self.tile_size))
         """
         REIMPLEMENT THESE:
         * self.coord_print_tile(c, r, x, y)
         * self.tile_yield_overlay((x, y), get_dice_roll())  # Default par
         """
 
-    def put_text(self, pix_coords: tuple[int, int], text: str,
+    def put_text(self, pix_coord: PixCoord, text: str,
                  font_size: int = 32, font_color: tuple[int, int, int] = (180, 180, 100)):
         """ Merge place yield and place coord into put_text """
         my_font = pygame.font.SysFont(C.DEFAULT_FONT, font_size)
         text_surface = my_font.render(text, False, font_color)
-        self.surf_board.blit(text_surface, pix_coords)
+        self.blit_pix(text_surface, pix_coord)
 
     def place_yield(self, hex_coord: HexCoord, yield_number):
-        x, y = transforms.tile_hex2pix(hex_coord, self.tile_size)
+        dest_pix_coord = transforms.tile_hex2pix(hex_coord, self.tile_size)
         my_font = get_font(C.TileYieldOverlay.FONT_SIZE)
         text_surface = my_font.render(str(yield_number), False, C.TileYieldOverlay.FONT_COLOR)
-        dest_coords = (x + C.TileYieldOverlay.X_OFFSET, y + C.TileYieldOverlay.Y_OFFSET)
-        self.surf_board.blit(text_surface, dest_coords)
+        xy_offset = PixCoord(C.TileYieldOverlay.X_OFFSET, C.TileYieldOverlay.Y_OFFSET)
+        dest_pix_coord.add(xy_offset)
+        self.blit_pix(text_surface, dest_pix_coord)
 
     def coord_print_tile(self, hex_coord: HexCoord):
-        c, r = hex_coord.rc  ## SHIIIIIIT ###
+        r, c = hex_coord.rc
         my_font = get_font(C.TileCoordOverlay.FONT_SIZE)
+        text_surface = my_font.render(f"({r}, {c})", False, C.TileCoordOverlay.FONT_COLOR)
+        dest_pix_coord = transforms.tile_hex2pix(hex_coord, self.tile_size)
+        xy_offset = PixCoord(C.TileCoordOverlay.X_OFFSET, C.TileCoordOverlay.Y_OFFSET)
+        dest_pix_coord.add(xy_offset)
+        self.blit_pix(text_surface, dest_pix_coord)
 
-        text_surface = my_font.render(f"({c}, {r})", False, C.TileCoordOverlay.FONT_COLOR)
-
-        dest_pix_coords = transforms.tile_hex2pix(hex_coord, self.tile_size)
-        dest_pix_coords.add(PixCoord(C.TileCoordOverlay.X_OFFSET, C.TileCoordOverlay.Y_OFFSET))
-
-        self.surf_board.blit(text_surface, dest_pix_coords.xy)
-
-        """ PROBLEM ? """
-        """ YUP! :/  -->  Changing x & y separately does NOT UPDATE the xy tuple! """
+        """ SOLVED """
 
 # ---------------------------------------------------------------------
 

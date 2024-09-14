@@ -127,7 +127,7 @@ def draw_node_type(my_surface: MainSurface,
                    ):
     node = my_surface.s_atlas.atlas_dict["nodes"][node_type]
     pix_coord: PixCoord = node_hex2pix(node_coord)
-    my_surface.blit2(node, pix_coord)
+    my_surface.blit_pix(node, pix_coord)
     return
 
 
@@ -160,14 +160,22 @@ def draw_inner_nodes(my_surface: MainSurface):
 # ---------------------------------------------------------------------
 
 def get_hex_neighbour_node_coords(hex_coord: HexCoord):
+    # Opet nejaky hrozny problem v inkonzistenci rc a cr souradnic.
 
     neigh_candidates = []  # 6 members
+
     r, c = hex_coord.rc
-    r *= 2
-    for a, b in [(1, 1)]:
+    # r *= 2
+
+    vector_list = []
+    for i in [-1, 0, +1]:
+        for j in [-1, 0, +1]:
+            vector_list.append((i,j))
+
+    for a, b in vector_list:
         neigh_candidates.append(HexCoord(r+a, c+b))
 
-    print("neighs: ", neigh_candidates)
+    # print("neighs: ", neigh_candidates)  # Vypisuje blbost object<at:0x>
     return neigh_candidates
 
 

@@ -10,9 +10,7 @@ from random import randint
 import source.constants as C
 import source.sprites as sprites
 import source.main_surface_class as main_surface
-import source.mapgen as mapgen_v1
 import source.mapgen_v2 as mapgen_v2
-import source.node_edge as nodes_v1
 import source.node_v2 as nodes_v2
 # import source.gui_manager as gui_man
 
@@ -60,7 +58,7 @@ from source.transforms import HexCoord, PixCoord
 (7) #### !!!!!!!! ####
          c, r = rc
     #### !!!!!!!! ####
---> coordinates might be messed up!! (Marked with SHII(*)T)
+--> coordinates might be messed up!!
 
 (8)
 _
@@ -87,8 +85,8 @@ atlas.init_all()
 mSurface.set_atlas(atlas)
 
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
-# mapgen_v1.draw_rect_map(mSurface, C.MAP_SIZE)
-mapgen_v2.draw_map_from_table(mSurface, show_yields=False)
+mapgen_v2.draw_rect_map(mSurface, C.MAP_SIZE)
+mapgen_v2.draw_map_from_table(mSurface, show_yields=True, show_coords=True)
 
 
 
@@ -109,7 +107,8 @@ print(nodeTable)
 nodes_v2.draw_node_table(mSurface, nodeTable)
 
 
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,1))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0,0))
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,3))
 
 
 
