@@ -1,7 +1,6 @@
 import source.constants as C
 from source.main_surface_class import MainSurface
-# from source.mapgen_v2 import OCCUPIED
-from source.transforms import node_hex2pix, transpose
+from source.transforms import node_hex2pix, transpose, PixCoord
 from source.transforms import HexCoord
 
 # ---------------------------------------------------------------------
@@ -23,12 +22,12 @@ VALID_NODE_ROW_END   = SHADOW_NODE_ROW_END   - 2
 
 class NodeTable:
 
-    # table = list(list(" "))
+    # table = list(list(" "))  ## Seems like this works??
     table: list[list[str]]
     w = SHADOW_NODE_COL_END
     h = SHADOW_NODE_ROW_END
 
-    def __init__(self, node_list: list[tuple[int,int]]):
+    def __init__(self, node_list: list[HexCoord]):
         self.init_default()
         self.fill_from_list(node_list)
 
@@ -48,9 +47,9 @@ class NodeTable:
             node_table.append(new_col)
         self.table = node_table
 
-    def fill_from_list(self, node_list: list[tuple[int, int]]):
-        for rr, cc in node_list:
-            # self.table[rr][cc] = OCCUPIED
+    def fill_from_list(self, node_list: list[HexCoord]):
+        for node_hex_coord in node_list:
+            rr, cc = node_hex_coord.rc
             self.table[rr][cc] = FREE_NODE
 
 
@@ -114,21 +113,21 @@ def draw_node_table(my_surface: MainSurface, my_node_table: NodeTable):
     for r, row in enumerate(my_node_table.table):
         for c, node in enumerate(row):
             if node == 'r':
-                draw_node_type(my_surface, (r, c), "village_red")
+                draw_node_type(my_surface, HexCoord(r, c), "village_red")
             if node == 'R':
-                draw_node_type(my_surface, (r, c), "city_red")
+                draw_node_type(my_surface, HexCoord(r, c), "city_red")
 
     return
 
 # ---------------------------------------------------------------------
 
 def draw_node_type(my_surface: MainSurface,
-                   node_hex_coord: tuple[int, int],
+                   node_coord: HexCoord,
                    node_type="default"
                    ):
     node = my_surface.s_atlas.atlas_dict["nodes"][node_type]
-    pix_coords = node_hex2pix(node_hex_coord)
-    my_surface.blit2(node, pix_coords)
+    pix_coord: PixCoord = node_hex2pix(node_coord)
+    my_surface.blit2(node, pix_coord)
     return
 
 
@@ -148,7 +147,7 @@ def get_valid_nodes_list():
                 if rr in (VALID_NODE_ROW_START, VALID_NODE_ROW_END-1):
                     continue
 
-            my_map_nodes_list.append( (rr, cc) )
+            my_map_nodes_list.append( HexCoord(rr, cc) )
 
     return my_map_nodes_list
 
@@ -160,56 +159,16 @@ def draw_inner_nodes(my_surface: MainSurface):
 
 # ---------------------------------------------------------------------
 
-global_node_table = [
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', 'r', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', 'R', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', 'r', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-]
+def get_hex_neighbour_node_coords(hex_coord: HexCoord):
+    neigh_candidates = []  # 6 members
+    r, c = hex_coord.rc
+    r *= 2
+    for a, b in [(1, 1)]:
+        neigh_candidates.append(HexCoord(r+a, c+b))
 
-global_node_table = [
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', '_', '_', ' ', ' ', ' '],
-[' ', ' ', 'r', '_', '_', '_', ' ', ' '],
-[' ', '_', '_', '_', '_', '_', '_', ' '],
-[' ', '_', '_', 'R', '_', '_', '_', ' '],
-[' ', '_', '_', '_', '_', '_', '_', ' '],
-[' ', '_', '_', '_', '_', '_', '_', ' '],
-[' ', '_', '_', '_', 'r', '_', '_', ' '],
-[' ', '_', '_', '_', '_', '_', '_', ' '],
-[' ', '_', '_', '_', '_', '_', '_', ' '],
-[' ', ' ', '_', '_', '_', '_', ' ', ' '],
-[' ', ' ', ' ', '_', '_', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-]
-
-""" Tohle je hodne memory ineffective.. 
-    Zas ale casem toho bude vice
-    a navic to bajecne resi kolize. """
-
-def draw_node_from_table(my_surface: MainSurface, my_node_table: list[list[str]]):
-    for r, row in enumerate(my_node_table):
-        for c, node in enumerate(row):
-            if node == 'r':
-                draw_node_type(my_surface, (r, c), "village_red")
-            if node == 'R':
-                draw_node_type(my_surface, (r, c), "city_red")
-
-    return
+    return neigh_candidates
 
 
+def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
+    for node_coord in get_hex_neighbour_node_coords(hex_coord):
+        draw_node_type(my_surface, node_coord)

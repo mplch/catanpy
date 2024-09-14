@@ -16,26 +16,26 @@ import source.node_edge as nodes_v1
 import source.node_v2 as nodes_v2
 # import source.gui_manager as gui_man
 
-from source.transforms import HexCoord
+from source.transforms import HexCoord, PixCoord
 
 # ----- NOTES ---------------------------------------------------------
 
 """
 * pygame --> proper WINDOW startup?
-* NOMENCLATURE: Tile, hex, circle (cake), ring.
+* NOMENCLATURE: Tile, hex, circle (cake), ring. DONE. (Not documented.)
   DOCUMENTATION? < graphical OVERVIEW
-* hexcoords & tilecoords = pixelcoords & displaycoords
 * -function-assembly- --> TRANSFORMS. (All-in-one placement? Tile+Overlay)
 * SPRITES vs PIECES modules COLLISION --> unite
-* SEA CAKE (?)
 * Transforms: tile_hex2pix: tile_size get default parameter from MainSurface class?
-* From source.FileClass import *  --> class_file.ClassName() becomes just ClassName()
 * NOMENCLATURE: Size? Pix, hex.. (Abs/Scr/Dsp)  -->  Coordinates & Position?
-* transforms.py >> set funkci pro vypocet position of spritu pro edges and vertices (nodes)
+  --> Made coordinates CLASSes
+  --> Position ??!
 * SCALING: There are no fixed dimensions : MainSurface (Canvas?) gets scaled down
   accordingly to user's display, so that all pixels are scaled by an INTEGER NUMBER
   TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
 * Zajimave pozorovani, ze pygame window se spusti na te obrazovce, kde je kurzor.
+* Classes without default parameters - only type declaration and constructor? Should work.
+* Matrix Class ?
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -80,7 +80,7 @@ mSurface.set_atlas(atlas)
 
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
 # mapgen_v1.draw_rect_map(mSurface, C.MAP_SIZE)
-mapgen_v2.draw_map_from_table(mSurface)
+mapgen_v2.draw_map_from_table(mSurface, show_yields=False)
 
 
 
@@ -93,11 +93,16 @@ nodeTable = nodes_v2.NodeTable(map_nodes_list)
 nodeTable.add_node(HexCoord(5, 6), "r")
 nodeTable.add_node(HexCoord(3, 3), "r")
 nodeTable.add_node(HexCoord(0, 0), "r")
+nodeTable.add_node(HexCoord(10, 3), "R")
 print(nodeTable)
 
 
 # nodes_v2.draw_node_from_table(mSurface, nodes_v2.global_node_table)
 nodes_v2.draw_node_table(mSurface, nodeTable)
+
+
+nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,1))
+
 
 
 
@@ -109,8 +114,8 @@ x = mSurface.w // 3 + 20
 y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
 for name, card in atlas.atlas_dict["cards"].items():
     x = x + card_wh[0] + CARD_BETWEEN_OFFSET
-    card_coords = (x, y)
-    mSurface.blit2(card, card_coords)
+    card_pix_coord = PixCoord(x, y)
+    mSurface.blit2(card, card_pix_coord)
 
 
 mSurface.scale_by()

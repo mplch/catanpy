@@ -1,7 +1,6 @@
 import source.constants as C
 
 # hex | pix | abs
-# display coords dsp (?) NO.
 
 # ---------------------------------------------------------------------
 
@@ -31,33 +30,14 @@ class PixCoord:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
-# class AbstractCoords: # Abstract classes in Python ??
-#     a = 0
-#     b = 0
-#     ab: tuple[int, int]
-#
-#     def __init__(self, a, b):
-#         self.a = a
-#         self.b = b
-#         self.ab = (a, b)
-#
-#     def __str__(self):
-#         return f"({self.a}, {self.b})"
-#
-# class HexCoords(AbstractCoords):
-#     pass
-#
-# class PixCoords(AbstractCoords):
-#     pass
-
 # ---------------------------------------------------------------------
 
-def tile_hex2pix(hex_coords, tile_size):
+def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):
     # How to get default parameter from main surface clas??
     # Complication: Cyclic import
     # Maybe there is no better solution than to insert this function UNDER MainSurface class
 
-    c, r = hex_coords
+    c, r = hex_coord.rc  # SHIIT ??
 
     if c % 2 == C.DO_SHIFT_FIRST_COLUMN_DOWN:
         x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
@@ -67,14 +47,12 @@ def tile_hex2pix(hex_coords, tile_size):
         x = C.MAP_OFF_PIX_X + c * (tile_size - C.HEX_OVERLAP_X)
         y = C.MAP_OFF_PIX_Y + r * (tile_size - C.HEX_OVERLAP_Y) + (tile_size - C.STRIP_HEIGHT) // 2 + C.REMOVE
 
-    pix_coords = (x, y)
-
-    return pix_coords
+    return PixCoord(x, y)
 
 
-def node_hex2pix(hex_coords: tuple[int, int]):
+def node_hex2pix(hex_coord: HexCoord):
 
-    r, c = hex_coords
+    r, c = hex_coord.rc
 
     # Is it possible to SIMPLIFY the following?
     x = 0
@@ -91,15 +69,16 @@ def node_hex2pix(hex_coords: tuple[int, int]):
 
     y = C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT + r * C.HEX_HEIGHT // 2
 
+    ### THIS IS NOT THE SOLUTION ###
     if C.DO_SHIFT_FIRST_COLUMN_DOWN:
         y -= (C.TILE_SIZE - C.STRIP_HEIGHT) // 2 + C.REMOVE
 
-    pix_coords = (x,y)
+    # pix_coord = x, y
+    # return pix_coord
+    return PixCoord(x, y)
 
-    return pix_coords
 
-
-def transpose(old):
+def transpose(old: list[list[any]]) -> list[list[any]]:  # Any type??
 
     r_new = len(old[0])
     c_new = len(old)
