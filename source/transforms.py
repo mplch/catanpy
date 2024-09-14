@@ -30,6 +30,22 @@ class PixCoord:
     def __str__(self):
         return f"({self.x}, {self.y})"
 
+    # Can I forbid to modify x,y / xy from outer scope?
+
+    def update_tuple(self):
+        self.xy = (self.x, self.y)
+
+    def update_x_y(self):
+        self.x, self.y = self.xy
+
+    # __add__ method ??
+    def add(self, other):  # other - PixCoord instead of Any type ?!
+        self.x += other.x
+        self.y += other.y
+        self.update_tuple()
+
+
+
 # ---------------------------------------------------------------------
 
 def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):

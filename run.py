@@ -56,6 +56,14 @@ from source.transforms import HexCoord, PixCoord
     
 (6) Desert
     Correct placement and zero yield
+    
+(7) #### !!!!!!!! ####
+         c, r = rc
+    #### !!!!!!!! ####
+--> coordinates might be messed up!! (Marked with SHII(*)T)
+
+(8)
+_
 """
 
 # ----- CONSTANTS -----------------------------------------------------
@@ -106,16 +114,16 @@ nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3,1))
 
 
 
-CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
-CARD_BETWEEN_OFFSET = 5
-card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
-# print("cards wh", card_wh)
-x = mSurface.w // 3 + 20
-y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
-for name, card in atlas.atlas_dict["cards"].items():
-    x = x + card_wh[0] + CARD_BETWEEN_OFFSET
-    card_pix_coord = PixCoord(x, y)
-    mSurface.blit2(card, card_pix_coord)
+# CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
+# CARD_BETWEEN_OFFSET = 5
+# card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
+# # print("cards wh", card_wh)
+# x = mSurface.w // 3 + 20
+# y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
+# for name, card in atlas.atlas_dict["cards"].items():
+#     x = x + card_wh[0] + CARD_BETWEEN_OFFSET
+#     card_pix_coord = PixCoord(x, y)
+#     mSurface.blit2(card, card_pix_coord)
 
 
 mSurface.scale_by()

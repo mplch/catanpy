@@ -44,18 +44,17 @@ DEFAULT_FONT = "Comic Sans MS"
 
 # ---------------------------------------------------------------------
 
-# class CordTilesOverlay(Enum):
-class CordTilesOverlay:
-    FONT_SIZE: int = 18
-    FONT_COLOR: tuple[int,int,int] = (0, 0, 0)
-    X_OFFSET: int = 9
-    Y_OFFSET: int = 20
+class TileCoordOverlay:
+    FONT_SIZE  = 18
+    FONT_COLOR = (0, 0, 0)
+    X_OFFSET   = 9
+    Y_OFFSET   = 25
 
 
 class TileYieldOverlay:
-    FONT_SIZE = 24
+    FONT_SIZE  = 24
     FONT_COLOR = (100, 0, 0)
-    X_OFFSET = 14
-    Y_OFFSET = 20
+    X_OFFSET   = 14
+    Y_OFFSET   = 20
 
 

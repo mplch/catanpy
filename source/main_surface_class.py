@@ -120,18 +120,18 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.surf_board.blit(text_surface, dest_coords)
 
     def coord_print_tile(self, hex_coord: HexCoord):
-    # def coord_print_tile(self, hex_coord, dest_pix_coords: xy_c.XY):
         c, r = hex_coord.rc  ## SHIIIIIIT ###
-        my_font = get_font(C.CordTilesOverlay.FONT_SIZE)
-        text_surface = my_font.render(f"({c}, {r})", False, C.CordTilesOverlay.FONT_COLOR)
+        my_font = get_font(C.TileCoordOverlay.FONT_SIZE)
+
+        text_surface = my_font.render(f"({c}, {r})", False, C.TileCoordOverlay.FONT_COLOR)
+
         dest_pix_coords = transforms.tile_hex2pix(hex_coord, self.tile_size)
-        dest_pix_coords[0] += C.CordTilesOverlay.X_OFFSET
-        dest_pix_coords[1] += C.CordTilesOverlay.Y_OFFSET
-        self.surf_board.blit(text_surface, dest_pix_coords) ## Invalid Type (!) - not a tuple :/
-        """ Nelze pouzit, protoze (x,y) = xy, xy = (0,0) !!!! """
-        # dest_pix_coords.x += C.CordTilesOverlay.X_OFFSET
-        # dest_pix_coords.y += C.CordTilesOverlay.Y_OFFSET
-        # self.surf_board.blit(text_surface, dest_pix_coords.xy)
+        dest_pix_coords.add(PixCoord(C.TileCoordOverlay.X_OFFSET, C.TileCoordOverlay.Y_OFFSET))
+
+        self.surf_board.blit(text_surface, dest_pix_coords.xy)
+
+        """ PROBLEM ? """
+        """ YUP! :/  -->  Changing x & y separately does NOT UPDATE the xy tuple! """
 
 # ---------------------------------------------------------------------
 

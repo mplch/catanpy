@@ -1,7 +1,7 @@
 import source.constants as C
 from source.main_surface_class import MainSurface
-from source.transforms import node_hex2pix, transpose, PixCoord
-from source.transforms import HexCoord
+from source.transforms import HexCoord, PixCoord
+from source.transforms import node_hex2pix, transpose
 
 # ---------------------------------------------------------------------
 
@@ -160,15 +160,20 @@ def draw_inner_nodes(my_surface: MainSurface):
 # ---------------------------------------------------------------------
 
 def get_hex_neighbour_node_coords(hex_coord: HexCoord):
+
     neigh_candidates = []  # 6 members
     r, c = hex_coord.rc
     r *= 2
     for a, b in [(1, 1)]:
         neigh_candidates.append(HexCoord(r+a, c+b))
 
+    print("neighs: ", neigh_candidates)
     return neigh_candidates
 
 
 def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
+    my_surface.coord_print_tile(hex_coord)
+    print("Nodes coords:")
     for node_coord in get_hex_neighbour_node_coords(hex_coord):
-        draw_node_type(my_surface, node_coord)
+        print(node_coord)
+        draw_node_type(my_surface, node_coord, "select")
