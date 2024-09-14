@@ -3,6 +3,54 @@ import source.constants as C
 # hex | pix | abs
 # display coords dsp (?) NO.
 
+# ---------------------------------------------------------------------
+
+class HexCoord:
+    r = 0
+    c = 0
+    rc: tuple[int, int]
+
+    def __init__(self, r, c):
+        self.r = r
+        self.c = c
+        self.rc = (r, c)
+
+    def __str__(self):
+        return f"({self.r}, {self.c})"
+
+class PixCoord:
+    x: int
+    y: int
+    xy: tuple[int, int]
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.xy = (x, y)
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+# class AbstractCoords: # Abstract classes in Python ??
+#     a = 0
+#     b = 0
+#     ab: tuple[int, int]
+#
+#     def __init__(self, a, b):
+#         self.a = a
+#         self.b = b
+#         self.ab = (a, b)
+#
+#     def __str__(self):
+#         return f"({self.a}, {self.b})"
+#
+# class HexCoords(AbstractCoords):
+#     pass
+#
+# class PixCoords(AbstractCoords):
+#     pass
+
+# ---------------------------------------------------------------------
 
 def tile_hex2pix(hex_coords, tile_size):
     # How to get default parameter from main surface clas??

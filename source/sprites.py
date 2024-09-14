@@ -50,7 +50,7 @@ class Atlas:
         )
         
         self.atlas_dict["nodes"] = sprite_list_init(
-            ["node_left", "node_right", "village_red"],
+            ["node_left", "node_right", "village_red", "free", "select", "city_red", "default"],
             get_sprite_folder("nodes")
         )
 

@@ -16,6 +16,8 @@ import source.node_edge as nodes_v1
 import source.node_v2 as nodes_v2
 # import source.gui_manager as gui_man
 
+from source.transforms import HexCoord
+
 # ----- NOTES ---------------------------------------------------------
 
 """
@@ -76,18 +78,28 @@ atlas = sprites.Atlas()
 atlas.init_all()
 mSurface.set_atlas(atlas)
 
-
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
-mapgen_v1.draw_rect_map(mSurface, C.MAP_SIZE)
+# mapgen_v1.draw_rect_map(mSurface, C.MAP_SIZE)
 mapgen_v2.draw_map_from_table(mSurface)
 
-map_nodes_list = nodes_v2.get_valid_nodes_list()
-for occ in map_nodes_list: print(occ)
-map_nodes_table = nodes_v2.init_default_node_table()  # Class ??
-map_nodes_table = nodes_v2.fill_node_table(map_nodes_table, map_nodes_list)
-for col in map_nodes_table: print(col)
+
+
 # nodes_v1.draw_nodes_rect(mSurface, C.MAP_SIZE)
 nodes_v2.draw_inner_nodes(mSurface)
+
+map_nodes_list = nodes_v2.get_valid_nodes_list()
+nodeTable = nodes_v2.NodeTable(map_nodes_list)
+# nodeTable.add_node(HexCoord(5, 6), "village_red")
+nodeTable.add_node(HexCoord(5, 6), "r")
+nodeTable.add_node(HexCoord(3, 3), "r")
+nodeTable.add_node(HexCoord(0, 0), "r")
+print(nodeTable)
+
+
+# nodes_v2.draw_node_from_table(mSurface, nodes_v2.global_node_table)
+nodes_v2.draw_node_table(mSurface, nodeTable)
+
+
 
 CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
 CARD_BETWEEN_OFFSET = 5
