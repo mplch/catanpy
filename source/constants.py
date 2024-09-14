@@ -1,3 +1,5 @@
+MAP_SIZE = (7, 7)
+
 TILE_SIZE = 46  # DYNAMIC ... BUT SHOULD BE??
                 # Musel bych udelat dynamicke i ostatni konstanty
                 # NO LONGER DYNAMIC
@@ -17,8 +19,8 @@ DO_SHIFT_FIRST_COLUMN_DOWN = False
 """ Map offset in pixels (before scaling up) """
 MAP_OFF_PIX_X = 200  # need to make DYNAMIC
 MAP_OFF_PIX_Y = 5
-MAP_OFF_PIX_X = 15
-MAP_OFF_PIX_Y = 15
+MAP_OFF_PIX_X = 10
+MAP_OFF_PIX_Y = 30
 
 # ---------------------------------------------------------------------
 

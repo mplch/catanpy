@@ -22,14 +22,10 @@ def draw_map_from_table(my_surface: MainSurface,
                         draw_yields: bool =True
                         ):
 
-    print(OCCUPIED)
-
     for r, row in enumerate(map_table):
         for c, tile_string in enumerate(row):
 
             hex_coords = (r, c)
-
-            print(f"Draw Map INFO: {hex_coords}, >{tile_string}<")
 
             if tile_string == OCCUPIED:
                 cake_type = pieces.cake_stack.pop()
@@ -51,7 +47,6 @@ def draw_map_from_table(my_surface: MainSurface,
                 continue
 
             raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")
-
 
     return
 

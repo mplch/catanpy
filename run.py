@@ -12,7 +12,7 @@ import source.sprites as sprites
 import source.main_surface_class as main_surface
 # import source.mapgen as mapgen_v1
 import source.mapgen_v2 as mapgen_v2
-# import source.node_edge as node_edge
+import source.node_edge as node_edge
 # import source.gui_manager as gui_man
 
 # ----- NOTES ---------------------------------------------------------
@@ -57,8 +57,6 @@ import source.mapgen_v2 as mapgen_v2
 
 # ----- CONSTANTS -----------------------------------------------------
 
-MAP_SIZE = (7, 7)
-
 # ----- FUNCTIONS -----------------------------------------------------
 
 def get_dice_roll():
@@ -71,7 +69,7 @@ def get_dice_roll():
 
 pygame.init()
 screen = main_surface.screen_init()  # separate to file screen.py
-mSurface = main_surface.MainSurface(screen.get_size(), MAP_SIZE)  # Name Collision !
+mSurface = main_surface.MainSurface(screen.get_size(), C.MAP_SIZE)  # Name Collision !
 
 atlas = sprites.Atlas()
 atlas.init_all()
@@ -80,9 +78,9 @@ mSurface.set_atlas(atlas)
 
 C.DO_SHIFT_FIRST_COLUMN_DOWN = True
 # mapgen_v1.draw_rect_map(mSurface, MAP_SIZE)
-# node_edge.draw_nodes(mSurface, MAP_SIZE)
 mapgen_v2.draw_map_from_table(mSurface)
-
+# node_edge.draw_nodes_rect(mSurface, MAP_SIZE)
+node_edge.draw_default_map_nodes(mSurface)
 
 CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
 CARD_BETWEEN_OFFSET = 5

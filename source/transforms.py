@@ -43,6 +43,9 @@ def node_hex2pix(hex_coords: tuple[int, int]):
 
     y = C.MAP_OFF_PIX_Y - C.STRIP_HEIGHT + r * C.HEX_HEIGHT // 2
 
+    if C.DO_SHIFT_FIRST_COLUMN_DOWN:
+        y -= (C.TILE_SIZE - C.STRIP_HEIGHT) // 2 + C.REMOVE
+
     pix_coords = (x,y)
 
     return pix_coords
