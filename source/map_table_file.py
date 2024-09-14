@@ -1,3 +1,5 @@
+from source.transforms import transpose
+
 # F = "forest"
 # P = "pasture"
 # M = "mountains"
@@ -17,7 +19,7 @@ _ = "Sea"
 X = "Desert"
 
 
-map_example_transpose = [
+map_example_transposed = [
     [_]*7
     ,[_, _, P, C, P, _, _]
     ,[_, F, M, M, M, _, _]
@@ -26,23 +28,6 @@ map_example_transpose = [
     ,[_, _, E, C, F, _, _]
     ,[_]*7
 ]
-
-
-def transpose(old):
-
-    r_new = len(old[0])
-    c_new = len(old)
-    # new = [ ['_']*c_new ]*r_new  # nejaka provazanost...
-
-    new_matrix = []
-    for i in range(r_new):
-        new_row = []
-        for j in range(c_new):
-            new_row.append(old[j][i])
-        new_matrix.append(new_row)
-
-    return new_matrix
-
 
 # SIMILARLY WITH YIELD NUMBERS
 

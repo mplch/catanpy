@@ -49,3 +49,18 @@ def node_hex2pix(hex_coords: tuple[int, int]):
     pix_coords = (x,y)
 
     return pix_coords
+
+
+def transpose(old):
+
+    r_new = len(old[0])
+    c_new = len(old)
+
+    new_matrix = []
+    for i in range(r_new):
+        new_row = []
+        for j in range(c_new):
+            new_row.append(old[j][i])
+        new_matrix.append(new_row)
+
+    return new_matrix
