@@ -9,15 +9,17 @@ from source.tiletype import TileType
 OCCUPIED = 'O'  # WHERE THIS? Constants.py? Map_table_file.py?
 
 
-# def draw_map_def_hex_yield_overlay(my_surface):
-#     for coords in get_inner_ring_hexcoords():
-#         yield_number = pieces.yield_stack.pop()
-#         my_surface.place_yield(coords, yield_number)
+def draw_tile_yield_overlay(my_surface: MainSurface,
+                            hex_coords: tuple[int, int]
+                            ):
+    yield_number = pieces.yield_stack.pop()
+    my_surface.place_yield(hex_coords, yield_number)
 
 
 def draw_map_from_table(my_surface: MainSurface,
                         map_table: list[list[str]]
-                            =map_table_file.default_map_table_transposed
+                            =map_table_file.default_map_table_transposed,
+                        draw_yields: bool =True
                         ):
 
     print(OCCUPIED)
@@ -33,6 +35,8 @@ def draw_map_from_table(my_surface: MainSurface,
                 cake_type = pieces.cake_stack.pop()
                 hex_type = TileType("Land", cake_type)
                 my_surface.place_hex(hex_type, hex_coords)
+                if draw_yields:
+                    draw_tile_yield_overlay(my_surface, hex_coords)
                 continue
 
             if tile_string == "Sea":
@@ -48,7 +52,7 @@ def draw_map_from_table(my_surface: MainSurface,
 
             raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")
 
-    # draw_map_def_hex_yield_overlay(m)
+
     return
 
 
