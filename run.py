@@ -130,7 +130,9 @@ nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 3))
 
 """ Shouldn't this be elsewhere ??? """
 if settings.SHOW_YIELDS:
-    mapgen_v2.draw_yields_from_map_table(mSurface)
+    # mapgen_v2.draw_yields_from_map_table(mSurface)
+    # mapgen_v2.draw_yields_from_matrix(mSurface)
+    mapgen_v2.draw_yields_from_table(mSurface)
 
 
 # CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding

@@ -1,5 +1,7 @@
 from random import randint, choice
 
+from keyring.backends.libsecret import available
+
 import source.settings as settings
 import source.pieces as pieces
 import source.gameboard_tables as gameboard_tables
@@ -7,7 +9,7 @@ import source.gameboard_tables as gameboard_tables
 from source.main_surface_class import MainSurface
 from source.tiletype import TileType
 from source.transforms import HexCoord
-from source.custom_type_classes import Matrix
+# from source.custom_type_classes import Matrix
 
 
 OCCUPIED = 'O'  # WHERE THIS? Constants.py? Map_table_file.py?
@@ -67,7 +69,7 @@ def draw_map_from_table(my_surface: MainSurface,
                     my_surface.put_node_coord(hex_coord)
                 continue
 
-            raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")
+            raise Exception("UNKNOWN tile string.")
     return
 
 
@@ -84,38 +86,70 @@ def draw_rect_map(my_surface: MainSurface, n_m):
 ### -------- ###
 
 
-def draw_yields_from_matrix(my_surface: MainSurface,
-                           yield_matrix: Matrix =None,
-                           ):
+def draw_yields_from_table(my_surface: MainSurface,
+                               yield_table: list[list[str]]
+                                   =gameboard_tables.default_yield_table_transposed,
+                               ):
 
-    if yield_matrix is None:
-        yield_matrix = Matrix()
-        default = gameboard_tables.default_map_table_transposed
-        yield_matrix.from_table(default)
-
-    for r, row in enumerate(yield_matrix.table):
+    for r, row in enumerate(yield_table):
         for c, yield_num in enumerate(row):
 
             hex_coord = HexCoord(r, c)
 
-            # draw_tile_yield_overlay(my_surface, hex_coord)
-            my_surface.put_yield(hex_coord, yield_num)
+            print(yield_num)
 
-            if yield_num == OCCUPIED:
+            if yield_num == 0:  # Desert
+                continue
+
+            if str(yield_num) in pieces.yield_dir:
+                my_surface.put_yield(hex_coord, yield_num)
                 continue
 
             if yield_num == "Sea":
                 continue
 
-            if yield_num == "Desert":
-                continue
-
             if yield_num == ' ':
                 continue
 
-            raise Exception("Error: draw_yield_from_matrix(): UNKNOWN yield num.")
+            raise Exception("UNKNOWN yield num.")
 
     return
+
+
+# def draw_yields_from_matrix(my_surface: MainSurface,
+#                            yield_matrix: Matrix =None,
+#                            ):
+#
+#     if yield_matrix is None:
+#         yield_matrix = Matrix()
+#         default = gameboard_tables.default_map_table_transposed
+#         yield_matrix.from_table(default)
+#
+#     # available_yields = pieces.yield_stack.copy()
+#
+#     for r, row in enumerate(yield_matrix.table):
+#         for c, yield_num in enumerate(row):
+#
+#             hex_coord = HexCoord(r, c)
+#
+#             if yield_num == "Desert":
+#                 continue
+#
+#             # if yield_num in available_yields:
+#             #     available_yields.remove(yield_num)
+#             if str(yield_num) in pieces.yield_dir:
+#                 my_surface.put_yield(hex_coord, yield_num)
+#                 continue
+#
+#             if yield_num == "Sea":
+#                 continue
+#
+#             if yield_num == ' ':
+#                 continue
+#
+#             raise Exception("UNKNOWN yield num.")
+#
+#     return
 
 
 def draw_yields_from_map_table(my_surface: MainSurface,
@@ -141,7 +175,7 @@ def draw_yields_from_map_table(my_surface: MainSurface,
             if tile_name == ' ':
                 continue
 
-            raise Exception("Error: draw_yield_from_matrix(): UNKNOWN yield num.")
+            raise Exception("UNKNOWN yield num.")
 
     return
 
