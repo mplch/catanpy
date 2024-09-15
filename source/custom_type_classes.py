@@ -1,6 +1,3 @@
-# from sqlalchemy import table
-#
-#
 # class Matrix:
 #     n: int
 #     m: int

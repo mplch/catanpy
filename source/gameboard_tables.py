@@ -13,7 +13,7 @@ F = "Forest"
 P = "Pasture"
 M = "Mountains"
 C = "Clay_pit"
-E = "Fields"
+E = "Field"
 _ = "Sea"
 X = "Desert"
 
@@ -41,6 +41,16 @@ default_map_table_transposed = [
     ,[_,  O,  O,  X,  O,  O,  _]    #
       ,[_,  O,  O,  O,  O,  _,  I]  #
     ,[I,  _,  O,  O,  O,  _,  I]    #
+      ,[I,  _,  _,  _,  _,  I,  I]  #
+]
+
+default_map_table_transposed = [
+       [I,  _,  _,  _,  _,  I,  I]  #
+    ,[I,  _,  C,  C,  C,  _,  I]    #
+      ,[_,  E,  F,  M,  P,  _,  I]  #
+    ,[_,  E,  F,  X,  M,  P,  _]    #
+      ,[_,  E,  F,  M,  P,  _,  I]  #
+    ,[I,  _,  E,  F,  P,  _,  I]    #
       ,[I,  _,  _,  _,  _,  I,  I]  #
 ]
 

@@ -15,6 +15,11 @@ from source.transforms import HexCoord
 OCCUPIED = 'O'  # WHERE THIS? Constants.py? Map_table_file.py?
 
 
+""" Shouldn't this be a gen functions instead of draw? 
+    (Sadly, they just read tables and dont generate anything.)
+"""
+
+
 def toss_yield_token(my_surface: MainSurface, hex_coord: HexCoord):
     """ Where should this function live? """
     yield_number = pieces.yield_stack.pop()
@@ -37,15 +42,17 @@ def draw_map_from_table(my_surface: MainSurface,
 
             hex_coord = HexCoord(r, c)
 
-            if tile_string == OCCUPIED:
-                cake_type = pieces.cake_stack.pop()
-                hex_type = TileType("Land", cake_type)
-                my_surface.place_hex(hex_type, hex_coord)
-                if show_coords:
-                    my_surface.put_node_coord(hex_coord)
-                # if show_yields:
-                #     draw_tile_yield_overlay(my_surface, hex_coord)
-                continue
+            print(tile_string)
+
+            # if tile_string == OCCUPIED:
+            #     cake_type = pieces.cake_stack.pop()
+            #     hex_type = TileType("Land", cake_type)
+            #     my_surface.place_hex(hex_type, hex_coord)
+            #     if show_coords:
+            #         my_surface.put_node_coord(hex_coord)
+            #     # if show_yields:
+            #     #     draw_tile_yield_overlay(my_surface, hex_coord)
+            #     continue
 
             if tile_string == "Sea":
                 tile_type = TileType("Sea", "Sea")
@@ -65,6 +72,14 @@ def draw_map_from_table(my_surface: MainSurface,
                 continue
 
             if tile_string == ' ':
+                if show_coords:
+                    my_surface.put_node_coord(hex_coord)
+                continue
+
+            if tile_string in pieces.cake_dir:
+                # check count (!)
+                tile_type = TileType("Land", tile_string)
+                my_surface.place_hex(tile_type, hex_coord)
                 if show_coords:
                     my_surface.put_node_coord(hex_coord)
                 continue

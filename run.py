@@ -5,7 +5,6 @@
 
 import pygame
 from sys import exit as sys_exit
-from random import randint
 
 import source.constants as C
 import source.settings as settings
@@ -14,6 +13,9 @@ import source.main_surface_class as main_surface
 import source.mapgen_v2 as mapgen_v2
 import source.node_v2 as nodes_v2
 # import source.gui_manager as gui_man
+import source.give_resources as give_resources
+
+from source.get_dice_roll import get_dice_roll
 
 from source.transforms import HexCoord, PixCoord
 
@@ -75,17 +77,15 @@ from source.transforms import HexCoord, PixCoord
      
 (11) Yields generator
 
+(12) Generated mapa data structure (table)
+     Need for giving resources
+     Its just being draw directly
+
 """
 
 # ----- CONSTANTS -----------------------------------------------------
 
 # ----- FUNCTIONS -----------------------------------------------------
-
-def get_dice_roll():
-    dice1 = randint(2, 6)
-    dice2 = randint(2, 6)
-    roll_ = dice1 + dice2
-    return roll_
 
 # ----- SETUP ---------------------------------------------------------
 
@@ -135,16 +135,16 @@ if settings.SHOW_YIELDS:
     mapgen_v2.draw_yields_from_table(mSurface)
 
 
-# CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
-# CARD_BETWEEN_OFFSET = 5
-# card_wh = atlas.atlas_dict["cards"]["Brick"].get_size()
-# # print("cards wh", card_wh)
-# x = mSurface.w // 3 + 20
-# y = mSurface.h - CARD_BOTTOM_OFFSET - card_wh[1]
-# for name, card in atlas.atlas_dict["cards"].items():
-#     x = x + card_wh[0] + CARD_BETWEEN_OFFSET
-#     card_pix_coord = PixCoord(x, y)
-#     mSurface.blit2(card, card_pix_coord)
+addict = give_resources.get_resources_dict()
+print("dict:")
+for entry, val in addict.items():
+    print(entry, val)
+
+give_resources.do_something(addict)
+
+
+
+
 
 
 mSurface.scale_by()
