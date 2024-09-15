@@ -1,7 +1,7 @@
 import source.constants as C
 from source.main_surface_class import MainSurface
 from source.transforms import HexCoord, PixCoord
-from source.transforms import node_hex2pix, transpose
+from source.transforms import node_hex2pix
 
 # ---------------------------------------------------------------------
 
@@ -186,7 +186,7 @@ def get_hex_neighbour_node_coords(tile_coord: HexCoord):
 
 
 def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
-    my_surface.put_node_coord(hex_coord)
+    my_surface.put_coord(hex_coord)
     print("Highlighting hex at:", hex_coord)
     print("Nodes coords: (rr, cc)")
     for node_coord in get_hex_neighbour_node_coords(hex_coord):

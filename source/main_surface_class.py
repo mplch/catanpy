@@ -93,6 +93,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.surf_board.blit(image, pix_coord.xy)
 
     def place_hex(self, tile_type: TileType, hex_coord: HexCoord):
+        """ Should tile type's plate & cake always be the same? """
         plate, cake = tile_type.tuple
         # Convert name into image:
         plate = self.s_atlas.atlas_dict[PLATES][plate]
@@ -126,14 +127,12 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         dest_pix_coord.add(xy_offset)
         self.blit_pix(text_surface, dest_pix_coord)
 
-        """ SOLVED """
-
     def put_node_coord(self, node_hex_coord: HexCoord):
         overlay = C.NodeCoordOverlay  # ()??
         rr, cc = node_hex_coord.rc
         my_font = get_font(overlay.FONT_SIZE)
         text_surface = my_font.render(f"({rr}, {cc})", False, overlay.FONT_COLOR)
-        dest_pix_coord = transforms.tile_hex2pix(node_hex_coord, self.tile_size)
+        dest_pix_coord = transforms.node_hex2pix(node_hex_coord)
         xy_offset = PixCoord(overlay.X_OFFSET, overlay.Y_OFFSET)
         dest_pix_coord.add(xy_offset)
         self.blit_pix(text_surface, dest_pix_coord)

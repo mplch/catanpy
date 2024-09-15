@@ -8,6 +8,7 @@ from sys import exit as sys_exit
 from random import randint
 
 import source.constants as C
+import source.settings as settings
 import source.sprites as sprites
 import source.main_surface_class as main_surface
 import source.mapgen_v2 as mapgen_v2
@@ -33,7 +34,8 @@ from source.transforms import HexCoord, PixCoord
   TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
 * Zajimave pozorovani, ze pygame window se spusti na te obrazovce, kde je kurzor.
 * Classes without default parameters - only type declaration and constructor? Should work.
-* Matrix Class ?
+* Ports might be a "Sea token" - similarly to "Yield token".
+* Center yield numbers --> NOT NEED TO --> .. well, maybe for overlay..
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -62,8 +64,17 @@ from source.transforms import HexCoord, PixCoord
 
 (8) Default settings
 
-(9)
-_
+(9) Correct (r, c) --> MAP ROTATION
+    Node are rr, cc
+    Tiles are c, r
+    ... Ale pritom nody davam taky po sloupcich a funguje to...
+    
+(10) Desert settings
+     Center vs Random
+     Zero Yield !
+     
+(11) Yields generator
+
 """
 
 # ----- CONSTANTS -----------------------------------------------------
@@ -86,21 +97,18 @@ atlas = sprites.Atlas()
 atlas.init_all()
 mSurface.set_atlas(atlas)
 
-C.DO_SHIFT_FIRST_COLUMN_DOWN = True
 # mapgen_v2.draw_rect_map(mSurface, C.MAP_SIZE)
 mapgen_v2.draw_map_from_table(mSurface)
 
 
-
 # nodes_v1.draw_nodes_rect(mSurface, C.MAP_SIZE)
-nodes_v2.draw_inner_nodes(mSurface)
+# nodes_v2.draw_inner_nodes(mSurface)
 
 map_nodes_list = nodes_v2.get_valid_nodes_list()
 nodeTable = nodes_v2.NodeTable(map_nodes_list)
 # nodeTable.add_node(HexCoord(5, 6), "village_red")
 nodeTable.add_node(HexCoord(5, 6), "r")
 nodeTable.add_node(HexCoord(3, 3), "r")
-nodeTable.add_node(HexCoord(0, 0), "r")
 nodeTable.add_node(HexCoord(10, 3), "R")
 nodeTable.add_node(HexCoord(12, 4), "R")
 print(nodeTable)
@@ -110,16 +118,19 @@ print(nodeTable)
 nodes_v2.draw_node_table(mSurface, nodeTable)
 
 
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 0))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 2))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1, 5))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 0))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 0))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 2))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1, 5))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 0))
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 3))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(4, 5))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 2))
-nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 6))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(4, 5))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 2))
+# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 6))
 
 
+""" Shouldn't this be elsewhere ??? """
+if settings.SHOW_YIELDS:
+    mapgen_v2.draw_yields_from_map_table(mSurface)
 
 
 # CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding

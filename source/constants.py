@@ -13,8 +13,8 @@ HEX_OVERLAP_X = 10 #8
 HEX_OVERLAP_Y = 6 #4
 REMOVE = 0 #1
 
-DO_SHIFT_FIRST_COLUMN_DOWN = False
-# DO_SHIFT_FIRST_COLUMN_DOWN = True  # Rozbije node_Edge --> bude reseno jinak
+DO_SHIFT_FIRST_COLUMN_DOWN = True
+# Rozbije node_Edge --> bude reseno jinak
 
 """ Map offset in pixels (before scaling up) """
 MAP_OFF_PIX_X = 200  # need to make DYNAMIC
@@ -40,8 +40,6 @@ NODE_TABLE_OFFSET_Y = 2
 
 # ---------------------------------------------------------------------
 
-YIELDS_DO_RANDOM_SHUFFLE = False
-
 DEFAULT_IMAGE_SUFFIX = ".png"
 
 DEFAULT_FONT = "Comic Sans MS"
@@ -64,8 +62,8 @@ class TileYieldOverlay:
 class NodeCoordOverlay:
     FONT_SIZE  = 12
     FONT_COLOR = (0, 100, 0)
-    X_OFFSET   = 0
-    Y_OFFSET   = 0
+    X_OFFSET   = -3
+    Y_OFFSET   = +2
 
 
 

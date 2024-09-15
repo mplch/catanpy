@@ -35,7 +35,7 @@ class Atlas:
         # NAME LISTS ARE TEMPORARY
         
         self.atlas_dict[PLATES] = sprite_list_init(
-            ["Sea", "Land", "TemPlate"],
+            ["Sea", "Land", "TemPlate", "Desert"],
             get_sprite_folder(PLATES)
         )
         

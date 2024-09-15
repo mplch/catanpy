@@ -1,4 +1,3 @@
-from source.transforms import transpose
 
 # F = "forest"
 # P = "pasture"
@@ -39,7 +38,17 @@ default_map_table_transposed = [
        [I,  _,  _,  _,  _,  I,  I]  #
     ,[I,  _,  O,  O,  O,  _,  I]    #
       ,[_,  O,  O,  O,  O,  _,  I]  #
-    ,[_,  O,  O,  O,  O,  O,  _]    #
+    ,[_,  O,  O,  X,  O,  O,  _]    #
+      ,[_,  O,  O,  O,  O,  _,  I]  #
+    ,[I,  _,  O,  O,  O,  _,  I]    #
+      ,[I,  _,  _,  _,  _,  I,  I]  #
+]
+
+default_yield_table_transposed = [
+       [I,  _,  _,  _,  _,  I,  I]  #
+    ,[I,  _,  O,  O,  O,  _,  I]    #
+      ,[_,  O,  O,  O,  O,  _,  I]  #
+    ,[_,  O,  O,  X,  O,  O,  _]    #
       ,[_,  O,  O,  O,  O,  _,  I]  #
     ,[I,  _,  O,  O,  O,  _,  I]    #
       ,[I,  _,  _,  _,  _,  I,  I]  #

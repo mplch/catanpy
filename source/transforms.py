@@ -100,18 +100,3 @@ def node_hex2pix(hex_coord: HexCoord):
     # pix_coord = x, y
     # return pix_coord
     return PixCoord(x, y)
-
-
-def transpose(old: list[list[any]]) -> list[list[any]]:  # Any type??
-
-    r_new = len(old[0])
-    c_new = len(old)
-
-    new_matrix = []
-    for i in range(r_new):
-        new_row = []
-        for j in range(c_new):
-            new_row.append(old[j][i])
-        new_matrix.append(new_row)
-
-    return new_matrix

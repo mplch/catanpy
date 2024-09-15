@@ -1,11 +1,12 @@
-class TileType():
-    plate = None
-    cake = None
-    tuple = (None, None)
-    
+class TileType:
+    plate: str
+    cake: str
+    tuple: tuple[str, str]
+
     def __init__(self, plate, cake):
         self.plate = plate
         self.cake = cake
         self.tuple = (plate, cake)
 
-    # str / repr methods
+    def __str__(self):
+        return str(self.tuple)
