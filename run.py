@@ -18,28 +18,40 @@ import source.give_resources as give_resources
 
 from source.get_dice_roll import get_dice_roll
 
-from source.transforms import HexCoord, PixCoord
+from source.transforms import HexCoord, PixCoord, AbsCoord
 
 # ----- NOTES ---------------------------------------------------------
 
 """
-* pygame --> proper WINDOW startup?
-* NOMENCLATURE: Tile, hex, circle (cake), ring. DONE. (Not documented.)
-  DOCUMENTATION? < graphical OVERVIEW
-* -function-assembly- --> TRANSFORMS. (All-in-one placement? Tile+Overlay)
-* SPRITES vs PIECES modules COLLISION --> unite
-* Transforms: tile_hex2pix: tile_size get default parameter from MainSurface class?
-* NOMENCLATURE: Size? Pix, hex.. (Abs/Scr/Dsp)  -->  Coordinates & Position?
-  --> Made coordinates CLASSes
-  --> Position ??!
-* SCALING: There are no fixed dimensions : MainSurface (Canvas?) gets scaled down
-  accordingly to user's display, so that all pixels are scaled by an INTEGER NUMBER
-  TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
-* Zajimave pozorovani, ze pygame window se spusti na te obrazovce, kde je kurzor.
-* Classes without default parameters - only type declaration and constructor? Should work.
-* Ports might be a "Sea token" - similarly to "Yield token".
-* Center yield numbers --> NOT NEED TO --> .. well, maybe for overlay..
-* NAMING CONVENTION: file_name.py ClassName, objectName, object_in_function_name... HUH?
+ * pygame --> proper WINDOW startup?
+ * NOMENCLATURE: Tile, hex, circle (cake), ring. DONE. (Not documented.)
+   DOCUMENTATION? < graphical OVERVIEW
+ * -function-assembly- --> TRANSFORMS. (All-in-one placement? Tile+Overlay)
+ * SPRITES vs PIECES modules COLLISION --> unite
+ * Transforms: tile_hex2pix: tile_size get default parameter from MainSurface class?
+ * NOMENCLATURE: Size? Pix, hex.. (Abs/Scr/Dsp)  -->  Coordinates & Position?
+   --> Made coordinates CLASSes
+   --> Position ??!
+ * SCALING: There are no fixed dimensions : MainSurface (Canvas?) gets scaled down
+   accordingly to user's display, so that all pixels are scaled by an INTEGER NUMBER
+   TLRD; (1) Scale down -> (2) Put sprites -> (3) Scale up .
+ * Zajimave pozorovani, ze pygame window se spusti na te obrazovce, kde je kurzor.
+ * Classes without default parameters - only type declaration and constructor? Should work.
+ * Ports might be a "Sea token" - similarly to "Yield token".
+ * Center yield numbers --> NOT NEED TO --> .. well, maybe for overlay..
+ * NAMING CONVENTION: file_name.py ClassName, objectName, object_in_function_name... HUH?
+"""
+
+# ----- IDEAS ---------------------------------------------------------
+
+"""
+ * Natural disasters 
+ * No Main Menu -> Instant play
+   Get player directly to latest/new game.
+   In-game Menu.
+ * End Screen
+   photos of Czechia landscapes
+   cleared of most industrial disruptions
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -188,10 +200,10 @@ while run:
                     # WARNING - Already scaled up!!! :/
                     # Different solution -needed- required!
                     # Requires a(!) different approach.
-                    
-                    # AbsCoord !!!
-                    mSurface.put_text(PixCoord(1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
-                    mSurface.put_text(PixCoord(1600, 320), str(roll), 100, (200, 200, 220))
+
+                    # AbsCoord !!!  # Nevidi, protoze AbsCoord je podtrida PixCoord
+                    mSurface.put_text(AbsCoord(1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
+                    mSurface.put_text(AbsCoord(1600, 320), str(roll), 100, (200, 200, 220))
                     give_resources.evaluate_roll(mSurface, addict, roll)
                     screen.blit(mSurface.surf_board, (0, 0))
                     # Asi bude nutna jina classa na gamescreen, ktera spoji board a gui

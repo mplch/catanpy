@@ -17,6 +17,7 @@ class HexCoord:
     def __str__(self):
         return f"({self.r}, {self.c})"
 
+
 class PixCoord:
     x: int
     y: int
@@ -44,6 +45,10 @@ class PixCoord:
         self.y += other.y
         self.update_tuple()
 
+
+class AbsCoord(PixCoord):
+    pass
+# AbsCoord = PixCoord  # Remains PixCoord class
 
 
 # ---------------------------------------------------------------------
