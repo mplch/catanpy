@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # 202408032257-Polesovice
+from idlelib.debugobj import myrepr
 
 # ----- IMPORTS -------------------------------------------------------
 
@@ -12,7 +13,7 @@ import source.sprites as sprites
 import source.main_surface_class as main_surface
 import source.mapgen_v2 as mapgen_v2
 import source.node_v2 as nodes_v2
-# import source.gui_manager as gui_man
+import source.gui_manager as gui_man
 import source.give_resources as give_resources
 
 from source.get_dice_roll import get_dice_roll
@@ -38,6 +39,7 @@ from source.transforms import HexCoord, PixCoord
 * Classes without default parameters - only type declaration and constructor? Should work.
 * Ports might be a "Sea token" - similarly to "Yield token".
 * Center yield numbers --> NOT NEED TO --> .. well, maybe for overlay..
+* NAMING CONVENTION: file_name.py ClassName, objectName, object_in_function_name... HUH?
 """
 
 # ----- TODO ----------------------------------------------------------
@@ -138,13 +140,14 @@ if settings.SHOW_YIELDS:
 addict = give_resources.get_resources_dict()
 print("dict:")
 for entry, val in addict.items():
-    print(entry, val)
-
-give_resources.do_something(addict)
+    print(' '*3, entry, val)
 
 
+# roll = get_dice_roll()
+# give_resources.evaluate_roll(mSurface, addict, roll)
 
 
+# gui_man.draw_card_deck_prototype(mSurface)
 
 
 mSurface.scale_by()
@@ -185,8 +188,11 @@ while run:
                     # WARNING - Already scaled up!!! :/
                     # Different solution -needed- required!
                     # Requires a(!) different approach.
-                    mSurface.put_text((1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
-                    mSurface.put_text((1600, 320), str(roll), 100, (200, 200, 220))
+                    
+                    # AbsCoord !!!
+                    mSurface.put_text(PixCoord(1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
+                    mSurface.put_text(PixCoord(1600, 320), str(roll), 100, (200, 200, 220))
+                    give_resources.evaluate_roll(mSurface, addict, roll)
                     screen.blit(mSurface.surf_board, (0, 0))
                     # Asi bude nutna jina classa na gamescreen, ktera spoji board a gui
                     k_space_pressed_doubler = False

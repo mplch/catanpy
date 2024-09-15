@@ -42,7 +42,7 @@ def draw_map_from_table(my_surface: MainSurface,
 
             hex_coord = HexCoord(r, c)
 
-            print(tile_string)
+            print("    mapgen:", tile_string, "at", hex_coord)
 
             # if tile_string == OCCUPIED:
             #     cake_type = pieces.cake_stack.pop()
@@ -111,7 +111,7 @@ def draw_yields_from_table(my_surface: MainSurface,
 
             hex_coord = HexCoord(r, c)
 
-            print(yield_num)
+            print("    yield num:", yield_num, "at", hex_coord)
 
             if yield_num == 0:  # Desert
                 continue

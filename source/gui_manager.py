@@ -1,11 +1,16 @@
 from source.main_surface_class import MainSurface
 from source.transforms import HexCoord, PixCoord
+from source.custom_type_classes import Resource
 
-def testing_cards(inner_surface: MainSurface):
+
+def draw_card_deck_prototype(inner_surface: MainSurface):
+
     CARD_BOTTOM_OFFSET = 5  # NOMENCLATURE: Margin + Padding
     CARD_BETWEEN_OFFSET = 5
+    # ATLAS
     card_wh = inner_surface.s_atlas.atlas_dict["cards"]["Brick"].get_size()
-    # print("cards wh", card_wh)
+    print("cards wh", card_wh)
+
     x = inner_surface.w // 3 + 20
     y = inner_surface.h - CARD_BOTTOM_OFFSET - card_wh[1]
     for name, card in inner_surface.s_atlas.atlas_dict["cards"].items():
@@ -13,3 +18,10 @@ def testing_cards(inner_surface: MainSurface):
         card_pix_coord = PixCoord(x, y)
         inner_surface.blit_pix(card, card_pix_coord)
     return 
+
+
+def show_resource_card(inner_surface: MainSurface,
+                       resource: Resource,
+                       pix_coords: PixCoord):
+    card = inner_surface.s_atlas.atlas_dict["cards"][resource]
+    inner_surface.blit_pix(card, pix_coords)
