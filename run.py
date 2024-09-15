@@ -7,6 +7,8 @@ from idlelib.debugobj import myrepr
 import pygame
 from sys import exit as sys_exit
 
+from aeidon import players
+
 import source.constants as C
 import source.settings as settings
 import source.sprites as sprites
@@ -17,6 +19,7 @@ import source.gui_manager as gui_man
 import source.give_resources as give_resources
 
 from source.get_dice_roll import get_dice_roll
+from source.player_inventory import Inventory
 
 from source.transforms import HexCoord, PixCoord, AbsCoord
 
@@ -149,6 +152,13 @@ if settings.SHOW_YIELDS:
     mapgen_v2.draw_yields_from_table(mSurface)
 
 
+
+player_inventories = dict()
+for player in ["red", "orange", "blue", "white"]:
+    player_inventories[player] = Inventory()
+
+
+
 addict = give_resources.get_resources_dict()
 print("dict:")
 for entry, val in addict.items():
@@ -205,6 +215,9 @@ while run:
                     mSurface.put_text(AbsCoord(1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
                     mSurface.put_text(AbsCoord(1600, 320), str(roll), 100, (200, 200, 220))
                     give_resources.evaluate_roll(mSurface, addict, roll)
+
+                    """ Player inventory?? """
+
                     screen.blit(mSurface.surf_board, (0, 0))
                     # Asi bude nutna jina classa na gamescreen, ktera spoji board a gui
                     k_space_pressed_doubler = False
