@@ -100,6 +100,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.blit_pix(plate, transforms.tile_hex2pix(hex_coord, self.tile_size))
         self.blit_pix(cake, transforms.tile_hex2pix(hex_coord, self.tile_size))
 
+    """ UNIFY the below ones  repeating code! """
+
     def put_text(self, pix_coord: PixCoord, text: str,
                  font_size: int = 32, font_color: tuple[int, int, int] = (180, 180, 100)):
         """ Merge place yield and place coord into put_text """
@@ -125,6 +127,16 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.blit_pix(text_surface, dest_pix_coord)
 
         """ SOLVED """
+
+    def put_node_coord(self, node_hex_coord: HexCoord):
+        overlay = C.NodeCoordOverlay  # ()??
+        rr, cc = node_hex_coord.rc
+        my_font = get_font(overlay.FONT_SIZE)
+        text_surface = my_font.render(f"({rr}, {cc})", False, overlay.FONT_COLOR)
+        dest_pix_coord = transforms.tile_hex2pix(node_hex_coord, self.tile_size)
+        xy_offset = PixCoord(overlay.X_OFFSET, overlay.Y_OFFSET)
+        dest_pix_coord.add(xy_offset)
+        self.blit_pix(text_surface, dest_pix_coord)
 
 # ---------------------------------------------------------------------
 

@@ -61,4 +61,11 @@ class TileYieldOverlay:
     X_OFFSET   = 15
     Y_OFFSET   = 8
 
+class NodeCoordOverlay:
+    FONT_SIZE  = 12
+    FONT_COLOR = (0, 100, 0)
+    X_OFFSET   = 0
+    Y_OFFSET   = 0
+
+
 

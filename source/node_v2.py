@@ -128,6 +128,7 @@ def draw_node_type(my_surface: MainSurface,
     node = my_surface.s_atlas.atlas_dict["nodes"][node_type]
     pix_coord: PixCoord = node_hex2pix(node_coord)
     my_surface.blit_pix(node, pix_coord)
+    my_surface.put_node_coord(node_coord)
     return
 
 
@@ -171,8 +172,6 @@ def get_hex_neighbour_node_coords(tile_coord: HexCoord):
     if c % 2 == 0:
         r += 1
 
-    """ Ale ted uz to vypada, ze to dela co by melo, tak co resiim?? """
-
     vector_list = []
     for i in [-1, 0, +1]:
         for j in [0, +1]:
@@ -187,7 +186,7 @@ def get_hex_neighbour_node_coords(tile_coord: HexCoord):
 
 
 def highlight_hex_neighbour_nodes(my_surface: MainSurface,hex_coord: HexCoord):
-    my_surface.put_coord(hex_coord)
+    my_surface.put_node_coord(hex_coord)
     print("Highlighting hex at:", hex_coord)
     print("Nodes coords: (rr, cc)")
     for node_coord in get_hex_neighbour_node_coords(hex_coord):

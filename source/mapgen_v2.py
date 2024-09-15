@@ -32,7 +32,7 @@ def draw_map_from_table(my_surface: MainSurface,
                 hex_type = TileType("Land", cake_type)
                 my_surface.place_hex(hex_type, hex_coord)
                 if show_coords:
-                    my_surface.put_coord(hex_coord)
+                    my_surface.put_node_coord(hex_coord)
                 if show_yields:
                     draw_tile_yield_overlay(my_surface, hex_coord)
                 continue
@@ -41,7 +41,7 @@ def draw_map_from_table(my_surface: MainSurface,
                 tile_type = TileType("Sea", "Sea")
                 my_surface.place_hex(tile_type, hex_coord)
                 if show_coords:
-                    my_surface.put_coord(hex_coord)
+                    my_surface.put_node_coord(hex_coord)
                 continue
 
             # predefined tiles handler
@@ -49,7 +49,7 @@ def draw_map_from_table(my_surface: MainSurface,
 
             if tile_string == ' ':
                 if show_coords:
-                    my_surface.put_coord(hex_coord)
+                    my_surface.put_node_coord(hex_coord)
                 continue
 
             raise Exception("Error: map_gen_v2.py: UNKNOWN tile string.")
