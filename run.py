@@ -7,7 +7,7 @@ from idlelib.debugobj import myrepr
 import pygame
 from sys import exit as sys_exit
 
-from aeidon import players
+
 
 import source.constants as C
 import source.settings as settings
