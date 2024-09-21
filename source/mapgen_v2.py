@@ -21,6 +21,7 @@ OCCUPIED = 'O'  # WHERE THIS? Constants.py? Map_table_file.py?
 
 
 def toss_yield_token(my_surface: MainSurface, hex_coord: HexCoord):
+    """ Docstring """
     """ Where should this function live? """
     yield_number = pieces.yield_stack.pop()
     my_surface.put_yield(hex_coord, yield_number)

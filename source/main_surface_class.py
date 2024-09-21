@@ -93,6 +93,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         self.surf_board.blit(image, pix_coord.xy)
 
     def place_hex(self, tile_type: TileType, hex_coord: HexCoord):
+        """ Docstring """
         """ Should tile type's plate & cake always be the same? """
         plate, cake = tile_type.tuple
         # Convert name into image:
@@ -105,6 +106,7 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
 
     def put_text(self, pix_coord: PixCoord, text: str,
                  font_size: int = 32, font_color: tuple[int, int, int] = (180, 180, 100)):
+        """ Docstring """
         """ Merge place yield and place coord into put_text """
         my_font = pygame.font.SysFont(C.DEFAULT_FONT, font_size)
         text_surface = my_font.render(text, False, font_color)
@@ -158,6 +160,7 @@ def get_tile_size(template_tile_file_path):
 def get_scale(screen_dimensions: tuple[int,int],
               tile_size_pix: int,
               board_size_hex: tuple[int, int]):
+    """ Docstring """
     """ FULLSCREEN: Calculates scale to adjust user's display. """
     w, h = screen_dimensions
     m, n = board_size_hex

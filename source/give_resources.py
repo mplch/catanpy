@@ -35,6 +35,7 @@ tile_resource_dict = {
 
 
 def get_resources_dict():
+    """ docstring """
     """ ### PURE MAGIC ### """
     new_dict = dict()
     for i, (row, sow) in enumerate(zip(map_table, yield_table)):
@@ -57,6 +58,9 @@ def evaluate_roll(
 
     if roll == 7:
         print("ROBBERY!")
+        """ WILL BE SEEN ONLY ONCE, THEN REMAIN """
+        # text_dest = PixCoord(inner_surface.w//2, inner_surface.h//2)
+        # inner_surface.put_text(text_dest, "ROBBERY!")
         return
 
     for tile in inner_dict[roll]:

@@ -77,6 +77,7 @@ def tile_hex2pix(hex_coord: HexCoord, tile_size: int =C.TILE_SIZE):
 
 def node_hex2pix(hex_coord: HexCoord):
 
+    """ Docstring """
     """ I THINK HERE LIES THE PROBLEM """
     """ OR MAYBE IT DOES NOT """
 
