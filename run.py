@@ -152,9 +152,9 @@ if settings.SHOW_YIELDS:
     mapgen_v2.draw_yields_from_table(mSurface)
 
 
-
+players = ["red", "orange", "blue", "white"]
 player_inventories = dict()
-for player in ["red", "orange", "blue", "white"]:
+for player in players:
     player_inventories[player] = Inventory()
 
 
@@ -180,8 +180,13 @@ screen.blit(mSurface.surf_board, (0, 0))
 
 run = True
 k_space_pressed_doubler = False
+player_index = -1
 
 while run:
+
+    player_index += 1
+    player_index %= 4  # Nice, I like this solution.
+
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -213,6 +218,7 @@ while run:
 
                     # AbsCoord !!!  # Nevidi, protoze AbsCoord je podtrida PixCoord
                     mSurface.put_text(AbsCoord(1550, 270), "Kostky vrhly:", 40, (100, 200, 50))
+                    # Is instance of
                     mSurface.put_text(AbsCoord(1600, 320), str(roll), 100, (200, 200, 220))
                     give_resources.evaluate_roll(mSurface, addict, roll)
 

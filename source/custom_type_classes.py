@@ -1,7 +1,6 @@
 class Resource(str):
     pass
 
-
 # class Matrix:
 #     n: int
 #     m: int
