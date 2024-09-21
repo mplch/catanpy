@@ -125,7 +125,7 @@ def draw_node_type(my_surface: MainSurface,
                    node_coord: HexCoord,
                    node_type="default"
                    ):
-    node = my_surface.s_atlas.atlas_dict["nodes"][node_type]
+    node = my_surface.s_atlas.a_dict["nodes"][node_type]
     pix_coord: PixCoord = node_hex2pix(node_coord)
     my_surface.blit_pix(node, pix_coord)
     my_surface.put_node_coord(node_coord)

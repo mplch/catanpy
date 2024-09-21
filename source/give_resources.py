@@ -1,11 +1,8 @@
-from random import randint
-
 import source.gui_manager as gui_man
 
 from source.gameboard_tables import default_map_table_transposed as map_table
 from source.gameboard_tables import default_yield_table_transposed as yield_table
 
-from source.get_dice_roll import get_dice_roll
 from source.main_surface_class import MainSurface
 from source.transforms import PixCoord
 
@@ -35,7 +32,7 @@ tile_resource_dict = {
 
 
 def get_resources_dict():
-    """ docstring """
+    """ Docstring """
     """ ### PURE MAGIC ### """
     new_dict = dict()
     for i, (row, sow) in enumerate(zip(map_table, yield_table)):
@@ -66,7 +63,6 @@ def evaluate_roll(
     for tile in inner_dict[roll]:
         print("evaluating:", tile)
         resource = tile_resource_dict[tile[1]]
-        x = randint(0, inner_surface.w)
-        y = randint(0, inner_surface.h)
-        gui_man.show_resource_card(inner_surface, resource, PixCoord(x,y))
+        dest_coord = gui_man.gen_card_coord(inner_surface)
+        gui_man.show_resource_card(inner_surface, resource, dest_coord)
 

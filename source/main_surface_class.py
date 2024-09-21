@@ -97,8 +97,8 @@ class MainSurface:  # MySurface --> RENAME? GameSurface? main_surface? ScreenSur
         """ Should tile type's plate & cake always be the same? """
         plate, cake = tile_type.tuple
         # Convert name into image:
-        plate = self.s_atlas.atlas_dict[PLATES][plate]
-        cake = self.s_atlas.atlas_dict[CAKES][cake]
+        plate = self.s_atlas.a_dict[PLATES][plate]
+        cake = self.s_atlas.a_dict[CAKES][cake]
         self.blit_pix(plate, transforms.tile_hex2pix(hex_coord, self.tile_size))
         self.blit_pix(cake, transforms.tile_hex2pix(hex_coord, self.tile_size))
 

@@ -17,6 +17,7 @@ import source.mapgen_v2 as mapgen_v2
 import source.node_v2 as nodes_v2
 import source.gui_manager as gui_man
 import source.give_resources as give_resources
+import source.sprite_constants_importer as SPRITE_CONSTANTS
 
 from source.get_dice_roll import get_dice_roll
 from source.player_inventory import Inventory
@@ -170,6 +171,9 @@ for entry, val in addict.items():
 
 
 # gui_man.draw_card_deck_prototype(mSurface)
+
+
+gui_man.show_card_decks(mSurface, 4)
 
 
 mSurface.scale_by()
