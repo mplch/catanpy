@@ -1,6 +1,6 @@
 from random import randint, choice
 
-from keyring.backends.libsecret import available
+
 
 import source.settings as settings
 import source.pieces as pieces
