@@ -1,4 +1,7 @@
 class Resource(str):
+    """ Resource(str) Class
+    TODO: Make capable of five possible states only
+    """
     pass
 
 # class Matrix:

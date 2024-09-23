@@ -44,6 +44,7 @@ from source.transforms import HexCoord, PixCoord, AbsCoord
  * Ports might be a "Sea token" - similarly to "Yield token".
  * Center yield numbers --> NOT NEED TO --> .. well, maybe for overlay..
  * NAMING CONVENTION: file_name.py ClassName, objectName, object_in_function_name... HUH?
+ * CleverNote: Atlas je pridan jako .promenna tridy MainSurface
 """
 
 # ----- IDEAS ---------------------------------------------------------
@@ -136,14 +137,7 @@ print(nodeTable)
 nodes_v2.draw_node_table(mSurface, nodeTable)
 
 
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 0))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(0, 2))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(1, 5))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 0))
 nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(3, 3))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(4, 5))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 2))
-# nodes_v2.highlight_hex_neighbour_nodes(mSurface, HexCoord(6, 6))
 
 
 """ Shouldn't this be elsewhere ??? """
@@ -170,7 +164,7 @@ for entry, val in addict.items():
 # give_resources.evaluate_roll(mSurface, addict, roll)
 
 
-# gui_man.draw_card_deck_prototype(mSurface)
+gui_man.draw_card_deck_prototype(mSurface)
 
 
 gui_man.show_card_decks(mSurface, 4)

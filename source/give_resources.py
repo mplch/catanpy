@@ -63,6 +63,6 @@ def evaluate_roll(
     for tile in inner_dict[roll]:
         print("evaluating:", tile)
         resource = tile_resource_dict[tile[1]]
-        dest_coord = gui_man.gen_card_coord(inner_surface)
+        dest_coord = gui_man.assign_card(inner_surface)
         gui_man.show_resource_card(inner_surface, resource, dest_coord)
 

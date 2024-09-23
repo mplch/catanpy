@@ -55,6 +55,16 @@ default_map_table_transposed = [
       ,[I,  _,  _,  _,  _,  I,  I]  #
 ]
 
+default_map_table_transposed = [
+       [I,  _,  _,  _,  _,  I,  I]  #
+    ,[I,  _,  F,  F,  F,  _,  I]    #
+      ,[_,  E,  C,  M,  F,  _,  I]  #
+    ,[_,  E,  C,  X,  M,  P,  _]    #
+      ,[_,  E,  C,  M,  P,  _,  I]  #
+    ,[I,  _,  E,  P,  P,  _,  I]    #
+      ,[I,  _,  _,  _,  _,  I,  I]  #
+]
+
 
 A = 5
 B = 2
